@@ -1,0 +1,148 @@
+[
+ {
+  "file": "074e11c68af2794d1d8981a15d9488d4.css",
+  "fontFamilies": [
+   "FontAwesome"
+  ],
+  "defined": 786,
+  "usedInRenderedDom": 1,
+  "usedClasses": [
+   "fa-building"
+  ],
+  "usedInStaticHtml": 1
+ },
+ {
+  "file": "42cb0c79aca2896322b64b0f23be21f7.css",
+  "fontFamilies": [
+   "Ionicons"
+  ],
+  "defined": 733,
+  "usedInRenderedDom": 0,
+  "usedClasses": [],
+  "usedInStaticHtml": 0
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "fontFamilies": [
+   "linea-arrows-10",
+   "linea-basic-10",
+   "linea-basic-elaboration-10",
+   "linea-ecommerce-10",
+   "linea-music-10",
+   "linea-software-10",
+   "linea-weather-10"
+  ],
+  "defined": 712,
+  "usedInRenderedDom": 6,
+  "usedClasses": [
+   "icon-arrows-left",
+   "icon-arrows-right",
+   "icon-basic-eye",
+   "icon-basic-headset",
+   "icon-basic-pin1",
+   "icon-basic-elaboration-mail-check"
+  ],
+  "usedInStaticHtml": 4
+ },
+ {
+  "file": "0e49046acd50b5a65ed2139ace176f9e.css",
+  "fontFamilies": [
+   "ElegantIcons"
+  ],
+  "defined": 360,
+  "usedInRenderedDom": 2,
+  "usedClasses": [
+   "icon_close",
+   "icon_menu"
+  ],
+  "usedInStaticHtml": 2
+ },
+ {
+  "file": "52fb22c0121d127127c52ad44e2a6a1a.css",
+  "fontFamilies": [
+   "dripicons-v2"
+  ],
+  "defined": 200,
+  "usedInRenderedDom": 0,
+  "usedClasses": [],
+  "usedInStaticHtml": 0
+ },
+ {
+  "file": "5456cd8ede9b54353875051611b0783a.css",
+  "fontFamilies": [
+   "simple-line-icons"
+  ],
+  "defined": 183,
+  "usedInRenderedDom": 0,
+  "usedClasses": [],
+  "usedInStaticHtml": 0
+ },
+ {
+  "file": "c65f98570c75a03673433702db425957.css",
+  "fontFamilies": [
+   "Linearicons-Free"
+  ],
+  "defined": 170,
+  "usedInRenderedDom": 0,
+  "usedClasses": [],
+  "usedInStaticHtml": 0
+ },
+ {
+  "file": "c1df10082c2c502e431840faa07d4a2f.css",
+  "fontFamilies": [
+   "vcpb-plugin-icons",
+   "vc_grid_v1"
+  ],
+  "defined": 75,
+  "usedInRenderedDom": 3,
+  "usedClasses": [
+   "vc_row",
+   "vc_clearfix",
+   "vc_column-inner"
+  ],
+  "usedInStaticHtml": 3
+ },
+ {
+  "file": "50a657087eff034748be7996595340b0.css",
+  "fontFamilies": [
+   "revicons"
+  ],
+  "defined": 46,
+  "usedInRenderedDom": 1,
+  "usedClasses": [
+   "revicon-right-dir"
+  ],
+  "usedInStaticHtml": 0
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "fontFamilies": [],
+  "defined": 17,
+  "usedInRenderedDom": 4,
+  "usedClasses": [
+   "clearfix",
+   "edgtf-grid-col-12",
+   "edgtf-grid-col-4",
+   "edgtf-grid-row"
+  ],
+  "usedInStaticHtml": 4
+ },
+ {
+  "file": "3737e8083f222de9a2e7d7d33f73530a.css",
+  "fontFamilies": [],
+  "defined": 1,
+  "usedInRenderedDom": 0,
+  "usedClasses": [],
+  "usedInStaticHtml": 0
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "fontFamilies": [
+   "Trustindex Open Sans"
+  ],
+  "defined": 1,
+  "usedInRenderedDom": 0,
+  "usedClasses": [],
+  "usedInStaticHtml": 0
+ }
+]

@@ -1,0 +1,192 @@
+[
+ {
+  "file": "0a9152d7f724f6659b9dc5585b9ee74f.css",
+  "selector": ".chaty-agent-data,.chaty-whatsapp-field input[type=text],.chaty-whatsapp-message,.chaty-whatsapp-message p",
+  "family": "Segoe UI,Helvetica Neue,Helvetica,Lucida Grande,Arial,Ubuntu,Cantarell,Fira Sans"
+ },
+ {
+  "file": "0a9152d7f724f6659b9dc5585b9ee74f.css",
+  "selector": ".chaty-contact-input input.chaty-input-field,.chaty-contact-input input[type=email].chaty-input-field,.chaty-contact-input input[type=text].",
+  "family": "BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,"
+ },
+ {
+  "file": "0b43cdf1827929aa841841ca845c8191.css",
+  "selector": ".wp-block-post-comments input:not([type=submit]),.wp-block-post-comments textarea",
+  "family": "inherit"
+ },
+ {
+  "file": "0b43cdf1827929aa841841ca845c8191.css",
+  "selector": "button.wp-block-navigation-item__content",
+  "family": "inherit"
+ },
+ {
+  "file": "0b43cdf1827929aa841841ca845c8191.css",
+  "selector": ":where(.wp-block-post-comments-form) input:not([type=submit]),:where(.wp-block-post-comments-form) textarea",
+  "family": "inherit"
+ },
+ {
+  "file": "0e49046acd50b5a65ed2139ace176f9e.css",
+  "selector": ".glyph input",
+  "family": "consolas,monospace"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "body",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "h1,h2,h3,h4,h5,h6",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "h1 a,h2 a,h3 a,h4 a,h5 a,h6 a",
+  "family": "inherit"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "#respond input[type=text],#respond textarea,.edgtf-style-form textarea,.post-password-form input[type=password],.wpcf7-form-control.wpcf7-da",
+  "family": "inherit"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "#submit_comment,.post-password-form input[type=submit],input.wpcf7-form-control.wpcf7-submit",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-newsletter-footer input,.edgtf-newsletter-footer input[type=email]",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-newsletter-footer input.wpcf7-form-control.wpcf7-submit",
+  "family": "linea-basic-10"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "footer .widget.widget_search .input-holder button,footer .widget.widget_search .input-holder input",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "footer .widget.edgtf-search-post-type-widget .edgtf-post-type-search-field,footer .widget.widget_archive select,footer .widget.widget_catego",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-side-menu .widget.widget_search .input-holder button,.edgtf-side-menu .widget.widget_search .input-holder input",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-side-menu .widget.edgtf-search-post-type-widget .edgtf-post-type-search-field,.edgtf-side-menu .widget.widget_archive select,.edgtf-s",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".wpb_widgetised_column .widget.widget_search .input-holder button,.wpb_widgetised_column .widget.widget_search .input-holder input,aside.edg",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".wpb_widgetised_column .widget.widget_archive select,.wpb_widgetised_column .widget.widget_categories select,.wpb_widgetised_column .widget.",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".widget.widget_search button,.widget.widget_search input",
+  "family": "inherit"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".widget.widget_search .input-holder button,.widget.widget_search .input-holder input",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".widget.edgtf-search-post-type-widget .edgtf-post-type-search-field,.widget.widget_archive select,.widget.widget_categories select,.widget.w",
+  "family": "Roboto,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "body .pp_pic_holder .pp_details .pp_nav .currentTextHolder",
+  "family": "inherit"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "body .pp_pic_holder a.pp_arrow_next,body .pp_pic_holder a.pp_arrow_previous",
+  "family": "Ionicons"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "body .pp_pic_holder a.pp_next,body .pp_pic_holder a.pp_previous",
+  "family": "Ionicons"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": "body .pp_pic_holder a.pp_close,body .pp_pic_holder a.pp_expand",
+  "family": "Ionicons"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-main-menu>ul>li.menu-item-language>a span:after",
+  "family": "ElegantIcons,serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-main-menu ul li a",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-fullscreen-search-holder .edgtf-search-field,.edgtf-search-cover input",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-title-holder.edgtf-standard-with-breadcrumbs-type .edgtf-breadcrumbs a,.edgtf-title-holder.edgtf-standard-with-breadcrumbs-type .edgt",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-portfolio-single-holder .edgtf-ps-info-holder .edgtf-ps-info-item:not(.edgtf-ps-content-item) a,.edgtf-portfolio-single-holder .edgtf",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "2d96f7fef6e0605f5fd8147a928354bc.css",
+  "selector": ".edgtf-btn",
+  "family": "Roboto Condensed,sans-serif"
+ },
+ {
+  "file": "4190430f0d61144736e9ff4c2bf42acc.css",
+  "selector": ".block-editor-global-styles-advanced-panel__custom-css-input textarea",
+  "family": "Menlo,Consolas,monaco,monospace"
+ },
+ {
+  "file": "8af22421c74f7da3c835b928d7205ca7.css",
+  "selector": ".edgtf-fixed-wrapper.fixed .edgtf-main-menu>ul>li>a",
+  "family": "Roboto Condensed"
+ },
+ {
+  "file": "8af22421c74f7da3c835b928d7205ca7.css",
+  "selector": ".edgtf-main-menu.edgtf-sticky-nav>ul>li>a",
+  "family": "Roboto"
+ },
+ {
+  "file": "b57487d07654a0b2f46a474691577683.css",
+  "selector": "input.components-combobox-control__input[type=text]",
+  "family": "inherit"
+ },
+ {
+  "file": "b57487d07654a0b2f46a474691577683.css",
+  "selector": ".components-form-token-field__input-container input[type=text].components-form-token-field__input",
+  "family": "inherit"
+ },
+ {
+  "file": "b57487d07654a0b2f46a474691577683.css",
+  "selector": ".components-placeholder__fieldset form p,.components-placeholder__fieldset p",
+  "family": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,He"
+ }
+]

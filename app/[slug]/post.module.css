@@ -1,0 +1,68 @@
+.page {
+  background: var(--ground);
+  color: var(--ink);
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: calc(var(--s-10) + var(--s-6)) var(--gutter) var(--section-y);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+}
+
+.breadcrumb {
+  display: flex;
+  gap: var(--s-3);
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+.breadcrumb a:hover { color: var(--ink-accent); }
+
+.article { display: flex; flex-direction: column; gap: var(--s-5); }
+
+.title {
+  font-size: var(--t-display-3);
+  color: var(--ink);
+  margin-bottom: var(--s-3);
+}
+
+.subhead {
+  font-size: var(--t-heading);
+  color: var(--ink);
+  margin-top: var(--s-5);
+}
+
+.para {
+  color: var(--ink-muted);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  max-width: var(--measure);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  max-width: var(--measure);
+}
+.list li {
+  position: relative;
+  padding-left: var(--s-5);
+  color: var(--ink-muted);
+  font-size: var(--t-small);
+  line-height: var(--lh-body);
+}
+.list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.5rem;
+  height: var(--hairline);
+  background: var(--ink-accent);
+}
+
+.back a { color: var(--ink-accent); border-bottom: var(--hairline) solid var(--rule-accent); }

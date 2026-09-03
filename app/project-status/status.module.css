@@ -1,0 +1,91 @@
+.page {
+  background: var(--ground);
+  color: var(--ink);
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: calc(var(--s-10) + var(--s-6)) var(--gutter) var(--section-y);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-8);
+}
+
+.head { display: flex; flex-direction: column; gap: var(--s-4); }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+}
+
+.title { font-size: var(--t-display-2); color: var(--ink); }
+.sub { color: var(--ink-muted); max-width: var(--measure); }
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  padding-top: var(--s-4);
+  border-top: var(--hairline) solid var(--rule);
+}
+.jumpLink {
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+  padding: var(--s-1) var(--s-3);
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+.jumpLink:hover { color: var(--ink-accent); border-color: var(--rule-accent); }
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-9);
+}
+
+.entry {
+  /* offset so the fixed nav never covers a jumped-to heading */
+  scroll-margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.entryHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: var(--hairline) solid var(--rule);
+}
+
+.date { font-size: var(--t-heading); color: var(--ink); }
+.count { font-size: var(--t-caption); color: var(--ink-faint); white-space: nowrap; }
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--s-4);
+}
+.grid img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: var(--hairline) solid var(--rule);
+  background: var(--ground-raised);
+}
+
+.disclaimer { font-size: var(--t-caption); color: var(--ink-faint); }
+.back a { color: var(--ink-accent); border-bottom: var(--hairline) solid var(--rule-accent); }

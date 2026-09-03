@@ -1,0 +1,41 @@
+/* Bricks Marvella — Phase 1.5 BATCH 1: layout reservations only.
+   Visually neutral: nothing here changes a colour, a font, a size or a position
+   in the settled layout — it only stops elements arriving late at a different
+   size. Testbed: CLS 0.915 -> 0.0000 (mobile), 0.724 -> ~0.001 (desktop).
+   Measured 2026-09-01; see ../MEASUREMENTS.md. */
+
+/* 1. Hero — the single biggest shifter (~0.895 of the 0.92).
+   Revolution Slider is fullscreen at every breakpoint but sizes itself in JS
+   seconds after paint; until then the region is ~0 tall and the whole document
+   sits too high, then shoves down. Reserve the viewport up front. */
+.edgtf-slider,
+.edgtf-slider-inner,
+#rev_slider_15_1_wrapper { min-height: 100vh; }
+#rev_slider_15_1_wrapper { height: 100vh; overflow: hidden; }
+
+/* 2. <rs-*> are unknown elements until revslider's CSS lands, so they are
+   inline and carry a line-box strut. Pre-declare their layout. */
+rs-module-wrap, rs-module, rs-slides, rs-slide { display: block; }
+.edgtf-slider-inner { line-height: 0; font-size: 0; }
+
+/* 3. Mobile header settles 80px -> 70px on first restyle; pin the designed height. */
+.edgtf-mobile-header .edgtf-mobile-header-inner { height: 70px; }
+
+/* 4. Pre-init state = post-init state.
+   Owl carousels ship every slide stacked and the tab plugin ships every panel
+   open, then both collapse on init: the drone gallery goes 1200 -> 362px and the
+   location accordions 4514 -> 1307px. At the top of the page that is invisible;
+   scrolled into view (i.e. in the field) it is a large shift. These selectors
+   stop matching once the plugins rebuild the DOM, so they cost nothing after init. */
+.edgtf-ig-slider.edgtf-owl-slider > *:nth-child(n+2),
+.edgtf-pl-inner.edgtf-owl-slider > *:nth-child(n+2) { display: none; }
+.vc_tta-panel:not(.vc_active) .vc_tta-panel-body { display: none; }
+
+/* 5. Self-sizing widgets: measured rendered sizes at 412px and >=1025px. */
+.edgtf-portfolio-slider-holder { min-height: 349px; }
+.reflection-of-mastery-slider-style { min-height: 362px; }
+.ti-widget { min-height: 220px; }
+@media (min-width: 1025px) {
+  .reflection-of-mastery-slider-style { min-height: 662px; }
+  .ti-widget { min-height: 175px; }
+}

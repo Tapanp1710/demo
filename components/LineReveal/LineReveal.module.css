@@ -1,0 +1,28 @@
+.root {
+  /* the masks are block-level; the element keeps whatever font the caller sets */
+  display: block;
+}
+
+/* One clipping box per line — the line rises out of it. */
+.mask {
+  display: block;
+  overflow: hidden;
+  /* Descenders (g, y, p) would be clipped by a tight box, so give the mask a
+     little vertical room and pull it back with a negative margin. */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.line {
+  display: block;
+  will-change: transform;
+}
+
+/* Cormorant ships a true italic — never synthesise an oblique. */
+.italic {
+  font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line { transform: none !important; }
+}

@@ -1,0 +1,318 @@
+[
+ {
+  "family": "inherit",
+  "count": 63,
+  "files": {
+   "0b43cdf1827929aa841841ca845c8191.css": 11,
+   "2875f02e0a78b591632998dfc96e085d.css": 26,
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 16,
+   "4190430f0d61144736e9ff4c2bf42acc.css": 1,
+   "50a657087eff034748be7996595340b0.css": 1,
+   "b57487d07654a0b2f46a474691577683.css": 3,
+   "bd16f3c800f8c67a9446d2b38a918b4d.css": 1,
+   "c1df10082c2c502e431840faa07d4a2f.css": 1,
+   "inline:wp-custom-css": 1,
+   "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css": 2
+  }
+ },
+ {
+  "family": "roboto condensed,sans-serif",
+  "count": 40,
+  "files": {
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 40
+  }
+ },
+ {
+  "family": "trustindex open sans",
+  "count": 30,
+  "files": {
+   "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css": 30
+  }
+ },
+ {
+  "family": "-apple-system,blinkmacsystemfont,segoe ui,roboto,oxygen-sans,ubuntu,cantarell,helvetica neue,sans-serif",
+  "count": 17,
+  "files": {
+   "4190430f0d61144736e9ff4c2bf42acc.css": 2,
+   "b57487d07654a0b2f46a474691577683.css": 15
+  }
+ },
+ {
+  "family": "roboto condensed",
+  "count": 15,
+  "files": {
+   "04d831dc822211d5acf8165f8b7e6563.css": 1,
+   "102068d7deff2c1a1021e688ef52df74.css": 5,
+   "8af22421c74f7da3c835b928d7205ca7.css": 1,
+   "b4fc2a40893d88f1d9bbe83b31fd61a0.css": 6,
+   "inline:style-attributes": 2
+  }
+ },
+ {
+  "family": "roboto,sans-serif",
+  "count": 11,
+  "files": {
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 11
+  }
+ },
+ {
+  "family": "roboto",
+  "count": 8,
+  "files": {
+   "04d831dc822211d5acf8165f8b7e6563.css": 2,
+   "102068d7deff2c1a1021e688ef52df74.css": 5,
+   "8af22421c74f7da3c835b928d7205ca7.css": 1
+  }
+ },
+ {
+  "family": "vc_grid_v1",
+  "count": 6,
+  "files": {
+   "c1df10082c2c502e431840faa07d4a2f.css": 6
+  }
+ },
+ {
+  "family": "eleganticons",
+  "count": 5,
+  "files": {
+   "0e49046acd50b5a65ed2139ace176f9e.css": 3,
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 2
+  }
+ },
+ {
+  "family": "ionicons",
+  "count": 5,
+  "files": {
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 3,
+   "42cb0c79aca2896322b64b0f23be21f7.css": 2
+  }
+ },
+ {
+  "family": "fontawesome",
+  "count": 4,
+  "files": {
+   "074e11c68af2794d1d8981a15d9488d4.css": 1,
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 2,
+   "50a657087eff034748be7996595340b0.css": 1
+  }
+ },
+ {
+  "family": "linea-basic-10",
+  "count": 4,
+  "files": {
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 1,
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "segoe ui,helvetica neue,helvetica,lucida grande,arial,ubuntu,cantarell,fira sans,sans-serif",
+  "count": 3,
+  "files": {
+   "0a9152d7f724f6659b9dc5585b9ee74f.css": 3
+  }
+ },
+ {
+  "family": "times new roman",
+  "count": 3,
+  "files": {
+   "2875f02e0a78b591632998dfc96e085d.css": 3
+  }
+ },
+ {
+  "family": "revicons",
+  "count": 3,
+  "files": {
+   "50a657087eff034748be7996595340b0.css": 3
+  }
+ },
+ {
+  "family": "dripicons-v2",
+  "count": 3,
+  "files": {
+   "52fb22c0121d127127c52ad44e2a6a1a.css": 3
+  }
+ },
+ {
+  "family": "linea-arrows-10",
+  "count": 3,
+  "files": {
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "linea-basic-elaboration-10",
+  "count": 3,
+  "files": {
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "linea-ecommerce-10",
+  "count": 3,
+  "files": {
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "linea-music-10",
+  "count": 3,
+  "files": {
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "linea-software-10",
+  "count": 3,
+  "files": {
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "linea-weather-10",
+  "count": 3,
+  "files": {
+   "bbdfb1d869825244d9f5d478d30c68db.css": 3
+  }
+ },
+ {
+  "family": "sans-serif",
+  "count": 2,
+  "files": {
+   "2875f02e0a78b591632998dfc96e085d.css": 2
+  }
+ },
+ {
+  "family": "menlo,consolas,monaco,monospace",
+  "count": 2,
+  "files": {
+   "4190430f0d61144736e9ff4c2bf42acc.css": 2
+  }
+ },
+ {
+  "family": "simple-line-icons",
+  "count": 2,
+  "files": {
+   "5456cd8ede9b54353875051611b0783a.css": 2
+  }
+ },
+ {
+  "family": "vcpb-plugin-icons",
+  "count": 2,
+  "files": {
+   "c1df10082c2c502e431840faa07d4a2f.css": 2
+  }
+ },
+ {
+  "family": "linearicons-free",
+  "count": 2,
+  "files": {
+   "c65f98570c75a03673433702db425957.css": 2
+  }
+ },
+ {
+  "family": "abril fatface",
+  "count": 2,
+  "files": {
+   "fdd881373d60985317a0a0c1cf026a1d.css": 1,
+   "inline:style-attributes": 1
+  }
+ },
+ {
+  "family": "blinkmacsystemfont,segoe ui,roboto,oxygen,ubuntu,cantarell,fira sans,droid sans,helvetica neue,sans-sans",
+  "count": 1,
+  "files": {
+   "0a9152d7f724f6659b9dc5585b9ee74f.css": 1
+  }
+ },
+ {
+  "family": "serif",
+  "count": 1,
+  "files": {
+   "0b43cdf1827929aa841841ca845c8191.css": 1
+  }
+ },
+ {
+  "family": "consolas,monospace",
+  "count": 1,
+  "files": {
+   "0e49046acd50b5a65ed2139ace176f9e.css": 1
+  }
+ },
+ {
+  "family": "helvetica,arial",
+  "count": 1,
+  "files": {
+   "0eb62947259f1427cbbcaf9b07138855.css": 1
+  }
+ },
+ {
+  "family": "helvetica,arial,serif",
+  "count": 1,
+  "files": {
+   "1faff0431169c1f4783add5fa7301a62.css": 1
+  }
+ },
+ {
+  "family": "arial",
+  "count": 1,
+  "files": {
+   "2875f02e0a78b591632998dfc96e085d.css": 1
+  }
+ },
+ {
+  "family": "montserrat",
+  "count": 1,
+  "files": {
+   "2875f02e0a78b591632998dfc96e085d.css": 1
+  }
+ },
+ {
+  "family": "tahoma",
+  "count": 1,
+  "files": {
+   "2875f02e0a78b591632998dfc96e085d.css": 1
+  }
+ },
+ {
+  "family": "fontawesome,serif",
+  "count": 1,
+  "files": {
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 1
+  }
+ },
+ {
+  "family": "eleganticons,serif",
+  "count": 1,
+  "files": {
+   "2d96f7fef6e0605f5fd8147a928354bc.css": 1
+  }
+ },
+ {
+  "family": "proxima-nova,helvetica neue,helvetica,arial,sans-serif",
+  "count": 1,
+  "files": {
+   "50a657087eff034748be7996595340b0.css": 1
+  }
+ },
+ {
+  "family": "raleway",
+  "count": 1,
+  "files": {
+   "50a657087eff034748be7996595340b0.css": 1
+  }
+ },
+ {
+  "family": "star",
+  "count": 1,
+  "files": {
+   "50a657087eff034748be7996595340b0.css": 1
+  }
+ },
+ {
+  "family": "open sans,sans-serif",
+  "count": 1,
+  "files": {
+   "50a657087eff034748be7996595340b0.css": 1
+  }
+ }
+]

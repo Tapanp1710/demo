@@ -1,0 +1,108 @@
+/* Scroll track: one viewport plus 180svh of clip-path travel, reserved in CSS
+   so the document never changes height when the trigger builds. */
+.section {
+  --scroll-len: 180svh;
+  position: relative;
+  height: calc(100svh + var(--scroll-len));
+  background: var(--ground);
+  color: var(--ink);
+}
+
+/* Three columns: three stats down the left, the plan in the middle, three
+   down the right. The band that used to run across the page as its own strip
+   now frames the drawing instead. */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr) minmax(8rem, 12rem);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--s-3) var(--s-6);
+  padding: var(--s-4) var(--gutter);
+  /* Clears the fixed nav. A sticky inner is HELD at top:0 for its whole
+     range, so an overlap here is permanent, not a moment while scrolling past. */
+  padding-top: max(var(--section-y-fit), calc(var(--nav-h) + var(--s-3)));
+  overflow: hidden;
+}
+
+.head {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+}
+
+/* Rails: full height of the section, one either side. */
+.rail { grid-row: 1 / -1; align-self: stretch; min-width: 0; }
+.railLeft { grid-column: 1; }
+.railRight { grid-column: 3; }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-3);
+}
+
+.heading { font-size: var(--t-heading); color: var(--ink); }
+
+/* The mask. Only ever inset() — see the component note on why circle() cannot
+   be interpolated to inset(). A square inset with a 50% radius IS a circle. */
+/* Sized to the PLAN's own proportions, bounded by the height the heading
+   leaves and by the width of the section. object-fit:cover on a box that is
+   already 2048:1252 crops nothing — before, the box was full-bleed at a
+   different ratio and the drawing lost its top and bottom. */
+.frame {
+  position: relative;
+  grid-column: 2;
+  grid-row: 2;
+  height: 100%;
+  min-height: 0;
+  aspect-ratio: 2048 / 1252;
+  width: auto;
+  max-width: 100%;
+  justify-self: center;
+  align-self: center;
+  clip-path: inset(0% 34% 0% 34% round 50%);
+  overflow: hidden;
+}
+
+/* <picture> is display:inline with auto height, so the img's height:100% had
+   nothing to resolve against and it sized itself from its own 2048x1252 ratio
+   — 1173px tall at 1920 wide, overflowing the frame instead of covering it. */
+.frame picture { display: block; width: 100%; height: 100%; }
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+}
+
+.disclaimer {
+  grid-column: 2;
+  grid-row: 3;
+  text-align: center;
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+/* Full-bleed and unmasked; nothing pins and nothing scrubs. */
+/* Too narrow for rails: the plan would be squeezed between them. */
+@media (max-width: 991px) {
+  .sticky { display: flex; flex-direction: column; justify-content: safe center; gap: var(--s-4); }
+  .rail { display: none; }
+  .frame { flex: 1 1 0; height: auto; margin-inline: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No clip-path travel, so no track. */
+  .section { height: auto; }
+  .sticky { position: static; height: auto; }
+  .frame { clip-path: none !important; max-height: none; }
+  .frame img { transform: none !important; }
+}

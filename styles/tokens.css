@@ -1,0 +1,278 @@
+/* ============================================================================
+   Bricks Marvella — design tokens
+   The ONLY file in the codebase permitted to contain raw colour, size, or
+   timing literals. Everything else references these.
+
+   Structure: primitives (raw scales) -> semantic tokens (roles). Components
+   consume semantic tokens; primitives exist so the ramp stays coherent.
+   ========================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------
+     COLOUR — primitives
+
+     Accent is the brand's own #d7955d (warm tan-gold). On the old site it
+     existed only as 22 hardcoded inline values with no token layer.
+     The neutral ramp is warm-biased (hue pulled toward the accent) so greys
+     sit with the gold instead of fighting it — a neutral grey reads as
+     unconsidered next to a warm accent.
+     --------------------------------------------------------------------- */
+  --c-accent-400: #e3ac7d;   /* hover / light-surface lift */
+  --c-accent-500: #d7955d;   /* THE brand accent */
+
+  /* Gold, for the wordmark in the nav bar. Warmer and more yellow than the
+     bronze accent so it reads as gold rather than as the accent again, and
+     light enough to hold contrast on the bar's fixed dark ground. Used ONLY
+     on that constant-dark bar — it is not a ground-aware token and would not
+     survive the light ground. */
+  --c-gold-400: #e8c57a;
+  --c-gold-500: #d9ae55;
+  /* Gold as TEXT on the LIGHT ground. #d9ae55 is 1.85:1 there and fails
+     outright; this is 5.35:1. --ink-gold below crossfades between them on the
+     same curve as every other ink token. */
+  --c-gold-700: #7d5f1a;
+  --c-accent-600: #ce8e60;   /* the site's second, darker gold */
+  /* Accent-as-TEXT on the light ground. Measured, not assumed: the brand
+     #d7955d is 2.25:1 on the light ground and fails outright as text; #a86c3c
+     is 3.86:1 and #945d32 is 4.86:1 on the base ground but only 4.41:1 on the
+     RAISED light ground. #8c582e clears AA on both (5.30:1 / 4.80:1). */
+  --c-accent-700: #8c582e;
+
+  /* Warm neutral ramp, 9 steps, dark -> light */
+  /* The MID stage: a warm grey the ground passes through between the two ends.
+     Deliberately a DARK grey, not a 50% one. The binding constraint is the
+     faintest and the accent ink on the RAISED mid surface: both need it below
+     L=0.042, and a true mid grey (L~0.2) puts them at 2:1. At L 0.030/0.042
+     the mid is still six to eight times the stage's luminance, so it reads
+     clearly as a third stop, and every ink pair survives it. */
+  --c-mid-600: #3a352e;      /* raised surfaces at mid — L 0.042 */
+  --c-mid-700: #2f2b26;      /* the mid ground itself   — L 0.030 */
+
+  --c-n-900: #14120f;        /* deepest stage */
+  --c-n-800: #1c1a16;        /* immersive section ground */
+  --c-n-700: #262320;
+  --c-n-600: #38342f;
+  --c-n-500: #5c564e;
+  --c-n-450: #6e675f;        /* 4.99:1 on --bg-page — the faint text step */
+  --c-n-400: #8a8279;        /* 3.39:1 on --bg-page — large text only */
+  /* The faint step used on DARK grounds. #8a8279 was 4.94:1 on the deepest
+     stage and fell straight through 4.5 once the ground lifted toward the mid
+     grey; this holds 7.85:1 on the stage and 4.83:1 on the mid. */
+  --c-n-350: #aca69c;
+  --c-n-300: #b5ada2;
+  --c-n-200: #ddd6cb;
+  --c-n-100: #ece7de;
+  --c-n-50:  #f6f2ea;        /* warm off-white — pure white reads cheap */
+  --c-white: #ffffff;
+
+  /* ---------------------------------------------------------------------
+     COLOUR — semantic
+     Two grounds: a deep desaturated base for 3D/immersive stages (depth cues
+     vanish on light backgrounds) and a warm off-white for reading sections.
+     --------------------------------------------------------------------- */
+  --bg-stage:        var(--c-n-900);
+  --bg-stage-raised: var(--c-n-800);
+  --bg-page:         var(--c-n-50);
+  --bg-page-raised:  var(--c-n-100);
+
+  /* Contrast against --bg-stage, all measured and AA-passing at body size. */
+  --ink-on-stage:        var(--c-n-50);    /* 16.75:1 */
+  --ink-on-stage-muted:  var(--c-n-300);   /* 8.43:1 */
+  --ink-on-stage-faint:  var(--c-n-400);   /* 4.94:1 */
+  --ink-on-page:         var(--c-n-900);   /* 16.75:1 */
+  --ink-on-page-muted:   var(--c-n-500);   /* 6.49:1 */
+  --ink-on-page-faint:   var(--c-n-450);   /* 4.99:1 — was n-400 at 3.39:1, which failed AA */
+
+  --accent:            var(--c-accent-500);
+  --accent-hover:      var(--c-accent-400);
+  --accent-on-light:   var(--c-accent-700);  /* accent-coloured TEXT on --bg-page */
+  --ink-on-accent:     var(--c-n-900);       /* text on an accent-filled button */
+
+  /* Hairlines — structure by line, not by shadow. A luxury-print cue. */
+  --rule-on-stage: rgba(236, 231, 222, 0.16);
+  --rule-on-page:  rgba(20, 18, 15, 0.14);
+  --rule-accent:   var(--c-accent-500);
+
+  /* ---------------------------------------------------------------------
+     GROUND — the scroll-driven inversion layer.
+
+     Sections do NOT pick their own background. They read the variables below,
+     which are derived from ONE scalar, --ground-t:
+         0 = deep stage        1 = warm off-white
+     GroundProvider scrubs that single number at section boundaries and CSS
+     does the colour interpolation via color-mix, so there is no per-property
+     tweening to keep in sync and no previous-state bookkeeping.
+
+     Note --ink-accent: the brand #d7955d is 2.25:1 on the light ground and
+     fails as text, so it resolves to the corrected 4.86:1 step there while
+     staying the raw brand colour (7.43:1) on the stage. Both verified by
+     scripts/check-contrast.mjs.
+     --------------------------------------------------------------------- */
+  --ground-t: 0;
+
+  /* THREE-STOP RAMP: stage -> mid -> page, not a straight two-colour crossfade.
+     Two percentages carve --ground-t into halves, so one scalar still drives
+     everything and CSS still does the colour maths:
+
+        t 0 .. 0.5   gm1 0->100%, gm2 0        stage -> mid
+        t 0.5 .. 1   gm1 100%,    gm2 0->100%  mid   -> page
+
+     clamp() is what makes each half ignore the other's range. */
+  --gm1: clamp(0%, calc(var(--ground-t) * 200%), 100%);
+  --gm2: clamp(0%, calc(var(--ground-t) * 200% - 100%), 100%);
+
+  /* Kept for anything still reading a single 0..1 percentage. */
+  --gm: calc(var(--ground-t) * 100%);
+
+  --ground:        color-mix(in oklab, color-mix(in oklab, var(--c-n-900), var(--c-mid-700) var(--gm1)), var(--c-n-50)  var(--gm2));
+  --ground-raised: color-mix(in oklab, color-mix(in oklab, var(--c-n-800), var(--c-mid-600) var(--gm1)), var(--c-n-100) var(--gm2));
+
+  /* INK does NOT ride the same ramp.
+     A mid-grey ground is where contrast is most likely to fail: light ink
+     needs the ground below L=0.157 and dark ink needs it above L=0.199, and
+     no single colour satisfies both. So the ink stays light across the whole
+     stage->mid half and hands over inside a narrow band in the second half,
+     where the ground is already light enough for dark ink to pass. That
+     handover point is --ink-t, set by GroundProvider, not --ground-t. */
+  --ink-t: 0;
+  --im: clamp(0%, calc(var(--ink-t) * 100%), 100%);
+
+  --ink:           color-mix(in oklab, var(--c-n-50),  var(--c-n-900) var(--im));
+  --ink-muted:     color-mix(in oklab, var(--c-n-300), var(--c-n-500) var(--im));
+  --ink-faint:     color-mix(in oklab, var(--c-n-350), var(--c-n-450) var(--im));
+  --ink-accent:    color-mix(in oklab, var(--c-accent-500), var(--c-accent-700) var(--im));
+  --rule:          color-mix(in oklab, var(--rule-on-stage), var(--rule-on-page) var(--im));
+  --ink-gold:      color-mix(in oklab, var(--c-gold-500), var(--c-gold-700) var(--im));
+
+  --focus-ring: var(--c-accent-400);
+
+  /* ---------------------------------------------------------------------
+     TYPE
+     Display: high-contrast serif (Cormorant Garamond, variable, OFL).
+     Text: neutral grotesque (Inter, variable, OFL).
+     Families are injected by next/font via layout.tsx, which sets
+     --font-display / --font-text; the fallbacks keep metrics sane if that
+     ever fails to load.
+     --------------------------------------------------------------------- */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-text: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Fluid ramp. Display sizes are set tight; body stays generous. */
+  --t-display-1: clamp(3.25rem, 1.6rem + 6.9vw, 8rem);
+  --t-display-2: clamp(2.5rem, 1.45rem + 4.4vw, 5.5rem);
+  --t-display-3: clamp(2rem, 1.35rem + 2.7vw, 3.75rem);
+  --t-heading:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --t-subhead:   clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+  --t-body:      clamp(1rem, 0.97rem + 0.14vw, 1.0625rem);
+  --t-small:     0.9375rem;
+  --t-caption:   0.8125rem;
+  --t-eyebrow:   0.75rem;
+
+  --lh-display: 1.05;
+  --lh-heading: 1.15;
+  --lh-body:    1.65;
+  --lh-tight:   1.3;
+
+  --ls-display:  -0.03em;   /* high-contrast serif needs the tightening */
+  --ls-heading:  -0.02em;
+  --ls-body:      0;
+  --ls-eyebrow:   0.16em;   /* uppercase labels need the air */
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  --measure: 68ch;
+
+  /* ---------------------------------------------------------------------
+     SPACE — 4px base. Luxury is whitespace: section padding is deliberately
+     far larger than the old site's.
+     --------------------------------------------------------------------- */
+  --s-1: 0.25rem;   /* 4  */
+  --s-2: 0.5rem;    /* 8  */
+  --s-3: 0.75rem;   /* 12 */
+  --s-4: 1rem;      /* 16 */
+  --s-5: 1.5rem;    /* 24 */
+  --s-6: 2rem;      /* 32 */
+  --s-7: 3rem;      /* 48 */
+  --s-8: 4rem;      /* 64 */
+  --s-9: 6rem;      /* 96 */
+  --s-10: 8rem;     /* 128 */
+  --s-11: 12rem;    /* 192 */
+
+  --section-y: clamp(var(--s-8), 4rem + 6vw, var(--s-11));
+
+  /* Vertical padding for a section that must fit inside one viewport. The
+     rhythm value above scales with WIDTH (6vw = 150px at 1440), which in a
+     height-constrained box spends a third of the screen on padding — it is
+     what pushed the drone cube's column to 1026px inside a 900px frame.
+     This scales with height instead, so the content always has room. */
+  --section-y-fit: clamp(var(--s-5), 5svh, var(--s-8));
+  --gutter: clamp(var(--s-5), 1rem + 3vw, var(--s-9));
+  --grid-max: 82.5rem;   /* 1320px */
+  --grid-cols: 12;
+  --grid-gap: clamp(var(--s-4), 0.5rem + 1.5vw, var(--s-6));
+
+  /* ---------------------------------------------------------------------
+     FORM — near-zero radius; separate by space and tone, not by shadow.
+     --------------------------------------------------------------------- */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-pill: 999px;
+  --hairline: 1px;
+  --field-h: 3.5rem;
+
+  /* Used sparingly — only where an element genuinely floats over content. */
+  --shadow-raised: 0 1px 2px rgba(20, 18, 15, 0.06), 0 12px 32px rgba(20, 18, 15, 0.08);
+
+  /* ---------------------------------------------------------------------
+     MOTION — one UI ease, one entrance ease, linear for scrubs.
+     GSAP reads the numeric values via lib/gsap.ts; the CSS vars keep
+     non-GSAP transitions on the same curve.
+     --------------------------------------------------------------------- */
+  --ease-ui: cubic-bezier(0.22, 0.61, 0.36, 1);        /* ~power2.out */
+  --ease-entrance: cubic-bezier(0.16, 0.84, 0.44, 1);  /* ~power3.out */
+  --dur-micro: 200ms;
+  --dur-entrance: 400ms;
+  --dur-emphasis: 700ms;
+  --stagger: 0.06s;
+
+  /* 3D stage depth. Reduced at narrow widths where the effect over-reads. */
+  --perspective: 1200px;
+  --perspective-near: 800px;
+  --z-lift: 3px;
+
+  /* Rendered height of the fixed nav bar. Tightened from 4.5rem: the padding
+     around the wordmark shrank, the wordmark itself did not. Everything that
+     has to clear the bar reads this, so the 20px it gives back reaches every
+     section's media. */
+  --nav-h: 3.25rem;
+
+  /* The bar FOLLOWS the ground. Its text has to invert with the page —
+     black over the light sections, light over the dark ones — and text can
+     only do that if the surface under it does too. These are just the ground
+     tokens with the bar's translucency applied. */
+  --nav-bg:    color-mix(in oklab, var(--ground), transparent 8%);
+  --nav-rule:  var(--rule);
+  --nav-ink:   var(--ink);
+  --nav-muted: var(--ink-muted);
+
+  --layer-base: 0;
+  --layer-sticky: 40;
+  --layer-nav: 60;
+  --layer-overlay: 80;
+  --layer-modal: 100;
+}
+
+@media (max-width: 1199px) {
+  :root { --perspective: 900px; --perspective-near: 640px; }
+}
+@media (max-width: 767px) {
+  :root { --perspective: 700px; --perspective-near: 520px; }
+}
+
+/* A single, deliberate visual world — the deep stage is the brand's own
+   register, not a light theme tinted dark. The page therefore does not offer a
+   light/dark switch; it commits, and paints every colour explicitly so it never
+   inherits a host background. */

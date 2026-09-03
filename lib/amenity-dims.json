@@ -1,0 +1,78 @@
+{
+ "amphitheatre": [
+  560,
+  327
+ ],
+ "banquet-hall": [
+  560,
+  315
+ ],
+ "childrens-play-area": [
+  560,
+  315
+ ],
+ "basket-ball-court": [
+  560,
+  420
+ ],
+ "meditation-and-yoga-center": [
+  560,
+  315
+ ],
+ "indoor-games": [
+  560,
+  315
+ ],
+ "gymnasium-and-spa": [
+  560,
+  315
+ ],
+ "cycling-and-jogging-track": [
+  560,
+  327
+ ],
+ "cricket-practice-pitch": [
+  560,
+  327
+ ],
+ "swimming-pool": [
+  560,
+  315
+ ],
+ "skating-rink": [
+  560,
+  373
+ ],
+ "badminton-court": [
+  560,
+  315
+ ],
+ "tennis-court": [
+  560,
+  420
+ ],
+ "guest-rooms": [
+  560,
+  315
+ ],
+ "gym": [
+  560,
+  315
+ ],
+ "movie-theater": [
+  560,
+  315
+ ],
+ "pool-table": [
+  560,
+  315
+ ],
+ "squash-court": [
+  560,
+  315
+ ],
+ "table-tennis": [
+  560,
+  315
+ ]
+}

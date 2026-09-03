@@ -1,0 +1,121 @@
+/* A BANNER, not a full-height section: a horizontal strip of data that the
+   page runs through rather than stops at. Auto height — a strip forced to one
+   screen would be six numbers floating in an empty viewport. */
+.section {
+  background: var(--ground);
+  color: var(--ink);
+  border-block: var(--hairline) solid var(--rule);
+  /* The entry animation runs the cells through translateZ inside a perspective,
+     which renders them a few px larger than their laid-out box. Without this
+     the strip's own box was 14px shorter than what it drew. */
+  padding-block: var(--s-3);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: var(--s-7) var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(14rem, 22ch) 1fr;
+  align-items: center;
+  gap: var(--s-7);
+}
+
+/* Small and set beside the data, not above it — the strip reads as one
+   horizontal band, so the heading is a label on it rather than a title over. */
+.heading {
+  font-size: var(--t-subhead);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+}
+
+/* Present for screen readers and crawlers: the source heading wording,
+   which the display version above rephrases across two lines. */
+.srOnly {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Six cells in one row, divided by hairlines — the strip itself. */
+.grid {
+  display: grid;
+  /* Content-sized columns, not six equal ones: "2, 2.5, 3 & 4 BHK" needs far
+     more room than "32", and equal columns wrapped the long one while leaving
+     the short ones half empty. */
+  grid-template-columns: repeat(6, auto);
+  justify-content: space-between;
+  align-items: end;      /* the labels share one baseline across the strip */
+  margin: 0;
+  perspective: var(--perspective);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;   /* value reads first, label sits above it */
+  gap: var(--s-1);
+  padding: 0 var(--s-4);
+  border-left: var(--hairline) solid var(--rule);
+  transform-style: preserve-3d;
+  min-width: 0;
+}
+.stat:first-child { border-left: 0; padding-left: 0; }
+
+/* The same six stats as a vertical rail — used either side of the master plan.
+   The divider moves from the left edge to the top so the cells read as rows. */
+.vertical {
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(min-content, 1fr);
+  justify-content: stretch;
+  align-items: stretch;
+  height: 100%;
+}
+.vertical .stat {
+  justify-content: center;
+  padding: var(--s-3) 0;
+  border-left: 0;
+  border-top: var(--hairline) solid var(--rule);
+}
+.vertical .stat:first-child { border-top: 0; padding-top: 0; }
+.vertical .value { font-size: var(--t-heading); }
+
+.value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: var(--t-subhead);
+  line-height: 1.1;
+  color: var(--ink);
+  overflow-wrap: anywhere;   /* "2, 2.5, 3 & 4 BHK" in a narrow cell */
+}
+
+.label {
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat { transform: none !important; opacity: 1 !important; }
+}
+
+/* Below the strip's natural width the heading stacks above the data and the
+   six cells wrap to two rows of three — still a band, just a deeper one. */
+@media (max-width: 1199px) {
+  .inner { grid-template-columns: 1fr; gap: var(--s-5); }
+}
+
+@media (max-width: 767px) {
+  .inner { padding: var(--s-6) var(--gutter); gap: var(--s-4); }
+  .grid { grid-template-columns: repeat(3, 1fr); row-gap: var(--s-5); }
+  .stat:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
+  .value { font-size: var(--t-body); }
+  .label { font-size: 0.62rem; }
+  .heading { font-size: var(--t-body); }
+}

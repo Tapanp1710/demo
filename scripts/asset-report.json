@@ -1,0 +1,1186 @@
+[
+  {
+    "out": "images/drone/dji_0210",
+    "status": "ok",
+    "source": "1600x1200",
+    "sourceBytes": 2848977,
+    "outputs": [
+      {
+        "file": "images\\drone\\dji_0210-1600.avif",
+        "bytes": 149607
+      },
+      {
+        "file": "images\\drone\\dji_0210-1600.webp",
+        "bytes": 216492
+      },
+      {
+        "file": "images\\drone\\dji_0210-1000.avif",
+        "bytes": 65169
+      },
+      {
+        "file": "images\\drone\\dji_0210-1000.webp",
+        "bytes": 109524
+      },
+      {
+        "file": "images\\drone\\dji_0210-600.avif",
+        "bytes": 27995
+      },
+      {
+        "file": "images\\drone\\dji_0210-600.webp",
+        "bytes": 47760
+      }
+    ]
+  },
+  {
+    "out": "images/drone/dji_0217",
+    "status": "ok",
+    "source": "1600x1200",
+    "sourceBytes": 3514891,
+    "outputs": [
+      {
+        "file": "images\\drone\\dji_0217-1600.avif",
+        "bytes": 174356
+      },
+      {
+        "file": "images\\drone\\dji_0217-1600.webp",
+        "bytes": 265106
+      },
+      {
+        "file": "images\\drone\\dji_0217-1000.avif",
+        "bytes": 74962
+      },
+      {
+        "file": "images\\drone\\dji_0217-1000.webp",
+        "bytes": 126672
+      },
+      {
+        "file": "images\\drone\\dji_0217-600.avif",
+        "bytes": 32124
+      },
+      {
+        "file": "images\\drone\\dji_0217-600.webp",
+        "bytes": 54922
+      }
+    ]
+  },
+  {
+    "out": "images/drone/dji_0272",
+    "status": "ok",
+    "source": "1600x1200",
+    "sourceBytes": 3465566,
+    "outputs": [
+      {
+        "file": "images\\drone\\dji_0272-1600.avif",
+        "bytes": 177666
+      },
+      {
+        "file": "images\\drone\\dji_0272-1600.webp",
+        "bytes": 272876
+      },
+      {
+        "file": "images\\drone\\dji_0272-1000.avif",
+        "bytes": 76893
+      },
+      {
+        "file": "images\\drone\\dji_0272-1000.webp",
+        "bytes": 130684
+      },
+      {
+        "file": "images\\drone\\dji_0272-600.avif",
+        "bytes": 33478
+      },
+      {
+        "file": "images\\drone\\dji_0272-600.webp",
+        "bytes": 56534
+      }
+    ]
+  },
+  {
+    "out": "images/drone/dji_0208",
+    "status": "ok",
+    "source": "1600x1200",
+    "sourceBytes": 3679613,
+    "outputs": [
+      {
+        "file": "images\\drone\\dji_0208-1600.avif",
+        "bytes": 185174
+      },
+      {
+        "file": "images\\drone\\dji_0208-1600.webp",
+        "bytes": 264894
+      },
+      {
+        "file": "images\\drone\\dji_0208-1000.avif",
+        "bytes": 80879
+      },
+      {
+        "file": "images\\drone\\dji_0208-1000.webp",
+        "bytes": 131758
+      },
+      {
+        "file": "images\\drone\\dji_0208-600.avif",
+        "bytes": 35088
+      },
+      {
+        "file": "images\\drone\\dji_0208-600.webp",
+        "bytes": 58900
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/amphitheatre",
+    "status": "ok",
+    "source": "1080x630",
+    "sourceBytes": 1374870,
+    "outputs": [
+      {
+        "file": "images\\amenities\\amphitheatre-900.avif",
+        "bytes": 52636
+      },
+      {
+        "file": "images\\amenities\\amphitheatre-900.webp",
+        "bytes": 93152
+      },
+      {
+        "file": "images\\amenities\\amphitheatre-560.avif",
+        "bytes": 23898
+      },
+      {
+        "file": "images\\amenities\\amphitheatre-560.webp",
+        "bytes": 41898
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/banquet-hall",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1916073,
+    "outputs": [
+      {
+        "file": "images\\amenities\\banquet-hall-1400.avif",
+        "bytes": 72733
+      },
+      {
+        "file": "images\\amenities\\banquet-hall-1400.webp",
+        "bytes": 127530
+      },
+      {
+        "file": "images\\amenities\\banquet-hall-900.avif",
+        "bytes": 35584
+      },
+      {
+        "file": "images\\amenities\\banquet-hall-900.webp",
+        "bytes": 62468
+      },
+      {
+        "file": "images\\amenities\\banquet-hall-560.avif",
+        "bytes": 16575
+      },
+      {
+        "file": "images\\amenities\\banquet-hall-560.webp",
+        "bytes": 28346
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/childrens-play-area",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 2818000,
+    "outputs": [
+      {
+        "file": "images\\amenities\\childrens-play-area-1400.avif",
+        "bytes": 150339
+      },
+      {
+        "file": "images\\amenities\\childrens-play-area-1400.webp",
+        "bytes": 260176
+      },
+      {
+        "file": "images\\amenities\\childrens-play-area-900.avif",
+        "bytes": 72348
+      },
+      {
+        "file": "images\\amenities\\childrens-play-area-900.webp",
+        "bytes": 122000
+      },
+      {
+        "file": "images\\amenities\\childrens-play-area-560.avif",
+        "bytes": 31510
+      },
+      {
+        "file": "images\\amenities\\childrens-play-area-560.webp",
+        "bytes": 51574
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/basket-ball-court",
+    "status": "ok",
+    "source": "1500x1125",
+    "sourceBytes": 2521832,
+    "outputs": [
+      {
+        "file": "images\\amenities\\basket-ball-court-1400.avif",
+        "bytes": 123149
+      },
+      {
+        "file": "images\\amenities\\basket-ball-court-1400.webp",
+        "bytes": 211982
+      },
+      {
+        "file": "images\\amenities\\basket-ball-court-900.avif",
+        "bytes": 53916
+      },
+      {
+        "file": "images\\amenities\\basket-ball-court-900.webp",
+        "bytes": 91930
+      },
+      {
+        "file": "images\\amenities\\basket-ball-court-560.avif",
+        "bytes": 22077
+      },
+      {
+        "file": "images\\amenities\\basket-ball-court-560.webp",
+        "bytes": 37234
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/meditation-and-yoga-center",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1935216,
+    "outputs": [
+      {
+        "file": "images\\amenities\\meditation-and-yoga-center-1400.avif",
+        "bytes": 62971
+      },
+      {
+        "file": "images\\amenities\\meditation-and-yoga-center-1400.webp",
+        "bytes": 101806
+      },
+      {
+        "file": "images\\amenities\\meditation-and-yoga-center-900.avif",
+        "bytes": 33011
+      },
+      {
+        "file": "images\\amenities\\meditation-and-yoga-center-900.webp",
+        "bytes": 55108
+      },
+      {
+        "file": "images\\amenities\\meditation-and-yoga-center-560.avif",
+        "bytes": 16433
+      },
+      {
+        "file": "images\\amenities\\meditation-and-yoga-center-560.webp",
+        "bytes": 28378
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/indoor-games",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 2504695,
+    "outputs": [
+      {
+        "file": "images\\amenities\\indoor-games-1400.avif",
+        "bytes": 96601
+      },
+      {
+        "file": "images\\amenities\\indoor-games-1400.webp",
+        "bytes": 184668
+      },
+      {
+        "file": "images\\amenities\\indoor-games-900.avif",
+        "bytes": 45086
+      },
+      {
+        "file": "images\\amenities\\indoor-games-900.webp",
+        "bytes": 87408
+      },
+      {
+        "file": "images\\amenities\\indoor-games-560.avif",
+        "bytes": 19871
+      },
+      {
+        "file": "images\\amenities\\indoor-games-560.webp",
+        "bytes": 37356
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/gymnasium-and-spa",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1358577,
+    "outputs": [
+      {
+        "file": "images\\amenities\\gymnasium-and-spa-1400.avif",
+        "bytes": 40007
+      },
+      {
+        "file": "images\\amenities\\gymnasium-and-spa-1400.webp",
+        "bytes": 58928
+      },
+      {
+        "file": "images\\amenities\\gymnasium-and-spa-900.avif",
+        "bytes": 22669
+      },
+      {
+        "file": "images\\amenities\\gymnasium-and-spa-900.webp",
+        "bytes": 35394
+      },
+      {
+        "file": "images\\amenities\\gymnasium-and-spa-560.avif",
+        "bytes": 12475
+      },
+      {
+        "file": "images\\amenities\\gymnasium-and-spa-560.webp",
+        "bytes": 20882
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/cycling-and-jogging-track",
+    "status": "ok",
+    "source": "1080x630",
+    "sourceBytes": 1643574,
+    "outputs": [
+      {
+        "file": "images\\amenities\\cycling-and-jogging-track-900.avif",
+        "bytes": 68772
+      },
+      {
+        "file": "images\\amenities\\cycling-and-jogging-track-900.webp",
+        "bytes": 123214
+      },
+      {
+        "file": "images\\amenities\\cycling-and-jogging-track-560.avif",
+        "bytes": 27322
+      },
+      {
+        "file": "images\\amenities\\cycling-and-jogging-track-560.webp",
+        "bytes": 50186
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/cricket-practice-pitch",
+    "status": "ok",
+    "source": "1080x630",
+    "sourceBytes": 1183751,
+    "outputs": [
+      {
+        "file": "images\\amenities\\cricket-practice-pitch-900.avif",
+        "bytes": 38280
+      },
+      {
+        "file": "images\\amenities\\cricket-practice-pitch-900.webp",
+        "bytes": 59138
+      },
+      {
+        "file": "images\\amenities\\cricket-practice-pitch-560.avif",
+        "bytes": 15072
+      },
+      {
+        "file": "images\\amenities\\cricket-practice-pitch-560.webp",
+        "bytes": 24238
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/swimming-pool",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1530936,
+    "outputs": [
+      {
+        "file": "images\\amenities\\swimming-pool-1400.avif",
+        "bytes": 62195
+      },
+      {
+        "file": "images\\amenities\\swimming-pool-1400.webp",
+        "bytes": 100382
+      },
+      {
+        "file": "images\\amenities\\swimming-pool-900.avif",
+        "bytes": 30223
+      },
+      {
+        "file": "images\\amenities\\swimming-pool-900.webp",
+        "bytes": 48638
+      },
+      {
+        "file": "images\\amenities\\swimming-pool-560.avif",
+        "bytes": 13806
+      },
+      {
+        "file": "images\\amenities\\swimming-pool-560.webp",
+        "bytes": 21744
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/skating-rink",
+    "status": "ok",
+    "source": "2000x1333",
+    "sourceBytes": 2966716,
+    "outputs": [
+      {
+        "file": "images\\amenities\\skating-rink-1400.avif",
+        "bytes": 57711
+      },
+      {
+        "file": "images\\amenities\\skating-rink-1400.webp",
+        "bytes": 87640
+      },
+      {
+        "file": "images\\amenities\\skating-rink-900.avif",
+        "bytes": 30993
+      },
+      {
+        "file": "images\\amenities\\skating-rink-900.webp",
+        "bytes": 47144
+      },
+      {
+        "file": "images\\amenities\\skating-rink-560.avif",
+        "bytes": 15278
+      },
+      {
+        "file": "images\\amenities\\skating-rink-560.webp",
+        "bytes": 23878
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/badminton-court",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1317363,
+    "outputs": [
+      {
+        "file": "images\\amenities\\badminton-court-1400.avif",
+        "bytes": 44447
+      },
+      {
+        "file": "images\\amenities\\badminton-court-1400.webp",
+        "bytes": 70138
+      },
+      {
+        "file": "images\\amenities\\badminton-court-900.avif",
+        "bytes": 22333
+      },
+      {
+        "file": "images\\amenities\\badminton-court-900.webp",
+        "bytes": 34252
+      },
+      {
+        "file": "images\\amenities\\badminton-court-560.avif",
+        "bytes": 11154
+      },
+      {
+        "file": "images\\amenities\\badminton-court-560.webp",
+        "bytes": 16778
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/tennis-court",
+    "status": "ok",
+    "source": "1500x1125",
+    "sourceBytes": 2741680,
+    "outputs": [
+      {
+        "file": "images\\amenities\\tennis-court-1400.avif",
+        "bytes": 105662
+      },
+      {
+        "file": "images\\amenities\\tennis-court-1400.webp",
+        "bytes": 194764
+      },
+      {
+        "file": "images\\amenities\\tennis-court-900.avif",
+        "bytes": 42673
+      },
+      {
+        "file": "images\\amenities\\tennis-court-900.webp",
+        "bytes": 80148
+      },
+      {
+        "file": "images\\amenities\\tennis-court-560.avif",
+        "bytes": 18427
+      },
+      {
+        "file": "images\\amenities\\tennis-court-560.webp",
+        "bytes": 34226
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/guest-rooms",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1268458,
+    "outputs": [
+      {
+        "file": "images\\amenities\\guest-rooms-1400.avif",
+        "bytes": 41070
+      },
+      {
+        "file": "images\\amenities\\guest-rooms-1400.webp",
+        "bytes": 59998
+      },
+      {
+        "file": "images\\amenities\\guest-rooms-900.avif",
+        "bytes": 20466
+      },
+      {
+        "file": "images\\amenities\\guest-rooms-900.webp",
+        "bytes": 32192
+      },
+      {
+        "file": "images\\amenities\\guest-rooms-560.avif",
+        "bytes": 10537
+      },
+      {
+        "file": "images\\amenities\\guest-rooms-560.webp",
+        "bytes": 16720
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/gym",
+    "status": "ok",
+    "source": "1000x563",
+    "sourceBytes": 978711,
+    "outputs": [
+      {
+        "file": "images\\amenities\\gym-900.avif",
+        "bytes": 35805
+      },
+      {
+        "file": "images\\amenities\\gym-900.webp",
+        "bytes": 66570
+      },
+      {
+        "file": "images\\amenities\\gym-560.avif",
+        "bytes": 16381
+      },
+      {
+        "file": "images\\amenities\\gym-560.webp",
+        "bytes": 29058
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/movie-theater",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 1585894,
+    "outputs": [
+      {
+        "file": "images\\amenities\\movie-theater-1400.avif",
+        "bytes": 64206
+      },
+      {
+        "file": "images\\amenities\\movie-theater-1400.webp",
+        "bytes": 98340
+      },
+      {
+        "file": "images\\amenities\\movie-theater-900.avif",
+        "bytes": 31722
+      },
+      {
+        "file": "images\\amenities\\movie-theater-900.webp",
+        "bytes": 51110
+      },
+      {
+        "file": "images\\amenities\\movie-theater-560.avif",
+        "bytes": 15554
+      },
+      {
+        "file": "images\\amenities\\movie-theater-560.webp",
+        "bytes": 25360
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/pool-table",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 2411961,
+    "outputs": [
+      {
+        "file": "images\\amenities\\pool-table-1400.avif",
+        "bytes": 89498
+      },
+      {
+        "file": "images\\amenities\\pool-table-1400.webp",
+        "bytes": 159334
+      },
+      {
+        "file": "images\\amenities\\pool-table-900.avif",
+        "bytes": 42817
+      },
+      {
+        "file": "images\\amenities\\pool-table-900.webp",
+        "bytes": 77972
+      },
+      {
+        "file": "images\\amenities\\pool-table-560.avif",
+        "bytes": 19562
+      },
+      {
+        "file": "images\\amenities\\pool-table-560.webp",
+        "bytes": 35950
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/squash-court",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 544794,
+    "outputs": [
+      {
+        "file": "images\\amenities\\squash-court-1400.avif",
+        "bytes": 18272
+      },
+      {
+        "file": "images\\amenities\\squash-court-1400.webp",
+        "bytes": 24750
+      },
+      {
+        "file": "images\\amenities\\squash-court-900.avif",
+        "bytes": 9913
+      },
+      {
+        "file": "images\\amenities\\squash-court-900.webp",
+        "bytes": 13696
+      },
+      {
+        "file": "images\\amenities\\squash-court-560.avif",
+        "bytes": 5509
+      },
+      {
+        "file": "images\\amenities\\squash-court-560.webp",
+        "bytes": 7406
+      }
+    ]
+  },
+  {
+    "out": "images/amenities/table-tennis",
+    "status": "ok",
+    "source": "1500x844",
+    "sourceBytes": 2479605,
+    "outputs": [
+      {
+        "file": "images\\amenities\\table-tennis-1400.avif",
+        "bytes": 85656
+      },
+      {
+        "file": "images\\amenities\\table-tennis-1400.webp",
+        "bytes": 147980
+      },
+      {
+        "file": "images\\amenities\\table-tennis-900.avif",
+        "bytes": 40963
+      },
+      {
+        "file": "images\\amenities\\table-tennis-900.webp",
+        "bytes": 72816
+      },
+      {
+        "file": "images\\amenities\\table-tennis-560.avif",
+        "bytes": 18892
+      },
+      {
+        "file": "images\\amenities\\table-tennis-560.webp",
+        "bytes": 33920
+      }
+    ]
+  },
+  {
+    "out": "plans/master-plan",
+    "status": "ok",
+    "source": "2048x1252",
+    "sourceBytes": 3594133,
+    "outputs": [
+      {
+        "file": "plans\\master-plan-2048.avif",
+        "bytes": 176892
+      },
+      {
+        "file": "plans\\master-plan-2048.webp",
+        "bytes": 281610
+      },
+      {
+        "file": "plans\\master-plan-1400.avif",
+        "bytes": 105787
+      },
+      {
+        "file": "plans\\master-plan-1400.webp",
+        "bytes": 172838
+      },
+      {
+        "file": "plans\\master-plan-900.avif",
+        "bytes": 55010
+      },
+      {
+        "file": "plans\\master-plan-900.webp",
+        "bytes": 91288
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-a-1-2",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 3034847,
+    "outputs": [
+      {
+        "file": "plans\\tower-a-1-2-2560.avif",
+        "bytes": 127144
+      },
+      {
+        "file": "plans\\tower-a-1-2-2560.webp",
+        "bytes": 200748
+      },
+      {
+        "file": "plans\\tower-a-1-2-1600.avif",
+        "bytes": 69664
+      },
+      {
+        "file": "plans\\tower-a-1-2-1600.webp",
+        "bytes": 114610
+      },
+      {
+        "file": "plans\\tower-a-1-2-1000.avif",
+        "bytes": 37850
+      },
+      {
+        "file": "plans\\tower-a-1-2-1000.webp",
+        "bytes": 61686
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-a-4-5-6",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 3185132,
+    "outputs": [
+      {
+        "file": "plans\\tower-a-4-5-6-2560.avif",
+        "bytes": 132957
+      },
+      {
+        "file": "plans\\tower-a-4-5-6-2560.webp",
+        "bytes": 213084
+      },
+      {
+        "file": "plans\\tower-a-4-5-6-1600.avif",
+        "bytes": 74382
+      },
+      {
+        "file": "plans\\tower-a-4-5-6-1600.webp",
+        "bytes": 121344
+      },
+      {
+        "file": "plans\\tower-a-4-5-6-1000.avif",
+        "bytes": 39749
+      },
+      {
+        "file": "plans\\tower-a-4-5-6-1000.webp",
+        "bytes": 64954
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-a-6-7",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 3409815,
+    "outputs": [
+      {
+        "file": "plans\\tower-a-6-7-2560.avif",
+        "bytes": 142033
+      },
+      {
+        "file": "plans\\tower-a-6-7-2560.webp",
+        "bytes": 231088
+      },
+      {
+        "file": "plans\\tower-a-6-7-1600.avif",
+        "bytes": 79318
+      },
+      {
+        "file": "plans\\tower-a-6-7-1600.webp",
+        "bytes": 133930
+      },
+      {
+        "file": "plans\\tower-a-6-7-1000.avif",
+        "bytes": 42926
+      },
+      {
+        "file": "plans\\tower-a-6-7-1000.webp",
+        "bytes": 69018
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-a-8-9",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 2994880,
+    "outputs": [
+      {
+        "file": "plans\\tower-a-8-9-2560.avif",
+        "bytes": 126008
+      },
+      {
+        "file": "plans\\tower-a-8-9-2560.webp",
+        "bytes": 200206
+      },
+      {
+        "file": "plans\\tower-a-8-9-1600.avif",
+        "bytes": 68952
+      },
+      {
+        "file": "plans\\tower-a-8-9-1600.webp",
+        "bytes": 115626
+      },
+      {
+        "file": "plans\\tower-a-8-9-1000.avif",
+        "bytes": 37404
+      },
+      {
+        "file": "plans\\tower-a-8-9-1000.webp",
+        "bytes": 61072
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-b-1-2",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 3505738,
+    "outputs": [
+      {
+        "file": "plans\\tower-b-1-2-2560.avif",
+        "bytes": 146341
+      },
+      {
+        "file": "plans\\tower-b-1-2-2560.webp",
+        "bytes": 239130
+      },
+      {
+        "file": "plans\\tower-b-1-2-1600.avif",
+        "bytes": 81465
+      },
+      {
+        "file": "plans\\tower-b-1-2-1600.webp",
+        "bytes": 137628
+      },
+      {
+        "file": "plans\\tower-b-1-2-1000.avif",
+        "bytes": 43547
+      },
+      {
+        "file": "plans\\tower-b-1-2-1000.webp",
+        "bytes": 71498
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-b-3-4",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 3255453,
+    "outputs": [
+      {
+        "file": "plans\\tower-b-3-4-2560.avif",
+        "bytes": 136665
+      },
+      {
+        "file": "plans\\tower-b-3-4-2560.webp",
+        "bytes": 221360
+      },
+      {
+        "file": "plans\\tower-b-3-4-1600.avif",
+        "bytes": 75997
+      },
+      {
+        "file": "plans\\tower-b-3-4-1600.webp",
+        "bytes": 126034
+      },
+      {
+        "file": "plans\\tower-b-3-4-1000.avif",
+        "bytes": 40139
+      },
+      {
+        "file": "plans\\tower-b-3-4-1000.webp",
+        "bytes": 67272
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-b-5-6",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 3402641,
+    "outputs": [
+      {
+        "file": "plans\\tower-b-5-6-2560.avif",
+        "bytes": 142495
+      },
+      {
+        "file": "plans\\tower-b-5-6-2560.webp",
+        "bytes": 230814
+      },
+      {
+        "file": "plans\\tower-b-5-6-1600.avif",
+        "bytes": 79094
+      },
+      {
+        "file": "plans\\tower-b-5-6-1600.webp",
+        "bytes": 133628
+      },
+      {
+        "file": "plans\\tower-b-5-6-1000.avif",
+        "bytes": 43222
+      },
+      {
+        "file": "plans\\tower-b-5-6-1000.webp",
+        "bytes": 69114
+      }
+    ]
+  },
+  {
+    "out": "plans/tower-b-7-8",
+    "status": "ok",
+    "source": "2560x1565",
+    "sourceBytes": 2999053,
+    "outputs": [
+      {
+        "file": "plans\\tower-b-7-8-2560.avif",
+        "bytes": 125850
+      },
+      {
+        "file": "plans\\tower-b-7-8-2560.webp",
+        "bytes": 199290
+      },
+      {
+        "file": "plans\\tower-b-7-8-1600.avif",
+        "bytes": 69053
+      },
+      {
+        "file": "plans\\tower-b-7-8-1600.webp",
+        "bytes": 115712
+      },
+      {
+        "file": "plans\\tower-b-7-8-1000.avif",
+        "bytes": 37422
+      },
+      {
+        "file": "plans\\tower-b-7-8-1000.webp",
+        "bytes": 61534
+      }
+    ]
+  },
+  {
+    "out": "logos/marvella",
+    "status": "ok",
+    "source": "1420x1014",
+    "sourceBytes": 88023,
+    "outputs": [
+      {
+        "file": "logos\\marvella-600.avif",
+        "bytes": 5685
+      },
+      {
+        "file": "logos\\marvella-600.webp",
+        "bytes": 12596
+      },
+      {
+        "file": "logos\\marvella-300.avif",
+        "bytes": 3193
+      },
+      {
+        "file": "logos\\marvella-300.webp",
+        "bytes": 6406
+      }
+    ]
+  },
+  {
+    "out": "logos/marvella-flat",
+    "status": "ok",
+    "source": "1057x374",
+    "sourceBytes": 48220,
+    "outputs": [
+      {
+        "file": "logos\\marvella-flat-600.avif",
+        "bytes": 4842
+      },
+      {
+        "file": "logos\\marvella-flat-600.webp",
+        "bytes": 9404
+      },
+      {
+        "file": "logos\\marvella-flat-300.avif",
+        "bytes": 2591
+      },
+      {
+        "file": "logos\\marvella-flat-300.webp",
+        "bytes": 5052
+      }
+    ]
+  },
+  {
+    "out": "logos/bricks",
+    "status": "ok",
+    "source": "300x105",
+    "sourceBytes": 8491,
+    "outputs": [
+      {
+        "file": "logos\\bricks.avif",
+        "bytes": 4791
+      },
+      {
+        "file": "logos\\bricks.webp",
+        "bytes": 5804
+      }
+    ]
+  },
+  {
+    "out": "logos/bricks-ramabhupal",
+    "status": "ok",
+    "source": "1179x414",
+    "sourceBytes": 49576,
+    "outputs": [
+      {
+        "file": "logos\\bricks-ramabhupal-600.avif",
+        "bytes": 9578
+      },
+      {
+        "file": "logos\\bricks-ramabhupal-600.webp",
+        "bytes": 15710
+      },
+      {
+        "file": "logos\\bricks-ramabhupal-300.avif",
+        "bytes": 4933
+      },
+      {
+        "file": "logos\\bricks-ramabhupal-300.webp",
+        "bytes": 7384
+      }
+    ]
+  },
+  {
+    "out": "images/location/offices",
+    "status": "ok",
+    "source": "1000x667",
+    "sourceBytes": 1174118,
+    "outputs": [
+      {
+        "file": "images\\location\\offices-900.avif",
+        "bytes": 35981
+      },
+      {
+        "file": "images\\location\\offices-900.webp",
+        "bytes": 64994
+      },
+      {
+        "file": "images\\location\\offices-560.avif",
+        "bytes": 18211
+      },
+      {
+        "file": "images\\location\\offices-560.webp",
+        "bytes": 33998
+      }
+    ]
+  },
+  {
+    "out": "images/location/schools",
+    "status": "ok",
+    "source": "1500x1000",
+    "sourceBytes": 2222240,
+    "outputs": [
+      {
+        "file": "images\\location\\schools-900.avif",
+        "bytes": 39779
+      },
+      {
+        "file": "images\\location\\schools-900.webp",
+        "bytes": 62448
+      },
+      {
+        "file": "images\\location\\schools-560.avif",
+        "bytes": 20081
+      },
+      {
+        "file": "images\\location\\schools-560.webp",
+        "bytes": 32850
+      }
+    ]
+  },
+  {
+    "out": "images/location/hospitals",
+    "status": "ok",
+    "source": "1500x1500",
+    "sourceBytes": 2667445,
+    "outputs": [
+      {
+        "file": "images\\location\\hospitals-900.avif",
+        "bytes": 47869
+      },
+      {
+        "file": "images\\location\\hospitals-900.webp",
+        "bytes": 73352
+      },
+      {
+        "file": "images\\location\\hospitals-560.avif",
+        "bytes": 23226
+      },
+      {
+        "file": "images\\location\\hospitals-560.webp",
+        "bytes": 38048
+      }
+    ]
+  },
+  {
+    "out": "images/location/recreation",
+    "status": "ok",
+    "source": "865x1000",
+    "sourceBytes": 1444485,
+    "outputs": [
+      {
+        "file": "images\\location\\recreation-560.avif",
+        "bytes": 29857
+      },
+      {
+        "file": "images\\location\\recreation-560.webp",
+        "bytes": 48644
+      }
+    ]
+  },
+  {
+    "out": "images/testimonials/phani",
+    "status": "ok",
+    "source": "60x60",
+    "sourceBytes": 8196,
+    "outputs": [
+      {
+        "file": "images\\testimonials\\phani.avif",
+        "bytes": 764
+      },
+      {
+        "file": "images\\testimonials\\phani.webp",
+        "bytes": 966
+      }
+    ]
+  }
+]

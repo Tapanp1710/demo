@@ -1,0 +1,57 @@
+/* The dialog element IS the backdrop area: it fills the viewport and centres
+   its panel, so a click that lands on it rather than on a child is outside. */
+.dialog {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100svh;
+  max-height: 100svh;
+  margin: 0;
+  padding: var(--s-5);
+  border: 0;
+  background: none;
+  overflow: hidden;
+}
+.dialog::backdrop { background: rgb(12 11 9 / 0.72); }
+.dialog:not([open]) { display: none; }
+
+.panel {
+  position: relative;
+  width: 100%;
+  max-width: 64rem;
+  max-height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--ground-raised);
+  color: var(--ink);
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 24px 80px rgb(12 11 9 / 0.5);
+}
+
+.close {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  z-index: 1;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  background: none;
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-pill);
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease-ui), border-color var(--dur-micro) var(--ease-ui);
+}
+.close:hover { color: var(--ink); border-color: var(--rule-accent); }
+.close:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+@media (max-width: 767px) {
+  .dialog { padding: 0; }
+  .panel { max-width: none; height: 100%; border: 0; border-radius: 0; }
+}

@@ -1,0 +1,214 @@
+/* Scroll track: one viewport plus 110svh of media travel, reserved in CSS so
+   the document is its final height at first paint. */
+.hero {
+  --scroll-len: 110svh;
+  position: relative;
+  height: calc(100svh + var(--scroll-len));
+  background: var(--ground);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 34rem;
+  overflow: hidden;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  perspective: var(--perspective);
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 0%;      /* shrinks upward, revealing ground beneath */
+  will-change: auto;             /* promoted only while the trigger is active */
+  /* No `filter` declared here on purpose. GSAP uses an explicit fromTo() for
+     the filter instead (see Hero.tsx) — tweening to a filter from `none` makes
+     GSAP substitute zero per function and land on brightness(0), a black hero,
+     so the start value has to be stated somewhere. Stating it in JS rather
+     than CSS keeps a filter off the poster's parent before the scrub begins. */
+}
+
+.poster,
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video { z-index: 1; }
+
+/* Two axes: the horizontal ramp protects the left-aligned copy column while
+   leaving the right of the frame open; the vertical one anchors the base.
+   Verified by sampling composited pixels across the scrub — all three text
+   blocks clear 4.5:1 against the brightest backdrop pixel beneath them. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(to right, rgb(20 18 15 / 0.88) 0%, rgb(20 18 15 / 0.62) 38%, rgb(20 18 15 / 0.12) 76%),
+    linear-gradient(to top, rgb(20 18 15 / 0.82) 0%, rgb(20 18 15 / 0.34) 52%, rgb(20 18 15 / 0.18) 100%);
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter);
+  right: var(--gutter);
+  top: 50%;
+  transform: translateY(-58%);
+  max-width: 46rem;
+  isolation: isolate;
+}
+
+/* Local vignette. The page-wide scrim alone cannot carry the eyebrow: at some
+   scrub positions a bright patch of sky sits directly behind it (measured at
+   2.20:1). This reads as natural falloff and takes the worst case to 5.85:1. */
+.copy::before {
+  content: '';
+  position: absolute;
+  inset: -46% -34% -60% -26%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    rgb(20 18 15 / 0.96) 0%,
+    rgb(20 18 15 / 0.93) 34%,
+    rgb(20 18 15 / 0.72) 58%,
+    rgb(20 18 15 / 0) 88%
+  );
+}
+
+.eyebrow {
+  width: fit-content;   /* hug the glyphs; a full-width box reaches into bright sky */
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-accent-500);
+  margin-bottom: var(--s-4);
+}
+
+.headline {
+  font-size: var(--t-display-2);
+  color: var(--c-n-50);
+}
+.lineMask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+/* The hero entrance is CSS, NOT GSAP. The sub-heading below is the LCP
+   element; animating it from opacity:0 in JavaScript meant LCP could not
+   fire until the bundle loaded and ran (6.4s, nearly all render delay).
+   A keyframe runs at first paint and costs nothing on the main thread. */
+.line {
+  display: block;
+  will-change: transform;
+  animation: lineRise 0.7s cubic-bezier(0.16, 0.84, 0.44, 1) backwards;
+  animation-delay: calc(var(--line-i, 0) * 0.09s + 0.15s);
+}
+.italic { font-style: italic; }
+
+@keyframes lineRise {
+  from { transform: translateY(110%); }
+  to   { transform: none; }
+}
+
+.sub {
+  margin-top: var(--s-5);
+  max-width: 34rem;
+  color: var(--c-n-200);
+  font-size: var(--t-subhead);
+  line-height: var(--lh-tight);
+  animation: subIn 0.4s cubic-bezier(0.16, 0.84, 0.44, 1) backwards;
+  animation-delay: 0.45s;
+}
+
+/* Transform ONLY — never opacity. This paragraph is the LCP element, and
+   `animation-fill-mode: backwards` pins it to the `from` state until the
+   animation actually starts. With opacity:0 in that state, a busy main thread
+   deferring the animation start also defers LCP (measured 6.2s, of which 5.7s
+   was render delay). A translated element is still painted, so LCP fires at
+   first paint and the motion is unchanged to the eye. */
+@keyframes subIn {
+  from { transform: translateY(18px); }
+  to   { transform: none; }
+}
+
+.ctas { display: flex; flex-wrap: wrap; gap: var(--s-4); margin-top: var(--s-6); }
+
+.ctaPrimary, .ctaGhost {
+  font-family: var(--font-text);
+  font-size: var(--t-small);
+  font-weight: var(--fw-medium);
+  padding: var(--s-4) var(--s-6);
+  border-radius: var(--radius-sm);
+  border: var(--hairline) solid transparent;
+  transition: background var(--dur-micro) var(--ease-ui),
+              color var(--dur-micro) var(--ease-ui),
+              border-color var(--dur-micro) var(--ease-ui);
+}
+.ctaPrimary { background: var(--c-accent-500); color: var(--c-n-900); border-color: var(--c-accent-500); }
+.ctaPrimary:hover { background: var(--c-accent-400); border-color: var(--c-accent-400); }
+.ctaGhost { color: var(--c-n-50); border-color: rgb(236 231 222 / 0.4); }
+.ctaGhost:hover { border-color: var(--c-accent-500); color: var(--c-accent-500); }
+
+/* Target box for the nav's fixed wordmark: oversized across the lower third,
+   optically flush to both margins. Invisible but laid out, so the Nav can
+   measure the exact width the mark should reach at this breakpoint. */
+/* width: fit-content is load-bearing, not cosmetic. The Nav measures this box
+   to compute the morph's scale factor; a full-width box would report the
+   container's width instead of the glyph run's and blow the mark up. */
+.wordmarkSlot {
+  position: absolute;
+  z-index: 5;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(var(--s-6), 6vh, var(--s-8));
+  display: block;
+  width: fit-content;
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: clamp(2.5rem, 13vw, 13rem);
+  line-height: 0.9;
+  letter-spacing: var(--ls-display);
+  white-space: nowrap;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.disclaimer {
+  position: absolute;
+  z-index: 3;
+  right: var(--gutter);
+  top: var(--s-5);
+  font-size: var(--t-caption);
+  color: var(--c-n-300);
+  max-width: 20rem;
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .disclaimer { max-width: 12rem; font-size: 0.68rem; }
+  .copy { transform: translateY(-52%); }
+}
+
+/* Static, fully readable hero: no travel, so no track. */
+@media (prefers-reduced-motion: reduce) {
+  .hero { height: 100svh; }
+  .sticky { position: static; }
+  .media { transform: none !important; filter: none !important; }
+  .line { transform: none !important; }
+}

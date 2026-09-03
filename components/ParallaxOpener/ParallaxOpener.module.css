@@ -1,0 +1,69 @@
+.opener {
+  position: relative;
+  background: var(--ground);
+  color: var(--ink);
+  /* reserved height — nothing here may shift when JS starts */
+  min-height: 92svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* The z-sandwich below uses z-index 1/2/3. Without a stacking context of its
+     own those compete with sibling sections — the giant word painted over the
+     pinned carousel that follows. `isolation` keeps them local. */
+  isolation: isolate;
+  z-index: 0;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 92svh;
+  max-width: 100%;
+}
+
+/* The giant word sits low and spans the measure. z-index 2 is the sandwich
+   line: .behind sits at 1, .front at 3. */
+.word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6%;
+  z-index: 2;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: clamp(3rem, 15vw, 15rem);
+  line-height: 0.85;
+  letter-spacing: var(--ls-display);
+  color: var(--ink);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.image {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  will-change: transform;
+}
+.image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: var(--hairline) solid var(--rule);
+}
+
+.behind { z-index: 1; }
+.front  { z-index: 3; }
+
+@media (max-width: 767px) {
+  .hideMobile { display: none; }
+  .word { bottom: 10%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Composition and z-order preserved; nothing moves. */
+  .image { transform: none !important; }
+}

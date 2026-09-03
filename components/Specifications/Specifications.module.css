@@ -1,0 +1,149 @@
+/* One screen. Twenty-one groups only fit that if they are set as an index in
+   several columns rather than one long stack. */
+.section {
+  height: 100svh;
+  background: var(--ground);
+  color: var(--ink);
+  display: flex;
+  overflow: hidden;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: var(--section-y-fit) var(--gutter) var(--s-5);
+  padding-top: max(var(--section-y-fit), calc(var(--nav-h) + var(--s-3)));
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+
+.head { flex: none; max-width: 40rem; }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-3);
+}
+
+.heading { font-size: var(--t-display-3); color: var(--ink); }
+
+/* Three columns of seven at desktop. Two at 900px viewports the stack would
+   otherwise overrun; the count is what keeps all 21 on one screen. */
+/* The index: 21 titles. A CSS grid with an explicit row count, not `columns`:
+   multicol decides its own column count from the available height, and with
+   the height constrained it produced a fifth column that ran off the right
+   edge — groups 19-21 were unreachable. Explicit columns cannot do that. */
+.list {
+  flex: 1 1 0;
+  min-height: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  /* TWO tall columns, not four short ones. Four columns of six put all 21
+     groups in the top third of the screen and left the rest of the section
+     empty; eleven rows spread over the same height give each row a workable
+     ~79px and the index reads as a full page rather than a fragment. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Rows STRETCH across the height the heading leaves, rather than packing to
+     the top. `auto` rows plus `align-content: start` sized the index to its
+     own text and left a third of the section blank beneath it, which read as
+     an unfinished section. minmax(min-content, 1fr) divides the whole track
+     between the six rows and still refuses to squash one below its text. */
+  grid-template-rows: repeat(11, minmax(min-content, 1fr));
+  grid-auto-flow: column;
+  gap: 0 var(--s-8);
+}
+
+.item { min-width: 0; }
+
+.trigger {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  align-items: baseline;
+  /* Fills its row, so the rules land evenly down the full column and the
+     labels sit centred in the space instead of clinging to the rule above. */
+  align-content: center;
+  height: 100%;
+  gap: var(--s-3);
+  width: 100%;
+  padding: 0.32rem 0;
+  background: none;
+  border: 0;
+  border-bottom: var(--hairline) solid var(--rule);
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink-muted);
+  transition: color var(--dur-micro) var(--ease-ui),
+              border-color var(--dur-micro) var(--ease-ui);
+}
+.trigger:hover { color: var(--ink); }
+.trigger:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.triggerActive { color: var(--ink-accent); border-bottom-color: var(--rule-accent); }
+
+.index { font-family: var(--font-text); font-size: var(--t-small); color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.triggerActive .index { color: var(--ink-accent); }
+.title {
+  font-family: var(--font-text);
+  font-size: var(--t-body);
+  line-height: 1.3;
+  min-width: 0;
+}
+
+/* Positioned in VIEWPORT coordinates, so the component's clamp is the only
+   thing deciding where it lands and no ancestor's overflow can clip it. */
+.popup {
+  position: fixed;
+  z-index: var(--layer-modal);
+  padding: var(--s-4) var(--s-5);
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--ground-raised);
+  box-shadow: 0 12px 40px rgb(20 18 15 / 0.35);
+  pointer-events: none;   /* never steals the pointer from the trigger */
+  animation: popIn var(--dur-micro) var(--ease-ui);
+}
+.popupTitle {
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  color: var(--ink);
+  margin-bottom: var(--s-2);
+}
+.popupBody {
+  font-size: var(--t-caption);
+  line-height: var(--lh-body);
+  color: var(--ink-muted);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* No scripting: no popup to open, so every group prints in full. */
+.noscript { display: grid; gap: var(--s-4); }
+.noscript dt { font-family: var(--font-display); font-size: var(--t-subhead); color: var(--ink); }
+.noscript dd { margin: 0; font-size: var(--t-small); color: var(--ink-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .popup { animation: none; }
+}
+
+@media (max-width: 1199px) {
+  .list { gap: 0 var(--s-6); }
+}
+@media (max-width: 767px) {
+  /* The index now fills the whole section, so it runs under the sticky
+     Request Price / Call Now bar unless the column reserves its height. */
+  .inner { padding-bottom: 5.25rem; }
+  .list { gap: 0 var(--s-4); }
+  .trigger { grid-template-columns: 1.7rem minmax(0, 1fr); gap: var(--s-2); padding: 0.24rem 0; }
+  .index { font-size: var(--t-caption); }
+  .title { font-size: var(--t-caption); }
+}

@@ -1,0 +1,36 @@
+.main {
+  background: var(--ground);
+  color: var(--ink);
+  /* the ground swap is driven by GroundProvider; this only follows it */
+  transition: background-color 120ms linear;
+}
+
+/**
+ * Holds a full-height section still for one extra viewport of scrolling.
+ *
+ * The wrapper is two screens tall and the section inside is sticky, so the
+ * section arrives, stays put for a full screen of scroll, then releases. The
+ * sections that already own a scroll track — the hero, master plan, floor
+ * plans, construction — are NOT wrapped: they hold for longer than this by
+ * design and a second track would fight the first.
+ *
+ * `data-ground` lives on this wrapper rather than on the section it holds.
+ * GroundProvider resolves boundaries from each ground element's position, and
+ * a sticky element reports its stuck position, not its place in the document —
+ * measuring the wrapper keeps the ground boundaries honest.
+ */
+.hold {
+  position: relative;
+  height: calc(100svh * 2);
+}
+
+.hold > section {
+  position: sticky;
+  top: 0;
+}
+
+/* No hold without motion: the page is a plain stack of screens instead. */
+@media (prefers-reduced-motion: reduce) {
+  .hold { height: auto; }
+  .hold > section { position: static; }
+}

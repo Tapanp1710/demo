@@ -1,0 +1,645 @@
+[
+ {
+  "file": "04d831dc822211d5acf8165f8b7e6563.css",
+  "family": "Roboto",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiA8.ttf"
+  ]
+ },
+ {
+  "file": "04d831dc822211d5acf8165f8b7e6563.css",
+  "family": "Roboto",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYjalmUiA8.ttf"
+  ]
+ },
+ {
+  "file": "04d831dc822211d5acf8165f8b7e6563.css",
+  "family": "Roboto Condensed",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyVVpcBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "074e11c68af2794d1d8981a15d9488d4.css",
+  "family": "FontAwesome",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular"
+  ]
+ },
+ {
+  "file": "0e49046acd50b5a65ed2139ace176f9e.css",
+  "family": "ElegantIcons",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/elegant-icons/fonts/ElegantIcons.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/elegant-icons/fonts/ElegantIcons.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/elegant-icons/fonts/ElegantIcons.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/elegant-icons/fonts/ElegantIcons.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/elegant-icons/fonts/ElegantIcons.svg#ElegantIcons"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto",
+  "weight": "300",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLt_QuAj-lg.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto",
+  "weight": "400",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAj-lg.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto",
+  "weight": "300",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuaabVmUiA8.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiA8.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/roboto/v51/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWuYjalmUiA8.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto Condensed",
+  "weight": "300",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVW2ZhZI2eCN5jzbjEETS9weq8-19ehAyvMum7nfDB64UYK1X5pKQ.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto Condensed",
+  "weight": "400",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVW2ZhZI2eCN5jzbjEETS9weq8-19ehAyvMum7nfDB64RgK1X5pKQ.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto Condensed",
+  "weight": "300",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyXsosBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto Condensed",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyWyosBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "102068d7deff2c1a1021e688ef52df74.css",
+  "family": "Roboto Condensed",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyVVpcBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "42cb0c79aca2896322b64b0f23be21f7.css",
+  "family": "Ionicons",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/ion-icons/fonts/ionicons.eot?v=2.0.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/ion-icons/fonts/ionicons.eot?v=2.0.0#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/ion-icons/fonts/ionicons.ttf?v=2.0.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/ion-icons/fonts/ionicons.woff?v=2.0.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/ion-icons/fonts/ionicons.svg?v=2.0.0#Ionicons"
+  ]
+ },
+ {
+  "file": "50a657087eff034748be7996595340b0.css",
+  "family": "revicons",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/plugins/revslider/public/assets/fonts/revicons/revicons.eot?5510888",
+   "https://bricksmarvella.in/wp-content/plugins/revslider/public/assets/fonts/revicons/revicons.eot?5510888#iefix",
+   "https://bricksmarvella.in/wp-content/plugins/revslider/public/assets/fonts/revicons/revicons.woff?5510888",
+   "https://bricksmarvella.in/wp-content/plugins/revslider/public/assets/fonts/revicons/revicons.ttf?5510888",
+   "https://bricksmarvella.in/wp-content/plugins/revslider/public/assets/fonts/revicons/revicons.svg?5510888#revicons"
+  ]
+ },
+ {
+  "file": "52fb22c0121d127127c52ad44e2a6a1a.css",
+  "family": "dripicons-v2",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/dripicons/fonts/dripicons-v2.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/dripicons/fonts/dripicons-v2.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/dripicons/fonts/dripicons-v2.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/dripicons/fonts/dripicons-v2.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/dripicons/fonts/dripicons-v2.svg#dripicons-v2"
+  ]
+ },
+ {
+  "file": "5456cd8ede9b54353875051611b0783a.css",
+  "family": "simple-line-icons",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/simple-line-icons/fonts/Simple-Line-Icons.eot?v=2.4.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/simple-line-icons/fonts/Simple-Line-Icons.eot?v=2.4.0#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/simple-line-icons/fonts/Simple-Line-Icons.ttf?v=2.4.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/simple-line-icons/fonts/Simple-Line-Icons.woff2?v=2.4.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/simple-line-icons/fonts/Simple-Line-Icons.woff?v=2.4.0",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/simple-line-icons/fonts/Simple-Line-Icons.svg?v=2.4.0#simple-line-icons"
+  ]
+ },
+ {
+  "file": "b4fc2a40893d88f1d9bbe83b31fd61a0.css",
+  "family": "Roboto Condensed",
+  "weight": "300",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVW2ZhZI2eCN5jzbjEETS9weq8-19ehAyvMum7nfDB64UYK1X5pKQ.ttf"
+  ]
+ },
+ {
+  "file": "b4fc2a40893d88f1d9bbe83b31fd61a0.css",
+  "family": "Roboto Condensed",
+  "weight": "400",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVW2ZhZI2eCN5jzbjEETS9weq8-19ehAyvMum7nfDB64RgK1X5pKQ.ttf"
+  ]
+ },
+ {
+  "file": "b4fc2a40893d88f1d9bbe83b31fd61a0.css",
+  "family": "Roboto Condensed",
+  "weight": "700",
+  "style": "italic",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVW2ZhZI2eCN5jzbjEETS9weq8-19ehAyvMum7nfDB64f8N1X5pKQ.ttf"
+  ]
+ },
+ {
+  "file": "b4fc2a40893d88f1d9bbe83b31fd61a0.css",
+  "family": "Roboto Condensed",
+  "weight": "300",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyXsosBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "b4fc2a40893d88f1d9bbe83b31fd61a0.css",
+  "family": "Roboto Condensed",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyWyosBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "b4fc2a40893d88f1d9bbe83b31fd61a0.css",
+  "family": "Roboto Condensed",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/robotocondensed/v31/ieVo2ZhZI2eCN5jzbjEETS9weq8-_d6T_POl0fRJeyVVpcBO5Xk.ttf"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-arrows-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/arrows/fonts/linea-arrows-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/arrows/fonts/linea-arrows-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/arrows/fonts/linea-arrows-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/arrows/fonts/linea-arrows-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/arrows/fonts/linea-arrows-10.svg#linea-arrows-10"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-basic-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic/fonts/linea-basic-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic/fonts/linea-basic-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic/fonts/linea-basic-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic/fonts/linea-basic-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic/fonts/linea-basic-10.svg#linea-basic-10"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-basic-elaboration-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic-elaboration/fonts/linea-basic-elaboration-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic-elaboration/fonts/linea-basic-elaboration-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic-elaboration/fonts/linea-basic-elaboration-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic-elaboration/fonts/linea-basic-elaboration-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/basic-elaboration/fonts/linea-basic-elaboration-10.svg#linea-basic-elaboration-10"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-ecommerce-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/ecommerce/fonts/linea-ecommerce-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/ecommerce/fonts/linea-ecommerce-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/ecommerce/fonts/linea-ecommerce-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/ecommerce/fonts/linea-ecommerce-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/ecommerce/fonts/linea-ecommerce-10.svg#linea-ecommerce-10"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-music-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/music/fonts/linea-music-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/music/fonts/linea-music-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/music/fonts/linea-music-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/music/fonts/linea-music-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/music/fonts/linea-music-10.svg#linea-music-10"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-software-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/software/fonts/linea-software-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/software/fonts/linea-software-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/software/fonts/linea-software-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/software/fonts/linea-software-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/software/fonts/linea-software-10.svg#linea-software-10"
+  ]
+ },
+ {
+  "file": "bbdfb1d869825244d9f5d478d30c68db.css",
+  "family": "linea-weather-10",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/weather/fonts/linea-weather-10.eot",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/weather/fonts/linea-weather-10.eot?#iefix",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/weather/fonts/linea-weather-10.woff",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/weather/fonts/linea-weather-10.ttf",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linea-icons/weather/fonts/linea-weather-10.svg#linea-weather-10"
+  ]
+ },
+ {
+  "file": "c1df10082c2c502e431840faa07d4a2f.css",
+  "family": "vcpb-plugin-icons",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_icons_v2/fonts/vcpb-plugin-icons.eot?f6ud62",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_icons_v2/fonts/vcpb-plugin-icons.eot?f6ud62#iefix",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_icons_v2/fonts/vcpb-plugin-icons.ttf?f6ud62",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_icons_v2/fonts/vcpb-plugin-icons.woff?f6ud62",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_icons_v2/fonts/vcpb-plugin-icons.svg?f6ud62#vcpb-plugin-icons"
+  ]
+ },
+ {
+  "file": "c1df10082c2c502e431840faa07d4a2f.css",
+  "family": "vc_grid_v1",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_grid/vc_grid_v1.eot?-9hbgac",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_grid/vc_grid_v1.eot?#iefix-9hbgac",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_grid/vc_grid_v1.woff?-9hbgac",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_grid/vc_grid_v1.ttf?-9hbgac",
+   "https://bricksmarvella.in/wp-content/plugins/js_composer/assets/fonts/vc_grid/vc_grid_v1.svg?-9hbgac#vc_grid_v1"
+  ]
+ },
+ {
+  "file": "c65f98570c75a03673433702db425957.css",
+  "family": "Linearicons-Free",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linear-icons/fonts/Linearicons-Free.eot?w118d",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linear-icons/fonts/Linearicons-Free.eot?#iefixw118d",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linear-icons/fonts/Linearicons-Free.woff2?w118d",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linear-icons/fonts/Linearicons-Free.woff?w118d",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linear-icons/fonts/Linearicons-Free.ttf?w118d",
+   "https://bricksmarvella.in/wp-content/themes/aalto/assets/css/linear-icons/fonts/Linearicons-Free.svg?w118d#Linearicons-Free"
+  ]
+ },
+ {
+  "file": "fdd881373d60985317a0a0c1cf026a1d.css",
+  "family": "Abril Fatface",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://fonts.gstatic.com/s/abrilfatface/v25/zOL64pLDlL1D99S8g8PtiKchq-dmiA.ttf"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic-ext.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek-ext.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/vietnamese.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin-ext.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic-ext2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek-ext2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/vietnamese2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin-ext2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic-ext.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek-ext.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/vietnamese.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin-ext.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "400",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic-ext2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/cyrillic2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek-ext2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/greek2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/vietnamese2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin-ext2.woff2"
+  ]
+ },
+ {
+  "file": "inline:testimonial-widgets-css-live-1-33-light-contrast-inline-css",
+  "family": "Trustindex Open Sans",
+  "weight": "700",
+  "style": "normal",
+  "urls": [
+   "https://cdn.trustindex.io/assets/fonts/opensans/latin2.woff2"
+  ]
+ }
+]

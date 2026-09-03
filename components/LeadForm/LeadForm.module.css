@@ -1,0 +1,170 @@
+/* One screen. */
+.section {
+  position: relative;
+  height: 100svh;
+  background: var(--ground);
+  color: var(--ink);
+  display: flex;
+  align-items: safe center;
+  overflow: hidden;
+}
+
+/* In the dialog it is a panel, not a screen: no viewport height, no nav to
+   clear, and the dialog paints the surface behind it. */
+.modal {
+  height: auto;
+  max-height: 100%;
+  overflow: auto;
+  background: none;
+}
+.modal .inner {
+  max-width: none;
+  padding: var(--s-6);
+  padding-top: var(--s-6);
+  gap: var(--s-6);
+}
+
+/* Legacy anchor targets, offset so the fixed nav never covers the heading. */
+.anchor {
+  position: absolute;
+  top: calc(var(--s-8) * -1);
+  height: 1px;
+  width: 1px;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: var(--section-y-fit) var(--gutter);
+  padding-top: max(var(--section-y-fit), calc(var(--nav-h) + var(--s-3)));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-7);
+  align-items: start;
+}
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-3);
+}
+
+.heading { font-size: var(--t-display-3); color: var(--ink); }
+.sub { margin-top: var(--s-4); color: var(--ink-muted); max-width: 32rem; }
+
+.details {
+  margin: var(--s-7) 0 0;
+  display: grid;
+  gap: var(--s-5);
+}
+.details dt {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--s-2);
+}
+.details dd { margin: 0; color: var(--ink); font-size: var(--t-small); line-height: 1.7; }
+.details a { border-bottom: var(--hairline) solid var(--rule); }
+.details a:hover { color: var(--ink-accent); border-bottom-color: var(--rule-accent); }
+
+.form { display: flex; flex-direction: column; gap: var(--s-5); }
+
+.field { position: relative; display: flex; flex-direction: column; }
+
+.input {
+  width: 100%;
+  height: var(--field-h);
+  padding: var(--s-5) var(--s-4) var(--s-2);
+  background: transparent;
+  color: var(--ink);
+  border: 0;
+  border-bottom: var(--hairline) solid var(--rule);
+  border-radius: 0;
+  transition: border-color var(--dur-micro) var(--ease-ui);
+}
+.input:focus { outline: none; border-bottom-color: var(--c-accent-500); }
+.input:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.input[aria-invalid='true'] { border-bottom-color: var(--c-accent-600); }
+/* the select needs an explicit colour or some engines paint options unreadable */
+select.input { color: var(--ink); }
+select.input option { color: var(--c-n-900); background: var(--c-n-50); }
+
+.label, .labelStatic {
+  position: absolute;
+  left: var(--s-4);
+  color: var(--ink-faint);
+  pointer-events: none;
+  font-size: var(--t-caption);
+  transition: transform var(--dur-micro) var(--ease-ui), font-size var(--dur-micro) var(--ease-ui);
+}
+.label { top: 1.05rem; }
+.labelStatic { top: 0.4rem; font-size: var(--t-eyebrow); }
+.input:focus + .label,
+.input:not(:placeholder-shown) + .label { transform: translateY(-0.7rem); font-size: var(--t-eyebrow); }
+
+.consent {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-3);
+  align-items: start;
+  color: var(--ink-muted);
+  font-size: var(--t-caption);
+  line-height: 1.55;
+  cursor: pointer;
+}
+.consent input { margin-top: 0.2rem; accent-color: var(--c-accent-500); }
+
+.error { color: var(--c-accent-400); font-size: var(--t-caption); margin-top: var(--s-2); }
+
+.submit {
+  align-self: flex-start;
+  padding: var(--s-4) var(--s-7);
+  background: var(--c-accent-500);
+  color: var(--c-n-900);
+  border: var(--hairline) solid var(--c-accent-500);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-text);
+  font-size: var(--t-small);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  /* colour only — never a transform that could delay or displace a tap */
+  transition: background var(--dur-micro) var(--ease-ui);
+}
+.submit:hover:not(:disabled) { background: var(--c-accent-400); }
+.submit:disabled { opacity: 0.5; cursor: progress; }
+
+.status { min-height: 1.4em; color: var(--ink-accent); font-size: var(--t-small); }
+
+@media (max-width: 991px) {
+  .inner { grid-template-columns: 1fr; gap: var(--s-7); }
+}
+
+/* On a phone the two columns stack and the form has to give up some air to
+   stay inside one screen — the fields keep their 44px target height. */
+/* One screen on a phone. The fields keep their 44px target height — what
+   gives way is leading, the heading size and the contact block's air. */
+@media (max-width: 767px) {
+  .inner { gap: var(--s-4); }
+  .form { gap: var(--s-3); }
+  .heading { font-size: var(--t-heading); }
+  .sub { margin-top: var(--s-2); font-size: var(--t-small); }
+  .details { gap: var(--s-2); font-size: var(--t-caption); }
+  .consent { font-size: var(--t-caption); }
+  .submit { padding: var(--s-3) var(--s-6); }
+  /* The site office address is in the footer a screen below and the phone
+     numbers are in the sticky bar; on a phone this block is the third copy
+     and the 83px that pushed the form off the screen. */
+  .details { display: none; }
+  /* The dialog scrolls, so it is not competing for one screen — the numbers
+     and the address come back. */
+  .modal .details { display: grid; margin-top: var(--s-5); }
+  .status { min-height: 0; }
+}

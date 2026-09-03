@@ -1,0 +1,253 @@
+/* One screen, like every other section. */
+.section {
+  height: 100svh;
+  background: var(--ground);
+  color: var(--ink);
+  display: flex;
+  overflow: hidden;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: var(--s-4) var(--gutter) var(--s-4);
+  padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.head { flex: none; max-width: 46rem; display: flex; flex-direction: column; gap: var(--s-2); }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+}
+
+.heading { font-size: var(--t-heading); color: var(--ink); }
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* The intro paragraph. Kept at a reading measure — this is the rule that used
+   to be called .body and silently capped the two-column split at 730px. */
+.intro {
+  color: var(--ink-muted);
+  /* Wider than a reading measure on purpose: at --measure this paragraph ran
+     to five lines and ate the height the three columns below it need. */
+  max-width: 62rem;
+  font-size: var(--t-caption);
+  line-height: 1.5;
+}
+
+
+/* ---------- categories left, the chosen one right ---------- */
+.split {
+  flex: 1 1 0;
+  min-height: 0;
+  /* The panel's content may not paint outside its share of the column. */
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(10rem, 13rem) 1fr;
+  gap: var(--s-6);
+  align-items: stretch;
+}
+
+/* The vertical list of category names. */
+.tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  border-right: var(--hairline) solid var(--rule);
+  padding-right: var(--s-5);
+}
+
+/* Equal rows filling the column, each closed by a hairline — five names spread
+   over 700px with nothing between them read as a broken layout; the same five
+   as rows of a table of contents read as the list this is. */
+.tab {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  width: 100%;
+  padding: var(--s-3) 0;
+  min-height: 2.75rem;
+  background: none;
+  border: 0;
+  border-bottom: var(--hairline) solid var(--rule);
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink-muted);
+  transition: color var(--dur-micro) var(--ease-ui);
+}
+.tab:hover { color: var(--ink); }
+.tab:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+.tabActive { color: var(--ink-accent); }
+
+.tabTitle {
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  letter-spacing: var(--ls-heading);
+  line-height: 1.2;
+}
+.tabTime {
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--ink-accent);
+  white-space: nowrap;
+}
+
+/* The panel: image above, names below, both inside the height available. */
+/* Names in the middle column, the image in the last one. The image takes
+   whatever width the names leave and fills the full height of the row, so it
+   is sized by the space rather than by a fixed box. */
+.panel {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: var(--s-5);
+}
+/* An author display beats the UA sheet's [hidden]{display:none}, so the
+   inactive panels would all render on top of each other without this. */
+.panel[hidden] { display: none; }
+
+.panel picture {
+  grid-column: 2;
+  grid-row: 1;
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-sm);
+}
+.panel img { width: 100%; height: 100%; object-fit: cover; }
+
+/* The map is the fifth category, so it fills the panel exactly as an image
+   does. No grayscale() anywhere in this build — a light contrast lift only. */
+.map {
+  /* No list beside it, so the map takes both columns. */
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-sm);
+  filter: contrast(1.04);
+}
+
+/* Multi-column: fourteen names as a block, not a fourteen-row column that
+   would not fit the screen this section has to live inside. */
+/* Two columns of seven, as a grid rather than multicol so the rows can divide
+   the panel's height between them instead of packing to the top. */
+.list {
+  grid-column: 1;
+  grid-row: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: repeat(14, minmax(min-content, 1fr));
+  align-content: stretch;
+}
+.list li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-small);
+  color: var(--ink-muted);
+}
+/* A marker, since these are places rather than prose. Drawn rather than
+   list-style: the rows are grid items and a UA marker has nowhere to sit. */
+.list li::before {
+  content: '';
+  flex: none;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink-accent);
+}
+
+/* Switching category. The picture may fade — it is a picture. The place names
+   may NOT: fading body text leaves it unreadable at the start of the tween and
+   at rest if the animation never runs, so they rise into place on transform
+   alone. A panel goes from display:none to shown when it is selected, which is
+   what restarts both animations. */
+@keyframes locFade { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: none; } }
+@keyframes locRise { from { transform: translateY(0.6rem); } to { transform: none; } }
+
+.panel:not([hidden]) picture,
+.panel:not([hidden]) .map {
+  animation: locFade var(--dur-entrance, 420ms) var(--ease-ui) both;
+}
+.panel:not([hidden]) .list li {
+  animation: locRise 340ms var(--ease-ui) both;
+  animation-delay: calc(var(--i, 0) * 22ms);
+}
+
+.disclaimer {
+  flex: none;
+  margin-top: var(--s-3);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+
+/* Fourteen stretched rows need ~406px of panel, which a short window does not
+   have — below that the names ran past the bottom of their box and were
+   clipped. Two columns of seven need 203px; seven auto rows need whatever
+   they need. The count is what changes, never the text size. */
+@media (max-height: 820px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(7, minmax(min-content, 1fr));
+    grid-auto-flow: column;
+    column-gap: var(--s-5);
+  }
+}
+@media (max-height: 640px) {
+  .list { grid-template-rows: repeat(7, min-content); align-content: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel:not([hidden]) picture,
+  .panel:not([hidden]) .map,
+  .panel:not([hidden]) .list li { animation: none; }
+}
+
+@media (max-width: 767px) {
+  .split { grid-template-columns: 1fr; gap: var(--s-4); }
+  .tabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: 0;
+    border-bottom: var(--hairline) solid var(--rule);
+    padding-right: 0;
+    padding-bottom: var(--s-3);
+    gap: var(--s-4);
+  }
+  .tab { width: auto; min-height: 2.5rem; }
+  .tabTitle { font-size: var(--t-body); }
+  .panel { grid-column: 1; grid-row: 2; grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; gap: var(--s-4); }
+  .panel picture { grid-column: 1; grid-row: 1; }
+  /* Back to a balanced two-column block: fourteen stretched rows are taller
+     than a phone screen. */
+  .list { grid-column: 1; grid-row: 2; display: block; columns: 2; column-gap: var(--s-4); }
+  .list li { display: block; padding: 0.14em 0; break-inside: avoid; }
+  .list li::before { display: inline-block; margin-right: var(--s-3); vertical-align: middle; }
+  .map { grid-column: 1; grid-row: 1 / -1; }
+}

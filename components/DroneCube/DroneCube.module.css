@@ -1,0 +1,166 @@
+/* Cube edge length. Everything else (translateZ, face size) derives from it,
+   so the solid stays square at every breakpoint. */
+/* Scroll track: one viewport to look at plus 200svh of rotation, reserved in
+   CSS so the document never changes height when the trigger builds. */
+.section {
+  --cube: clamp(15rem, 48vmin, 32rem);
+  --scroll-len: 200svh;
+  position: relative;
+  height: calc(100svh + var(--scroll-len));
+  background: var(--ground);
+}
+
+/* stretch, not center: a centred grid item is sized by its own content, so the
+   flex column inside it never came under height pressure and its cube had no
+   reason to shrink — it just overflowed. Stretching hands .inner exactly one
+   viewport, which is what makes the shrink below actually happen. */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  place-items: stretch;
+  overflow: hidden;
+}
+
+/* Column, not a grid of intrinsic rows: the heading and captions take their
+   natural height and the cube takes what is left, so the whole thing fits one
+   viewport at every size. As a grid with a fixed --cube it stood 1212px tall
+   in a 1080px box and the captions were cut off the bottom. */
+.inner {
+  width: 100%;
+  height: 100%;
+  max-width: var(--grid-max);
+  padding: var(--section-y-fit) var(--gutter);
+  /* Clears the fixed nav. A sticky inner is HELD at top:0 for its whole
+     range, so an overlap here is permanent, not a moment while scrolling past. */
+  padding-top: max(var(--section-y-fit), calc(var(--nav-h) + var(--s-3)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-5);
+}
+
+.head { text-align: center; }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-3);
+}
+
+.heading {
+  font-size: var(--t-display-3);
+  color: var(--ink);
+}
+
+/* Square, and never taller than the space the heading and captions leave.
+   Width comes FROM the height via aspect-ratio: setting both an explicit width
+   and an aspect-ratio re-forces the height that flex-shrink just removed, and
+   the cube went on overflowing the viewport by 126px. */
+.stage {
+  flex: 0 1 auto;
+  min-height: 0;
+  height: var(--cube);
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 1;
+  perspective: var(--perspective);
+  transform-style: preserve-3d;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateZ(-14vmin);
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border: var(--hairline) solid var(--rule);
+  /* half the edge length pushes each face out to the cube's surface */
+  transform: rotateY(var(--face-angle, 0deg)) translateZ(calc(var(--cube) / 2));
+}
+
+/* <picture> is display:inline with auto height, so a child's height:100% has
+   nothing to resolve against and the face never fills. Give it a box. */
+.face picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Lid: the same aerial imagery, dimmed, so the solid closes without competing. */
+.faceTop {
+  transform: rotateX(90deg) translateZ(calc(var(--cube) / 2));
+  filter: brightness(0.45);
+}
+
+/* Underside: a plain dark surface, not a photograph. You do not see the
+   underside of a solid you are looking down on, and an upside-down aerial
+   there reads as a glitch rather than as a face. */
+.faceBottom {
+  transform: rotateX(-90deg) translateZ(calc(var(--cube) / 2));
+  background: var(--ground-raised);
+}
+
+/* Captions share one grid cell and cross-fade in place, so the layout never
+   shifts as the cube turns. */
+.captions {
+  display: grid;
+  place-items: center;
+  min-height: 2.5em;
+  text-align: center;
+}
+.caption {
+  grid-area: 1 / 1;
+  font-family: var(--font-display);
+  font-size: var(--t-heading);
+  color: var(--ink);
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* The static fallback is the reduced-motion presentation, hidden otherwise. */
+.fallbackRow { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* No rotation, so no track. */
+  .section { height: auto; }
+  .sticky { position: static; height: auto; }
+  .stage, .captions { display: none; }
+
+  .fallbackRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--s-5);
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--gutter) var(--section-y);
+    width: 100%;
+    max-width: var(--grid-max);
+  }
+  .fallbackItem { display: flex; flex-direction: column; gap: var(--s-3); }
+  .fallbackItem img { width: 100%; height: auto; border: var(--hairline) solid var(--rule); }
+  .fallbackCaption {
+    font-family: var(--font-display);
+    font-size: var(--t-subhead);
+    color: var(--ink);
+  }
+}

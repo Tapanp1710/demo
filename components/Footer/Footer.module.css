@@ -1,0 +1,97 @@
+/* Never taller than one screen; it is the last thing on the page and a footer
+   that overruns leaves the copyright line stranded below the fold. */
+.footer {
+  max-height: 100svh;
+  background: var(--ground);
+  color: var(--ink);
+  border-top: var(--hairline) solid var(--rule);
+  padding: var(--s-5) 0 var(--s-4);
+}
+
+.inner {
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: var(--s-6);
+}
+
+.brand { display: flex; flex-direction: column; gap: var(--s-2); }
+
+.mark {
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  color: var(--ink);
+}
+.by { font-size: var(--t-caption); color: var(--ink-faint); }
+.logo { width: 7.5rem; height: auto; margin-top: var(--s-3); }
+
+/* Two columns of five, not one stack of ten: the stack was 470px tall on its
+   own and set the height of the whole footer. */
+.links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  gap: var(--s-2) var(--s-5);
+}
+.link { font-size: var(--t-caption); color: var(--ink-muted); width: fit-content; }
+.link:hover { color: var(--ink-accent); }
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  font-style: normal;
+  font-size: var(--t-caption);
+  color: var(--ink-muted);
+}
+.contact a { width: fit-content; border-bottom: var(--hairline) solid var(--rule); }
+.contact a:hover { color: var(--ink-accent); border-bottom-color: var(--rule-accent); }
+
+.legal {
+  max-width: var(--grid-max);
+  margin: var(--s-5) auto 0;
+  padding: var(--s-4) var(--gutter) 0;
+  border-top: var(--hairline) solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-5);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+.legal strong { color: var(--ink-muted); font-weight: var(--fw-medium); }
+.legal a { border-bottom: var(--hairline) solid var(--rule); }
+.legal a:hover { color: var(--ink-accent); }
+
+/* Only the disclaimer needs its own line; the copyright rides along with the
+   RERA and permission numbers when there is room. */
+.disclaimer { flex-basis: 100%; }
+.copyright { margin-left: auto; }
+
+@media (max-width: 767px) {
+  .inner { grid-template-columns: 1fr; gap: var(--s-6); }
+}
+
+@media (max-width: 767px) {
+  .inner { gap: var(--s-5); }
+}
+
+/* Two columns of links rather than one long stack, so the whole footer —
+   address, nav, RERA and copyright — lands inside one screen. */
+@media (max-width: 767px) {
+  .inner { grid-template-columns: repeat(2, 1fr); gap: var(--s-4) var(--s-5); }
+  /* The inner grid already gives two columns here; two more inside it made
+     four, and "Specifications" ran off the right edge. */
+  .links { grid-template-columns: 1fr; grid-template-rows: auto; grid-auto-flow: row; }
+  .footer { padding-top: var(--s-5); padding-bottom: var(--s-4); }
+  .logo { max-width: 7rem; }
+  .link { font-size: var(--t-caption); }
+  .contact { font-size: var(--t-caption); }
+  .by { font-size: var(--t-caption); }
+  .mark { font-size: var(--t-subhead); }
+  .legal, .copyright, .disclaimer { font-size: 0.68rem; line-height: 1.4; }
+  .inner { gap: var(--s-3) var(--s-5); }
+}

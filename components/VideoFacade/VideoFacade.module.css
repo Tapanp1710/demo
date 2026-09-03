@@ -1,0 +1,56 @@
+.facade,
+.frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;      /* reserved before anything loads — zero CLS */
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-sm);
+}
+
+.facade {
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+  background-color: var(--ground-raised);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.frame { border-width: 0; }
+
+.play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4.5rem;
+  height: 3.2rem;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  background: rgb(20 18 15 / 0.78);
+  transition: background var(--dur-micro) var(--ease-ui);
+}
+.play::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-38%, -50%);
+  border-style: solid;
+  border-width: 0.75rem 0 0.75rem 1.25rem;
+  border-color: transparent transparent transparent var(--c-n-50);
+}
+.facade:hover .play,
+.facade:focus-visible .play { background: var(--c-accent-500); }
+.facade:hover .play::before,
+.facade:focus-visible .play::before { border-left-color: var(--c-n-900); }
+
+.caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: var(--s-5) var(--s-4) var(--s-3);
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--c-n-50);
+  text-align: left;
+  background: linear-gradient(to top, rgb(20 18 15 / 0.85), rgb(20 18 15 / 0));
+}

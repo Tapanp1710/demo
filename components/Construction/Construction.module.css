@@ -1,0 +1,215 @@
+/* One screen. The rail is moved by hand now, so there is no scroll track and
+   nothing to reserve. */
+.section {
+  position: relative;
+  height: 100svh;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+.sticky {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+  /* Clears the fixed nav. A sticky inner is HELD at top:0 for its whole
+     range, so an overlap here is permanent, not a moment while scrolling past. */
+  padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
+  overflow: hidden;
+}
+
+.head { flex: none; padding: 0 var(--gutter); max-width: 44rem; }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-3);
+}
+
+.heading { font-size: var(--t-heading); color: var(--ink); }
+
+/* A real scroll container: drag, wheel, touch and arrow keys all move it, and
+   `flex: none` keeps it at its own height so the dates under the dots are
+   never the thing that gets squeezed out. */
+.railWrap {
+  position: relative;
+  flex: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  padding: var(--s-5) 0;
+  cursor: grab;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+}
+.railWrap:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 4px; }
+.dragging { cursor: grabbing; }
+/* The pointer is dragging the rail, so the labels must not start a selection. */
+.dragging * { user-select: none; }
+/* The timeline's spine. */
+/* The spine, drawn inside the scrolled content so it travels with the stops. */
+.rail::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 0.4rem;
+  height: var(--hairline);
+  background: var(--rule);
+}
+
+.rail {
+  position: relative;
+  display: flex;
+  gap: var(--s-8);
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--gutter);
+  width: max-content;
+}
+
+.stop {
+  position: relative;
+  display: flex;
+  min-width: 9rem;
+}
+
+/* The whole stop is the button, so the target is the dot, the date and the
+   count together rather than a 12px circle. */
+.stopBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-2);
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+.stopBtn:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 4px; }
+.stopBtn:hover .date { color: var(--ink-accent); }
+.stopBtn:hover .dot { border-color: var(--c-accent-500); }
+
+.stopActive .dot { background: var(--c-accent-500); border-color: var(--c-accent-500); }
+.stopActive .date { color: var(--ink-accent); }
+
+.dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: var(--radius-pill);
+  border: var(--hairline) solid var(--ink-faint);
+  background: var(--ground);
+}
+
+.date {
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  color: var(--ink);
+}
+
+.count {
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+/* The newest update is marked by its badge, not by a filled dot — a filled
+   dot now means "this is the one you are looking at". */
+
+/* On the spine beside its dot: in the flow it pushed one stop's photo count a
+   row lower than every other stop's. */
+.badge {
+  position: absolute;
+  top: -0.1rem;
+  left: 1.5rem;
+  white-space: nowrap;
+  align-self: flex-start;
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-n-900);
+  background: var(--c-accent-500);
+  border-radius: var(--radius-pill);
+  padding: 2px var(--s-3);
+}
+
+.foot {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s-6);
+  align-items: end;
+  padding: 0 var(--gutter);
+  max-width: var(--grid-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* That month's photographs, scrolled sideways in the same box the film fills.
+   Each keeps its own proportions and is sized by the height available, so a
+   portrait phone shot and a landscape drone shot sit side by side and neither
+   is cropped. */
+.shots {
+  display: flex;
+  gap: var(--s-4);
+  height: 100%;
+  min-height: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule) transparent;
+  animation: shotsIn 380ms var(--ease-ui) both;
+}
+.shots picture { display: block; flex: none; height: 100%; }
+.shots img {
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--ground-raised);
+}
+@keyframes shotsIn { from { opacity: 0; transform: translateY(0.75rem); } to { opacity: 1; transform: none; } }
+
+/* Takes the height the head and the rail leave and derives its width from
+   that, so the update fills the section instead of sitting in a 34rem box. */
+.video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.cta {
+  justify-self: end;
+  padding: var(--s-4) var(--s-6);
+  border: var(--hairline) solid var(--c-accent-500);
+  border-radius: var(--radius-sm);
+  color: var(--ink-accent);
+  font-family: var(--font-text);
+  font-size: var(--t-small);
+  transition: background var(--dur-micro) var(--ease-ui), color var(--dur-micro) var(--ease-ui);
+}
+.cta:hover { background: var(--c-accent-500); color: var(--c-n-900); }
+
+@media (max-width: 767px) {
+  .foot { grid-template-columns: 1fr; align-items: start; }
+  .video { height: auto; width: 100%; }
+  .cta { justify-self: start; }
+}
+
+/* Nothing animates here any more, so there is nothing to reduce. */
+
+@media (prefers-reduced-motion: reduce) {
+  .shots { animation: none; }
+}

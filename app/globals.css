@@ -1,0 +1,93 @@
+/* Global rules only: reset, tokens, typographic base. Everything component-
+   scoped lives in that component's CSS module. */
+@import "../styles/tokens.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Zero for the same reason as ANCHOR_OFFSET in lib/gsap.ts: full-height
+     sections reserve their own nav clearance, so adding it again here would
+     push their last rows below the fold. */
+  scroll-padding-top: 0;
+}
+/* Lenis drives scrolling; native smooth-scroll would fight it. */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  /* Follows the ground scalar, like everything else. Pinning this to the stage
+     meant the page behind the sections never inverted, so even with --ground-t
+     driving correctly the document read as permanently dark. */
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  text-wrap: balance;
+}
+h1 { font-size: var(--t-display-1); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+h2 { font-size: var(--t-display-3); }
+h3 { font-size: var(--t-heading); }
+
+p { margin: 0; }
+p + p { margin-top: var(--s-4); }
+
+a { color: inherit; text-decoration: none; }
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* Digits must align in stat rows, price tables and plan specs. */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* The sticky CTA bar is full-width on mobile and would otherwise sit on top of
+   whatever is at the bottom of each section (carousel arrows, the hero
+   wordmark). Reserve its height so nothing is ever covered. */
+@media (max-width: 767px) {
+  body { padding-bottom: 4.5rem; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--accent); color: var(--ink-on-accent); }
+
+/* Visually hidden but available to assistive tech and to skip-links. */
+.visuallyHidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Reduced motion: kill pins, scrubs, blur and parallax outright. Individual
+   components also branch on this via gsap.matchMedia so layout, not just
+   animation, degrades to something readable. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
