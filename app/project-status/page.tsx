@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/Nav/Nav';
+import Construction from '@/components/Construction/Construction';
 import Footer from '@/components/Footer/Footer';
 import StickyCTA from '@/components/StickyCTA/StickyCTA';
 import GroundProvider from '@/components/GroundProvider/GroundProvider';
@@ -34,6 +35,11 @@ export default function ProjectStatusPage() {
     <>
       <GroundProvider />
       <Nav standalone />
+
+      {/* The timeline that used to sit on the home page. This is its subject,
+          so this is where it belongs — and it doubles as the jump control for
+          the archive below. */}
+      <Construction entries={statusManifest} />
 
       <main id="main" className={styles.page} data-ground="stage">
         <header className={styles.head}>

@@ -734,3 +734,144 @@ needs a line to itself.
 At 767px the inner grid already supplies two columns, so the links revert to
 one inside it — two inside two made four and ran "Specifications" off the right
 edge.
+
+## 50. Bodoni Moda replaces Cormorant Garamond
+
+The brief was a specimen sheet of retail luxury serifs — Luxena, Thingós,
+Montega. Those are licensed faces and the files are not ours, so the question
+was which freely-licensed face is in the same genre.
+
+Cormorant Garamond, which the site had, is an OLD-STYLE serif: gentle stroke
+contrast, angled stress, calligraphic. The specimen is the opposite tradition —
+hairline-thin thin-strokes against heavy stems, vertical stress, ball
+terminals. **Bodoni Moda** is that, under the SIL OFL, and `next/font` self-
+hosts and subsets it exactly as it did Cormorant. Inter is unchanged for text.
+
+Two consequences worth writing down:
+
+`--fw-light: 300` stays as it is. Bodoni Moda's variable range starts at 400,
+so the display face clamps there; 400 is already its thin-hairline cut and
+nothing lighter would hold on the deep stage ground. Inter still honours 300.
+
+Bodoni sets WIDER than Cormorant at the same size. The Location rail went from
+`minmax(10rem, 13rem)` to `minmax(11rem, 15rem)` — at 13rem "Schools &
+Institutions" broke onto two lines. Everything else was re-measured and still
+fits: 10/10 sections at 1920/1440/390, no nav overlap at any width.
+
+## 51. Jost replaces Inter; the text scale moved with it
+
+Inter is a UI face — engineered neutral for dashboards, which on a brand site
+reads as competent software rather than as anything. Jost is geometric and
+Futura-derived, and geometric sans under a didone is the century-old pairing
+from fashion and architectural printing. Both stay self-hosted and subset by
+`next/font`, both OFL.
+
+`--fw-light: 300` now means 300 again: Jost's variable range covers it, where
+Bodoni clamps to 400. The two halves of the pairing disagree about that token
+and that is fine — each honours what it has.
+
+**The whole text scale went up one step.** Jost's x-height is about 0.50em
+against Inter's 0.73em, so the same pixel size reads roughly a third smaller.
+Body 1→1.0625rem (cap 1.0625→1.125), small 0.9375→1, caption 0.8125→0.875,
+eyebrow 0.75→0.8. This restores apparent size; it does not enlarge anything.
+
+Layout after the swap: nothing moved. Jost sets NARROWER than Inter, so every
+box that the Bodoni switch tightened had slack rather than less room. 9/9
+sections still fit at 1920/1440/390, no nav overlap at any of the five widths,
+all 21 spec groups still inside their section with the popup clamped.
+
+## 52. Deep ink-green, bone, antique brass
+
+The green undertone in the near-black is the point: `#0b0f0d` reads as depth
+where a neutral black reads as absence, and it sits under photography of
+buildings and landscape, which is most of what this site shows. Bone text
+rather than white so it sits WITH the brass instead of against it. Aged brass
+rather than bright gold, because bright gold on dark is the combination that
+looks cheap at scale.
+
+Three values differ from the brief, all because the checker said so and the
+instruction was to move the value rather than the threshold:
+
+| token | brief | shipped | why |
+|---|---|---|---|
+| `--c-accent-700` (brass on light) | `#8a6d33` | `#87692f` | 4.47:1 on the bone ground — just under AA. Two steps darker is 4.71:1. |
+| `--c-mid-600` (raised mid) | — | `#232b26` | Brass as ink on the raised mid is the tightest pair in the whole set. The new brass is darker than the old gold, so the mid had to come down with it: 4.08:1 at the first guess, 4.68:1 here. |
+| `--c-mid-700` (mid ground) | — | `#1a201d` | Held below the raised stop so the third stop still reads as a stop — 3.0x the deep ground's luminance. |
+
+Two roles the ramp would have collapsed got their own primitives: `--c-bone`
+(#f4f1ea, text on dark) is distinct from `--c-n-50` (#f7f5f0, the light
+ground), and `--c-ink-900` (#161b18, text on light) is lifted off `--c-n-900`
+(#0b0f0d, the dark ground) so it reads as ink rather than as a hole.
+
+## 53. The updates moved to their own route
+
+`/project-status/` already existed and held the full archive; the interactive
+timeline now sits at the top of it and the home page has one section fewer.
+The nav's "Construction" entry points at the route instead of an anchor.
+
+`shown.video` is wired: each stop plays ITS month's film. Three of the twenty
+months are video-only — the site published a film and no photographs — and they
+were all opening the same fixed video before. Verified live: July 2026 loads
+J2ctBmVASO4, November 2025 Yt5lhZbUMfA, February 2025 9kOd7XXIGjo, and a
+photo month shows its 8 photographs with no facade at all.
+
+## 54. About: heading over the film, body beside it
+
+The film moved out of the full-width foot row into the LEFT column, under the
+heading. Two placements made that read correctly:
+
+`.right` sits in row 2, not row 1 — so row 1 is sized by the heading alone and
+the film starts directly beneath it. Spanning the body across both rows instead
+made row 1 as tall as the BODY, which left ~180px of dead space between the
+heading and the film.
+
+`.right` is also `align-self: start` in that row, so the body's first line sits
+on the film's top edge rather than level with the eyebrow two hundred pixels
+above it.
+
+Rows are content-sized with `align-content: center`, so the leftover height is
+split above and below the pair instead of pooling under the film. Columns are
+1.15fr / 1fr: the film reads better a little wider than the measure beside it.
+
+## 55. Location: the clutter was column width, not list length
+
+Two schools came out at the brief's request — Epistemo Global and Vista School,
+the two least recognisable of the twelve — but the trimming was not what fixed
+the look. Three real faults were:
+
+**The marker sat halfway down a wrapped name.** `align-items: center` centres
+the dot on the whole item, so a two-line name got a bullet belonging to
+neither line. Now `flex-start` with a `0.62em` top margin, which lands it on
+the first line's box.
+
+**An implicit grid column took whatever width was left.** `grid-template-rows:
+repeat(7, ...)` plus `grid-auto-flow: column` puts the eighth item in an
+implicit column, and implicit columns are not governed by
+`grid-template-columns` — that column came out 97px wide on a short 1280
+window, which is what wrapped "CARE Super Speciality Hospital" onto four
+lines. Multicol replaces it there: the browser picks the column COUNT from the
+width available and can never make one too narrow to hold a name.
+
+**Multicol needs an INDEFINITE height.** Stretched to its grid row it treats
+that as a fill target and spills the tail into a second column, which landed
+painted across the photograph. `align-self: start` fixes it.
+
+Then the measurement said the names column was simply too narrow: 292px holds
+one 12rem column, and the 14 offices need 402px of a 356px panel — the last two
+were clipped. Below 820px of viewport height the panel is now
+`1fr / 0.55fr` instead of `0.5fr / 1fr`: names ~565px, two columns, 14 offices
+in seven rows of 201px, every name on one line.
+
+## 56. The master plan opens at the wide rectangle
+
+Was: a circle at 57% of viewport height, opening through a rounded rect to the
+full frame. The circle showed about a third of the drawing and had the legend
+outside the mask for most of the scroll.
+
+Now the resting shape IS the wide rounded rectangle — `inset(12% 8% round
+24px)`, 1110x665 at 1920 — and the scrub only takes it to the full frame.
+Both towers and the whole legend are readable from the first frame.
+
+The image's counter-scale came down from 1.15 to 1.06 with it: the mask now
+travels a fraction of what it did, and 1.15 against that read as the drawing
+drifting rather than holding still.

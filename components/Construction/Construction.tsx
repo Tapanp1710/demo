@@ -23,7 +23,7 @@ import styles from './Construction.module.css';
  * section no longer needs a scroll track at all.
  */
 type Shot = { stem: string; widths: number[]; w: number; h: number };
-export type StatusEntry = { date: string; slug: string; images: Shot[] };
+export type StatusEntry = { date: string; slug: string; video: string | null; images: Shot[] };
 
 export default function Construction({ entries }: { entries: StatusEntry[] }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -127,7 +127,15 @@ export default function Construction({ entries }: { entries: StatusEntry[] }) {
             ))}
           </div>
         ) : (
-          <VideoFacade id={construction.videoId} title={construction.videoTitle} className={styles.video} />
+          /* No photographs that month — it was a film update. Three of the
+             twenty are: the site published a video and nothing else, which is
+             why they looked empty before the manifest carried the id. */
+          <VideoFacade
+            key={shown.slug}
+            id={shown.video ?? construction.videoId}
+            title={`${site.name} construction update — ${shown.date}`}
+            className={styles.video}
+          />
         )}
         <Link href={construction.ctaHref} className={styles.cta}>{construction.ctaLabel}</Link>
       </div>

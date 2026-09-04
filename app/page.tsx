@@ -12,16 +12,13 @@ import MasterPlan from '@/components/MasterPlan/MasterPlan';
 import FloorPlans from '@/components/FloorPlans/FloorPlans';
 import Location from '@/components/Location/Location';
 import Specifications from '@/components/Specifications/Specifications';
-import Construction from '@/components/Construction/Construction';
 import Testimonials from '@/components/Testimonials/Testimonials';
 import Footer from '@/components/Footer/Footer';
 import StickyCTA from '@/components/StickyCTA/StickyCTA';
 import { site, legal, amenities, floorPlans, contact, phone } from '@/lib/content';
-import statusManifest from '@/lib/status-manifest.json';
 import styles from './page.module.css';
 
 /** Only the dates and photo counts reach the client — not the 16 KB manifest. */
-const CONSTRUCTION_ENTRIES = statusManifest;
 
 /**
  * Section order follows the source site so every anchor and every piece of
@@ -110,7 +107,7 @@ export default function Home() {
       <StructuredData />
 
       <main id="main" className={styles.main}>
-        {/* Hero, MasterPlan, FloorPlans and Construction own scroll tracks
+        {/* Hero, MasterPlan and FloorPlans own scroll tracks
             already and hold longer than one screen — they are not wrapped. */}
         <Hero />
         
@@ -130,8 +127,8 @@ export default function Home() {
         {/* <ParallaxOpener word="Specifications" images={SPEC_OPENER} ground="light" /> */}
         <Hold ground="light"><Specifications /></Hold>
 
-        <Construction entries={CONSTRUCTION_ENTRIES} />
-        <Hold ground="light"><Testimonials /></Hold>
+        {/* The construction updates live on /project-status/ now. */}
+        {/* <Hold ground="light"><Testimonials /></Hold> */}
         {/* The lead form is a dialog now — see components/ContactDialog. */}
       </main>
 

@@ -57,7 +57,9 @@
   /* The panel's content may not paint outside its share of the column. */
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(10rem, 13rem) 1fr;
+  /* Bodoni sets wider than Cormorant did — 13rem broke "Schools &
+     Institutions" onto two lines. */
+  grid-template-columns: minmax(11rem, 15rem) 1fr;
   gap: var(--s-6);
   align-items: stretch;
 }
@@ -167,7 +169,9 @@
 }
 .list li {
   display: flex;
-  align-items: center;
+  /* Top, not centre. A name that wraps to two lines put the marker halfway
+     down the pair, which read as a bullet belonging to neither line. */
+  align-items: flex-start;
   gap: var(--s-3);
   font-size: var(--t-small);
   color: var(--ink-muted);
@@ -179,6 +183,8 @@
   flex: none;
   width: 0.3rem;
   height: 0.3rem;
+  /* Centres the dot on the FIRST line's box rather than on the whole item. */
+  margin-top: 0.62em;
   border-radius: var(--radius-pill);
   background: var(--ink-accent);
 }
@@ -211,13 +217,28 @@
    have — below that the names ran past the bottom of their box and were
    clipped. Two columns of seven need 203px; seven auto rows need whatever
    they need. The count is what changes, never the text size. */
+/* MULTICOL here, not the grid. A fixed seven rows plus `grid-auto-flow:
+   column` puts item 8 in an IMPLICIT column, and an implicit column takes
+   whatever width is left — 97px on a short 1280 window, which is what wrapped
+   "CARE Super Speciality Hospital" onto four lines. Multicol picks the column
+   COUNT from the width available, so it can never make one too narrow to
+   hold a name. */
 @media (max-height: 820px) {
+  /* The names take the width here and the photograph gives it up. Measured:
+     at 0.5fr the names column is 292px, which holds ONE 12rem column, and the
+     14 offices then need 402px of a 356px panel and lose the last two. At 1fr
+     it is ~450px, which holds two — seven rows, 203px, comfortable. */
+  .panel { grid-template-columns: minmax(0, 1fr) minmax(0, 0.55fr); }
   .list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(7, minmax(min-content, 1fr));
-    grid-auto-flow: column;
-    column-gap: var(--s-5);
+    display: block;
+    /* Height must stay INDEFINITE here. Stretched to the row, multicol treats
+       that as a fill target and spills the tail into a second column, which
+       ends up painted across the photograph beside it. */
+    align-self: start;
+    column-width: 12rem;
+    column-gap: var(--s-6);
   }
+  .list li { break-inside: avoid; padding: 0.2em 0; font-size: var(--t-caption); }
 }
 @media (max-height: 640px) {
   .list { grid-template-rows: repeat(7, min-content); align-content: start; }

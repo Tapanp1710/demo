@@ -200,8 +200,10 @@ export const locationCards: LocationCard[] = [
     title: 'Schools & Institutions',
     image: '/images/location/schools',
     alt: 'A school campus in the neighbourhood surrounding Bricks Marvella',
+    /* Ten, not twelve. Epistemo Global and Vista School came out — the two
+       least recognisable of the set, so the cut costs the least. */
     items: ['The Gaudium School', 'Manthan School', 'Indus International School', 'St. Xavier’s PG College',
-      'Sancta Maria School', 'Epistemo Global', 'Vista School', 'TIFR', 'ISB', 'Kendriya Vidyalaya',
+      'Sancta Maria School', 'TIFR', 'ISB', 'Kendriya Vidyalaya',
       'Oakridge International School', 'Delhi Public School'],
   },
   {
@@ -410,7 +412,8 @@ export const sectionIndex = [
   { n: '04', label: 'Master Plan', href: `/#${anchors.masterPlan}` },
   { n: '05', label: 'Residences', href: `/#${anchors.floorPlan}` },
   { n: '06', label: 'Specifications', href: `/#${anchors.specifications}` },
-  { n: '07', label: 'Construction', href: `/#${anchors.construction}` },
+  /* The updates moved off the home page onto their own route. */
+  { n: '07', label: 'Construction', href: '/project-status/' },
   { n: '08', label: 'Contact', href: `/#${anchors.contact}` },
 ] as const;
 

@@ -11,32 +11,39 @@
   /* ---------------------------------------------------------------------
      COLOUR — primitives
 
-     Accent is the brand's own #d7955d (warm tan-gold). On the old site it
-     existed only as 22 hardcoded inline values with no token layer.
-     The neutral ramp is warm-biased (hue pulled toward the accent) so greys
-     sit with the gold instead of fighting it — a neutral grey reads as
-     unconsidered next to a warm accent.
+     DEEP INK-GREEN / BONE / ANTIQUE BRASS.
+
+     The near-blacks carry a green undertone rather than being neutral: a true
+     neutral black is inert, and a green-black reads as depth. It also sits
+     better under photography of buildings and landscape, which is most of
+     what this site shows.
+
+     The accent is aged brass, not bright gold. Bright gold on dark is the
+     combination that looks cheap at scale, and it is the default every other
+     property site reaches for.
      --------------------------------------------------------------------- */
-  --c-accent-400: #e3ac7d;   /* hover / light-surface lift */
-  --c-accent-500: #d7955d;   /* THE brand accent */
+  --c-accent-400: #d4b87a;   /* brass-soft — hover / highlight */
+  --c-accent-500: #b08d4f;   /* THE accent — antique brass */
 
   /* Gold, for the wordmark in the nav bar. Warmer and more yellow than the
      bronze accent so it reads as gold rather than as the accent again, and
      light enough to hold contrast on the bar's fixed dark ground. Used ONLY
      on that constant-dark bar — it is not a ground-aware token and would not
      survive the light ground. */
-  --c-gold-400: #e8c57a;
-  --c-gold-500: #d9ae55;
+  --c-gold-400: #e2caa0;
+  --c-gold-500: #d4b87a;
   /* Gold as TEXT on the LIGHT ground. #d9ae55 is 1.85:1 there and fails
      outright; this is 5.35:1. --ink-gold below crossfades between them on the
      same curve as every other ink token. */
-  --c-gold-700: #7d5f1a;
-  --c-accent-600: #ce8e60;   /* the site's second, darker gold */
+  --c-gold-700: #6e5527;
+  --c-accent-600: #9c7c45;   /* the darker brass */
   /* Accent-as-TEXT on the light ground. Measured, not assumed: the brand
      #d7955d is 2.25:1 on the light ground and fails outright as text; #a86c3c
      is 3.86:1 and #945d32 is 4.86:1 on the base ground but only 4.41:1 on the
      RAISED light ground. #8c582e clears AA on both (5.30:1 / 4.80:1). */
-  --c-accent-700: #8c582e;
+  /* Brass as TEXT on the light ground. The brief's #8a6d33 measured 4.47:1
+     against the bone ground — just under AA — so it is two steps darker. */
+  --c-accent-700: #87692f;
 
   /* Warm neutral ramp, 9 steps, dark -> light */
   /* The MID stage: a warm grey the ground passes through between the two ends.
@@ -45,25 +52,36 @@
      L=0.042, and a true mid grey (L~0.2) puts them at 2:1. At L 0.030/0.042
      the mid is still six to eight times the stage's luminance, so it reads
      clearly as a third stop, and every ink pair survives it. */
-  --c-mid-600: #3a352e;      /* raised surfaces at mid — L 0.042 */
-  --c-mid-700: #2f2b26;      /* the mid ground itself   — L 0.030 */
+  /* Both are bounded by the ANTIQUE BRASS as ink on the raised mid surface,
+     which is the tightest pair in the set: brass is darker than the old gold
+     was, so the mid had to come down with it. At these values brass is 4.68:1
+     and the faint step 5.07:1 on the raised mid. */
+  --c-mid-600: #232b26;      /* raised surfaces at mid */
+  --c-mid-700: #1a201d;      /* the mid ground itself */
 
-  --c-n-900: #14120f;        /* deepest stage */
-  --c-n-800: #1c1a16;        /* immersive section ground */
-  --c-n-700: #262320;
-  --c-n-600: #38342f;
-  --c-n-500: #5c564e;
-  --c-n-450: #6e675f;        /* 4.99:1 on --bg-page — the faint text step */
-  --c-n-400: #8a8279;        /* 3.39:1 on --bg-page — large text only */
+  --c-n-900: #0b0f0d;        /* deepest stage — near-black, green undertone */
+  --c-n-800: #141a17;        /* raised surfaces on the dark ground */
+  --c-n-700: #1e2622;
+  --c-n-600: #2f3a34;
+  --c-n-500: #5a5f59;        /* muted text on the light ground */
+  --c-n-450: #6b706a;        /* the faint text step on light */
+  --c-n-400: #8a8f88;        /* large text only on light */
   /* The faint step used on DARK grounds. #8a8279 was 4.94:1 on the deepest
      stage and fell straight through 4.5 once the ground lifted toward the mid
      grey; this holds 7.85:1 on the stage and 4.83:1 on the mid. */
-  --c-n-350: #aca69c;
-  --c-n-300: #b5ada2;
-  --c-n-200: #ddd6cb;
-  --c-n-100: #ece7de;
-  --c-n-50:  #f6f2ea;        /* warm off-white — pure white reads cheap */
+  --c-n-350: #9a998f;        /* faint text on the dark ground */
+  --c-n-300: #a8a79e;        /* muted text on the dark ground */
+  --c-n-200: #cfcdc4;
+  --c-n-100: #ffffff;        /* raised surfaces on the light ground */
+  --c-n-50:  #f7f5f0;        /* the light ground — warm bone */
   --c-white: #ffffff;
+
+  /* The two roles the ramp would otherwise collapse into one value. The bone
+     TEXT on dark is a shade warmer and deeper than the bone GROUND, and the
+     ink on light is lifted off the deep ground so it reads as ink rather than
+     as a hole in the page. */
+  --c-bone:    #f4f1ea;      /* primary text on the dark ground */
+  --c-ink-900: #161b18;      /* primary text on the light ground */
 
   /* ---------------------------------------------------------------------
      COLOUR — semantic
@@ -76,10 +94,10 @@
   --bg-page-raised:  var(--c-n-100);
 
   /* Contrast against --bg-stage, all measured and AA-passing at body size. */
-  --ink-on-stage:        var(--c-n-50);    /* 16.75:1 */
+  --ink-on-stage:        var(--c-bone);
   --ink-on-stage-muted:  var(--c-n-300);   /* 8.43:1 */
   --ink-on-stage-faint:  var(--c-n-400);   /* 4.94:1 */
-  --ink-on-page:         var(--c-n-900);   /* 16.75:1 */
+  --ink-on-page:         var(--c-ink-900);
   --ink-on-page-muted:   var(--c-n-500);   /* 6.49:1 */
   --ink-on-page-faint:   var(--c-n-450);   /* 4.99:1 — was n-400 at 3.39:1, which failed AA */
 
@@ -89,8 +107,8 @@
   --ink-on-accent:     var(--c-n-900);       /* text on an accent-filled button */
 
   /* Hairlines — structure by line, not by shadow. A luxury-print cue. */
-  --rule-on-stage: rgba(236, 231, 222, 0.16);
-  --rule-on-page:  rgba(20, 18, 15, 0.14);
+  --rule-on-stage: #262e29;
+  --rule-on-page:  #e2ded4;
   --rule-accent:   var(--c-accent-500);
 
   /* ---------------------------------------------------------------------
@@ -137,7 +155,7 @@
   --ink-t: 0;
   --im: clamp(0%, calc(var(--ink-t) * 100%), 100%);
 
-  --ink:           color-mix(in oklab, var(--c-n-50),  var(--c-n-900) var(--im));
+  --ink:           color-mix(in oklab, var(--c-bone),  var(--c-ink-900) var(--im));
   --ink-muted:     color-mix(in oklab, var(--c-n-300), var(--c-n-500) var(--im));
   --ink-faint:     color-mix(in oklab, var(--c-n-350), var(--c-n-450) var(--im));
   --ink-accent:    color-mix(in oklab, var(--c-accent-500), var(--c-accent-700) var(--im));
@@ -148,14 +166,14 @@
 
   /* ---------------------------------------------------------------------
      TYPE
-     Display: high-contrast serif (Cormorant Garamond, variable, OFL).
-     Text: neutral grotesque (Inter, variable, OFL).
+     Display: high-contrast didone (Bodoni Moda, variable, OFL).
+     Text: geometric sans (Jost, variable, OFL).
      Families are injected by next/font via layout.tsx, which sets
      --font-display / --font-text; the fallbacks keep metrics sane if that
      ever fails to load.
      --------------------------------------------------------------------- */
-  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-text: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-bodoni), "Bodoni Moda", "Bodoni MT", Didot, "Times New Roman", serif;
+  --font-text: var(--font-jost), Jost, Futura, "Century Gothic", system-ui, sans-serif;
 
   /* Fluid ramp. Display sizes are set tight; body stays generous. */
   --t-display-1: clamp(3.25rem, 1.6rem + 6.9vw, 8rem);
@@ -163,10 +181,13 @@
   --t-display-3: clamp(2rem, 1.35rem + 2.7vw, 3.75rem);
   --t-heading:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
   --t-subhead:   clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
-  --t-body:      clamp(1rem, 0.97rem + 0.14vw, 1.0625rem);
-  --t-small:     0.9375rem;
-  --t-caption:   0.8125rem;
-  --t-eyebrow:   0.75rem;
+  /* The text scale is one step up from where Inter had it. Jost's x-height is
+     about 0.50em against Inter's 0.73em, so the same pixel size reads a third
+     smaller — this restores the apparent size rather than enlarging anything. */
+  --t-body:      clamp(1.0625rem, 1.03rem + 0.15vw, 1.125rem);
+  --t-small:     1rem;
+  --t-caption:   0.875rem;
+  --t-eyebrow:   0.8rem;
 
   --lh-display: 1.05;
   --lh-heading: 1.15;

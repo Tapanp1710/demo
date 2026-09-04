@@ -14,14 +14,17 @@
   margin: 0 auto;
   padding: var(--s-4) var(--gutter);
   padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
-  /* Quote and body share the top row; the film takes every pixel the two of
-     them leave. Before, the whole block was centred with `overflow: hidden`
-     around it, so anything that did not fit was cut off BOTH ends — the top of
-     the heading and the bottom of the film at the same time. */
+  /* Heading and film run down the LEFT column, the body sits beside them on
+     the right. Rows are content-sized and the pair is centred in the section,
+     so what is left over is split above and below rather than pooling under
+     the film. (Before this the whole block was centred inside
+     `overflow: hidden`, which cut BOTH ends at once — the top of the heading
+     and the bottom of the film together.) */
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto minmax(0, 1fr);
-  gap: var(--s-5) var(--s-8);
+  grid-template-columns: 1.15fr 1fr;
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: var(--s-6) var(--s-8);
   align-items: start;
 }
 
@@ -41,7 +44,9 @@
 }
 
 .left  { grid-column: 1; grid-row: 1; }
-.right { grid-column: 2; grid-row: 1; }
+/* Beside the FILM, not beside the heading. Row 1 holds the heading alone, so
+   the body starts on the film's top edge rather than level with the eyebrow. */
+.right { grid-column: 2; grid-row: 2; align-self: start; }
 
 .body {
   max-width: var(--measure);
@@ -55,18 +60,16 @@
 .body { overflow: hidden; }
 .word { display: inline-block; }
 
-/* Sized by the height the row above leaves, width derived from that. */
+/* Under the heading, in the left column, at its own 16:9. */
 .video {
-  grid-column: 1 / -1;
+  grid-column: 1;
   grid-row: 2;
-  height: 100%;
-  width: auto;
+  width: 100%;
   max-width: 100%;
-  justify-self: center;
 }
 
 @media (max-width: 991px) {
-  .inner { grid-template-columns: 1fr; grid-template-rows: auto auto minmax(0, 1fr); gap: var(--s-4); }
+  .inner { grid-template-columns: 1fr; grid-template-rows: auto auto auto; gap: var(--s-4); }
   .left  { grid-column: 1; grid-row: 1; }
   .right { grid-column: 1; grid-row: 2; }
   .video { grid-column: 1; grid-row: 3; }

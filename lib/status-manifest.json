@@ -2,11 +2,13 @@
  {
   "date": "July 2026",
   "slug": "july-2026",
+  "video": "J2ctBmVASO4",
   "images": []
  },
  {
   "date": "June 2026",
   "slug": "june-2026",
+  "video": null,
   "images": [
    {
     "stem": "/status/june-2026-01",
@@ -81,6 +83,7 @@
  {
   "date": "April 2026",
   "slug": "april-2026",
+  "video": "ycfaNOm-Plw",
   "images": [
    {
     "stem": "/status/april-2026-01",
@@ -359,6 +362,7 @@
  {
   "date": "December 2025",
   "slug": "december-2025",
+  "video": "1yMIANuZTCs",
   "images": [
    {
     "stem": "/status/december-2025-01",
@@ -464,11 +468,13 @@
  {
   "date": "November 2025",
   "slug": "november-2025",
+  "video": "Yt5lhZbUMfA",
   "images": []
  },
  {
   "date": "October 2025",
   "slug": "october-2025",
+  "video": null,
   "images": [
    {
     "stem": "/status/october-2025-01",
@@ -587,6 +593,7 @@
  {
   "date": "August 2025",
   "slug": "august-2025",
+  "video": null,
   "images": [
    {
     "stem": "/status/august-2025-01",
@@ -647,6 +654,7 @@
  {
   "date": "June 2025",
   "slug": "june-2025",
+  "video": null,
   "images": [
    {
     "stem": "/status/june-2025-01",
@@ -716,11 +724,13 @@
  {
   "date": "February 2025",
   "slug": "february-2025",
+  "video": "9kOd7XXIGjo",
   "images": []
  },
  {
   "date": "August 2024",
   "slug": "august-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/august-2024-01",
@@ -763,6 +773,7 @@
  {
   "date": "July 2024",
   "slug": "july-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/july-2024-01",
@@ -805,6 +816,7 @@
  {
   "date": "June 2024",
   "slug": "june-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/june-2024-01",
@@ -847,6 +859,7 @@
  {
   "date": "May 2024",
   "slug": "may-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/may-2024-01",
@@ -889,6 +902,7 @@
  {
   "date": "April 2024",
   "slug": "april-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/april-2024-01",
@@ -931,6 +945,7 @@
  {
   "date": "March 2024",
   "slug": "march-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/march-2024-01",
@@ -973,6 +988,7 @@
  {
   "date": "February 2024",
   "slug": "february-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/february-2024-01",
@@ -1015,14 +1031,16 @@
  {
   "date": "January 2024",
   "slug": "january-2024",
+  "video": null,
   "images": [
    {
     "stem": "/status/january-2024-01",
     "widths": [
+     1200,
      700
     ],
-    "w": 1024,
-    "h": 576
+    "w": 1280,
+    "h": 720
    },
    {
     "stem": "/status/january-2024-02",
@@ -1038,44 +1056,11 @@
     "widths": [
      700
     ],
-    "w": 1024,
-    "h": 576
-   },
-   {
-    "stem": "/status/january-2024-04",
-    "widths": [
-     1200,
-     700
-    ],
-    "w": 1280,
-    "h": 720
-   },
-   {
-    "stem": "/status/january-2024-05",
-    "widths": [
-     700
-    ],
-    "w": 1024,
-    "h": 473
-   },
-   {
-    "stem": "/status/january-2024-06",
-    "widths": [
-     700
-    ],
     "w": 1152,
     "h": 532
    },
    {
-    "stem": "/status/january-2024-07",
-    "widths": [
-     700
-    ],
-    "w": 1024,
-    "h": 473
-   },
-   {
-    "stem": "/status/january-2024-08",
+    "stem": "/status/january-2024-04",
     "widths": [
      700
     ],
@@ -1087,6 +1072,7 @@
  {
   "date": "December 2023",
   "slug": "december-2023",
+  "video": null,
   "images": [
    {
     "stem": "/status/december-2023-01",
@@ -1125,6 +1111,7 @@
  {
   "date": "November 2023",
   "slug": "november-2023",
+  "video": null,
   "images": [
    {
     "stem": "/status/november-2023-01",
@@ -1164,6 +1151,7 @@
  {
   "date": "October 2023",
   "slug": "october-2023",
+  "video": null,
   "images": [
    {
     "stem": "/status/october-2023-01",

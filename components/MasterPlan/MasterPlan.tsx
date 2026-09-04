@@ -67,25 +67,19 @@ export default function MasterPlan() {
          * changes with the viewport, so a fixed percentage is only round at one
          * size. Function-based values re-run on every refresh.
          */
-        const OPEN_D = 0.57;   // circle diameter, as a share of viewport height
+        /**
+         * The opening shape is the WIDE CURVED RECTANGLE — not a circle, and
+         * not the smaller rectangle it briefly was. A circle showed about a
+         * third of the drawing and cropped the legend for most of the scroll;
+         * this shows the whole site, legend included, from the first frame and
+         * only loses its margins as you scroll.
+         *
+         * The corner radius is an explicit pixel value. `round 50%` resolves
+         * against the inset rectangle and gets clamped, which draws a squircle
+         * whose curvature changes with the viewport.
+         */
 
-        /** Insets that leave a centred SQUARE of OPEN_D x 100svh. */
-        const circleMask = () => {
-          const el = frame.current;
-          if (!el) return 'inset(0% 34% 0% 34% round 50%)';
-          const { width, height } = el.getBoundingClientRect();
-          if (!width || !height) return 'inset(0% 34% 0% 34% round 50%)';
-          const d = Math.min(window.innerHeight * OPEN_D, width, height);
-          const x = ((width - d) / 2 / width) * 100;
-          const y = ((height - d) / 2 / height) * 100;
-          /* An explicit PIXEL radius, not `round 50%`. A percentage radius
-             resolves against the inset rectangle and gets clamped, which drew
-             a squircle rather than a circle. Half the square's side is exactly
-             a circle, at any viewport. */
-          return `inset(${y.toFixed(2)}% ${x.toFixed(2)}% round ${(d / 2).toFixed(1)}px)`;
-        };
-
-        /** Halfway: a wide rounded rectangle, still inset from the frame. */
+        /** The resting shape: a wide rounded rectangle inset from the frame. */
         const rectMask = () => {
           const el = frame.current;
           if (!el) return 'inset(0% 8% round 24px)';
@@ -95,12 +89,12 @@ export default function MasterPlan() {
         };
 
         tl.fromTo(frame.current,
-          { clipPath: circleMask },
-          { clipPath: rectMask, ease: EASE.scrub, duration: 0.55 }, 0)
-          .to(frame.current,
-            { clipPath: 'inset(0% 0% round 0px)', ease: EASE.scrub, duration: 0.45 }, 0.55);
+          { clipPath: rectMask },
+          { clipPath: 'inset(0% 0% round 0px)', ease: EASE.scrub, duration: 1 }, 0);
 
-        tl.fromTo(img.current, { scale: 1.15 }, { scale: 1, ease: EASE.scrub, duration: 1 }, 0);
+        /* A gentler counter-scale than before: the mask now travels a fraction
+           of what it did, and 1.15 against that read as the image drifting. */
+        tl.fromTo(img.current, { scale: 1.06 }, { scale: 1, ease: EASE.scrub, duration: 1 }, 0);
       });
     }, root);
     return () => ctx.revert();

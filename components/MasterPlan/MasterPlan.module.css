@@ -67,7 +67,9 @@
   max-width: 100%;
   justify-self: center;
   align-self: center;
-  clip-path: inset(0% 34% 0% 34% round 50%);
+  /* The resting shape before the scrub builds, matching the first frame the
+     timeline sets. */
+  clip-path: inset(12% 8% round 24px);
   overflow: hidden;
 }
 
