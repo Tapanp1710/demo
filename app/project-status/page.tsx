@@ -4,7 +4,6 @@ import Nav from '@/components/Nav/Nav';
 import Construction from '@/components/Construction/Construction';
 import Footer from '@/components/Footer/Footer';
 import StickyCTA from '@/components/StickyCTA/StickyCTA';
-import GroundProvider from '@/components/GroundProvider/GroundProvider';
 import { site, legal, construction } from '@/lib/content';
 import statusManifest from '@/lib/status-manifest.json';
 import styles from './status.module.css';
@@ -33,7 +32,6 @@ export default function ProjectStatusPage() {
 
   return (
     <>
-      <GroundProvider />
       <Nav standalone />
 
       {/* The timeline that used to sit on the home page. This is its subject,
@@ -41,7 +39,7 @@ export default function ProjectStatusPage() {
           the archive below. */}
       <Construction entries={statusManifest} />
 
-      <main id="main" className={styles.page} data-ground="stage">
+      <main id="main" className={styles.page} data-ground="light">
         <header className={styles.head}>
           <p className={styles.eyebrow}>{construction.eyebrow}</p>
           <h1 className={styles.title}>Construction Status</h1>

@@ -1,5 +1,4 @@
 import SmoothScroll from '@/components/SmoothScroll/SmoothScroll';
-import GroundProvider from '@/components/GroundProvider/GroundProvider';
 import Nav from '@/components/Nav/Nav';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
@@ -23,7 +22,7 @@ import styles from './page.module.css';
 /**
  * Section order follows the source site so every anchor and every piece of
  * content keeps its place. Grounds alternate stage → light → stage … driven by
- * the data-ground attribute each section sets; GroundProvider reads them.
+ * the data-ground attribute each section sets; tokens.css reads them.
  */
 
 // REMOVED FROM THE PAGE — do not re-add. These fed ParallaxOpener only.
@@ -102,7 +101,6 @@ export default function Home() {
   return (
     <>
       <SmoothScroll />
-      <GroundProvider />
       <Nav />
       <StructuredData />
 
@@ -112,7 +110,7 @@ export default function Home() {
         <Hero />
         
         {/* The stat band's six figures now flank the master plan. */}
-        <Hold ground="stage"><About /></Hold>
+        <Hold ground="light"><About /></Hold>
         {/* <DroneCube /> */}
 
         {/* <ParallaxOpener word="Amenities" images={AMENITY_OPENER} ground="stage" /> */}
@@ -122,7 +120,7 @@ export default function Home() {
         {/* <ParallaxOpener word="Residences" images={RESIDENCES_OPENER} ground="light" /> */}
         <FloorPlans />
 
-        <Hold ground="stage"><Location /></Hold>
+        <Hold ground="light"><Location /></Hold>
 
         {/* <ParallaxOpener word="Specifications" images={SPEC_OPENER} ground="light" /> */}
         <Hold ground="light"><Specifications /></Hold>

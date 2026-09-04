@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Nav from '@/components/Nav/Nav';
 import Footer from '@/components/Footer/Footer';
-import GroundProvider from '@/components/GroundProvider/GroundProvider';
 import { site } from '@/lib/content';
 import privacy from '@/lib/privacy-policy.json';
 import styles from './privacy.module.css';
@@ -26,7 +25,6 @@ export default function PrivacyPolicyPage() {
 
   return (
     <>
-      <GroundProvider />
       <Nav standalone />
 
       <main id="main" className={styles.page} data-ground="light">

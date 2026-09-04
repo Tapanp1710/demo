@@ -80,7 +80,7 @@
      --c-gold-700 over the light. A single gold cannot serve both — #d9ae55 is
      1.85:1 on the light ground. Rides --im, the same handover curve as --ink,
      so the wordmark and the labels change together. */
-  color: var(--ink-gold);
+  color: var(--nav-gold);
   white-space: nowrap;
   /* transform only. Promoting font-size would pin a raster at one size, which
      is exactly the blur this animation avoids by not using scale. */
@@ -90,7 +90,7 @@
 
 /* Pages with no hero: the mark just sits in the bar, same gold — the bar is
    the same constant dark there. */
-.markStandalone { color: var(--ink-gold); }
+.markStandalone { color: var(--nav-gold); }
 
 /* One cell on the right. It holds only the Menu button now — the RERA number
    and the phone both left the bar, because all three were laid on the same

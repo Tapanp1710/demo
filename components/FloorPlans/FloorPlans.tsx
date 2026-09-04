@@ -88,7 +88,7 @@ export default function FloorPlans() {
       ref={root}
       id={anchors.floorPlan}
       className={styles.section}
-      data-ground="light"
+      data-ground="stage"
       aria-labelledby="plans-heading"
       /* The scroll length is reserved in the document, not added later by a
          pin spacer. One deck-length per card, matching the timeline below. */

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Nav from '@/components/Nav/Nav';
 import Footer from '@/components/Footer/Footer';
 import StickyCTA from '@/components/StickyCTA/StickyCTA';
-import GroundProvider from '@/components/GroundProvider/GroundProvider';
 import { blogPosts, blogMeta } from '@/lib/content';
 import styles from './blog.module.css';
 
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
 export default function BlogIndex() {
   return (
     <>
-      <GroundProvider />
       <Nav standalone />
 
       <main id="main" className={styles.page} data-ground="light">

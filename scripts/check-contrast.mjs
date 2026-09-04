@@ -43,7 +43,7 @@ const PAGE = tok('c-n-50');
 const PAIRS = [
   ['body on stage', tok('c-n-50'), STAGE, 4.5],
   ['muted on stage', tok('c-n-300'), STAGE, 4.5],
-  ['faint on stage', tok('c-n-400'), STAGE, 4.5],
+  ['faint on stage', tok('c-n-350'), STAGE, 4.5],
   ['accent on stage', tok('c-accent-500'), STAGE, 4.5],
   ['accent-400 on stage', tok('c-accent-400'), STAGE, 4.5],
   ['body on page', tok('c-n-900'), PAGE, 4.5],
@@ -52,7 +52,7 @@ const PAIRS = [
   ['accent text on page', tok('c-accent-700'), PAGE, 4.5],
   ['dark ink on accent button', tok('c-n-900'), tok('c-accent-500'), 4.5],
   ['muted on raised stage', tok('c-n-300'), tok('c-n-800'), 4.5],
-  ['faint on raised stage', tok('c-n-400'), tok('c-n-800'), 4.5],
+  ['faint on raised stage', tok('c-n-350'), tok('c-n-800'), 4.5],
 ];
 
 /**
@@ -88,104 +88,10 @@ for (const [label, fg, bg, min] of PAIRS) {
 
 // The raw brand accent must never be used as text on the light ground.
 const raw = ratio(tok('c-accent-500'), PAGE);
-console.log(`\nnote  ${raw.toFixed(2)}:1  raw --c-accent-500 as text on --bg-page — background only, never text`);
+/* There is no ramp any more. The ground used to be scrubbed between two
+   colours and this walked every step of it, because the middle was where
+   light-on-grey and dark-on-grey both failed. The site now has two RESTING
+   grounds and nothing in between, so the pairs above are the whole story. */
 
-/* ---------------------------------------------------------------------------
-   THE RAMP.
-
-   The ground no longer crossfades between two colours: it passes through a mid
-   grey, and the ink hands over on its own, later curve. Checking the endpoints
-   alone would miss the entire middle — which is exactly where light-on-grey or
-   dark-on-grey fails. So walk t from 0 to 1 and check every step.
-
-   Mirrors tokens.css (--gm1 / --gm2) and GroundProvider (inkAt).
-   --------------------------------------------------------------------------- */
-const MID_700 = tok('c-mid-700');
-const MID_600 = tok('c-mid-600');
-
-/* CSS mixes in oklab; this interpolates in sRGB, which is close enough for a
-   contrast bound and keeps the script dependency-free. The difference shows up
-   as a slightly pessimistic ratio, never an optimistic one. */
-const lerpHex = (a, b, f) => {
-  const A = [1, 3, 5].map((i) => parseInt(a.slice(i, i + 2), 16));
-  const B = [1, 3, 5].map((i) => parseInt(b.slice(i, i + 2), 16));
-  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * f).toString(16).padStart(2, '0')).join('');
-};
-const clamp01 = (v) => Math.min(1, Math.max(0, v));
-
-const groundAt = (t) =>
-  lerpHex(lerpHex(STAGE, MID_700, clamp01(t * 2)), PAGE, smoother(clamp01(t * 2 - 1)));
-const groundRaisedAt = (t) =>
-  lerpHex(lerpHex(tok('c-n-800'), MID_600, clamp01(t * 2)), tok('c-n-100'), smoother(clamp01(t * 2 - 1)));
-const smoother = (x) => x * x * x * (x * (x * 6 - 15) + 10);
-const inkAt = (t) => { const x = clamp01((t - 0.735) / 0.04); return x * x * (3 - 2 * x); };
-
-const INK_PAIRS = [
-  ['ink', tok('c-n-50'), tok('c-n-900')],
-  ['ink-muted', tok('c-n-300'), tok('c-n-500')],
-  ['ink-faint', tok('c-n-350'), tok('c-n-450')],
-  ['ink-accent', tok('c-accent-500'), tok('c-accent-700')],
-  ['ink-gold (nav wordmark)', tok('c-gold-500'), tok('c-gold-700')],
-];
-
-let rampWorst = null;
-const rampFails = [];
-for (let i = 0; i <= 100; i++) {
-  const t = i / 100;
-  const im = inkAt(t);
-  for (const [name, from, to] of INK_PAIRS) {
-    const fg = lerpHex(from, to, im);
-    for (const [surface, bg] of [['ground', groundAt(t)], ['raised', groundRaisedAt(t)]]) {
-      const r = ratio(fg, bg);
-      const rec = { t, name, surface, r, fg, bg };
-      if (!rampWorst || r < rampWorst.r) rampWorst = rec;
-      if (r < 4.5) rampFails.push(rec);
-    }
-  }
-}
-
-/* The three RESTING stops are the hard requirement: they are what a reader
-   actually reads on, because the ramp only moves while a boundary is being
-   scrubbed. Every ink family must clear 4.5:1 on all three. */
-const RESTS = [['stage', 0], ['mid', 0.5], ['page', 1]];
-let restFailed = 0;
-console.log('');
-console.log('--- resting grounds (what a reader actually reads on) ---');
-for (const [label, rt] of RESTS) {
-  for (const [name, from, to] of INK_PAIRS) {
-    const fg = lerpHex(from, to, inkAt(rt));
-    for (const [surface, bg] of [['ground', groundAt(rt)], ['raised', groundRaisedAt(rt)]]) {
-      const r = ratio(fg, bg);
-      const ok = r >= 4.5;
-      if (!ok) restFailed++;
-      console.log('  ' + (ok ? 'PASS' : 'FAIL') + '  ' + r.toFixed(2).padStart(6) + ':1  ' + name + ' on ' + label + ' ' + surface + '  ' + fg + ' on ' + bg);
-    }
-  }
-}
-failed += restFailed;
-
-console.log('\n--- ground ramp, t = 0..1 in 1% steps (stage -> mid -> page) ---');
-console.log(`  mid ground ${MID_700}    mid raised ${MID_600}`);
-console.log(`  worst over the whole ramp: ${rampWorst.r.toFixed(2)}:1  (${rampWorst.name} on ${rampWorst.surface} at t=${rampWorst.t.toFixed(2)}, ${rampWorst.fg} on ${rampWorst.bg})`);
-if (rampFails.length) {
-  const ts = [...new Set(rampFails.map((f) => f.t))].sort((a, b) => a - b);
-  const byName = {};
-  for (const f of rampFails) (byName[f.name] ??= []).push(f.t);
-  console.log(`  TRANSITIONAL dip below 4.5:1 across t ${ts[0].toFixed(2)}..${ts[ts.length - 1].toFixed(2)}`);
-  for (const [name, list] of Object.entries(byName)) {
-    const lo = Math.min(...list), hi = Math.max(...list);
-    console.log(`    ${name.padEnd(11)} t ${lo.toFixed(2)}..${hi.toFixed(2)}  (${list.length} of 202 samples)`);
-  }
-  console.log('  This is inherent, not a defect: --c-accent-500 needs a ground below');
-  console.log('  L=0.042 and --c-accent-700 needs one above L=0.75, so NO ground');
-  console.log('  between them clears 4.5:1 for accent text. Any continuous dark->light');
-  console.log('  sweep crosses that gap. It is only crossed while a boundary is being');
-  console.log('  scrubbed; all three resting stops above pass.');
-} else {
-  console.log('  every ink pair clears 4.5:1 at every point on the ramp');
-}
-
-
-console.log(failed ? `\n${failed} check(s) below threshold` : '\nall pairs pass, at both ends and across the ramp');
+console.log(failed ? [String.fromCharCode(10), failed, ' pair(s) FAIL'].join('') : String.fromCharCode(10) + 'all pairs pass on both grounds');
 process.exit(failed ? 1 : 0);
-

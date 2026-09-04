@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import Nav from '@/components/Nav/Nav';
 import Footer from '@/components/Footer/Footer';
 import StickyCTA from '@/components/StickyCTA/StickyCTA';
-import GroundProvider from '@/components/GroundProvider/GroundProvider';
 import { blogPosts, site } from '@/lib/content';
 import styles from './post.module.css';
 
@@ -39,7 +38,6 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
 
   return (
     <>
-      <GroundProvider />
       <Nav standalone />
 
       <main id="main" className={styles.page} data-ground="light">

@@ -9,7 +9,7 @@ import styles from './Footer.module.css';
  */
 export default function Footer() {
   return (
-    <footer className={styles.footer} data-ground="stage">
+    <footer className={styles.footer} data-ground="light">
       <div className={styles.inner}>
         <div className={styles.brand}>
           <p className={styles.mark}>{site.name}</p>

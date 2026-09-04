@@ -875,3 +875,167 @@ Both towers and the whole legend are readable from the first frame.
 The image's counter-scale came down from 1.15 to 1.06 with it: the mask now
 travels a fraction of what it did, and 1.15 against that read as the drawing
 drifting rather than holding still.
+
+## 57. The ground stops moving: two resting palettes, forest and parchment
+
+GroundProvider is off every page. The scroll-driven inversion was the single
+most expensive thing in the design — the page changed colour under the reader,
+and the ramp had a transient contrast dip in the middle that no palette could
+avoid, only shorten. Neither is a luxury cue; both are effects.
+
+Now: **parchment everywhere, forest green on Amenities and Floor Plans.** Two
+resting palettes, no interpolation.
+
+**Neither ground is a neutral.** `#12281f` is a deep forest green, not a
+near-black with a hint of green — at the old `#0b0f0d` the hue was a rumour.
+`#f3eee2` is parchment, warm enough to read as paper rather than as an
+unpainted white, and the raised light is `#fbf8f0` rather than `#ffffff`.
+Brass sits on both.
+
+**A custom property is substituted where it is DECLARED, not where it is
+used.** Putting `--ground: color-mix(..., var(--gm1))` on `:root` and varying
+`--ground-t` per section does nothing: `--gm1` resolves against :root's value
+and the section inherits an already-resolved colour. This cost one build — the
+floor plans came back cream with `data-ground="stage"` on them. Each ground now
+restates the whole family, which is also simply clearer than a ramp with two
+stops.
+
+Two values moved to hold AA against the new grounds: `--c-accent-700`
+`#87692f` -> `#836529` (4.43:1 on parchment, now 4.70) and `--c-n-450`
+`#6b706a` -> `#666b65` (4.37 -> 4.70). The rules took the ground's hue with
+them: `#2a4034` on forest, `#e0d9c8` on parchment.
+
+The check-contrast script was testing a step the build had stopped using —
+`--c-n-400` as the dark faint, where `--ink-faint` on the dark ground is
+`--c-n-350`. Fixed, so the numbers describe the tokens that actually ship.
+
+## 58. The nav bar is a constant dark surface again
+
+Superseding #39. The wordmark is `position: fixed` and travels from over the
+dark hero photograph into the bar. With a bar that followed the ground it would
+have had to be dark gold over that photograph, which is unreadable. A deep bar
+over a parchment page is also the better-looking of the two, and it is the one
+constant the eye can hold while the sections alternate.
+
+`--nav-bg` / `--nav-ink` / `--nav-muted` / `--nav-rule` are fixed to the deep
+family, and `--nav-gold` is the bright `--c-gold-500` rather than the
+ground-aware `--ink-gold`.
+
+## 59. Warm charcoal and ivory, not forest and parchment
+
+Superseding #57's colours, not its structure. The green read as a colour
+DECISION rather than as a ground — it announced itself. The reference is an
+editorial lookbook: warm ivory paper with brown-black blocks and gold leaf, and
+the warmth is what makes the brass look like part of the palette instead of
+applied to it.
+
+| | ground | raised | rule |
+|---|---|---|---|
+| light — warm ivory | `#f1ede6` | `#faf7f1` | `#e3ddd2` |
+| dark — warm charcoal | `#262320` | `#2c2825` | `#3a3531` |
+
+The neutral ramp went warm with them (`#5c5850`, `#6a655d`, `#8d887f`) and the
+ink on light is `#1e1b18` — a brown-black, never a pure one. All 17 pairs pass;
+the tightest is brass-as-text on ivory at 4.66:1.
+
+The mid stops came out of tokens.css: they existed only to give the old scrub
+a third stop, and there is no scrub. check-contrast lost its ramp walk for the
+same reason — two resting grounds and nothing between them means the pair table
+IS the whole check.
+
+## 60. The marble is generated, and its brightness is a contrast budget
+
+The amenities section is dark marble. It is not a photograph: a stock texture
+is another licence to track and would not match the palette. `feTurbulence`
+builds it from the tokens' own charcoal and brass — fractal noise for the body
+of the stone, ridged noise (the turbulence folded about its midpoint, so the
+ridges come out as thin lines rather than soft blooms) for the veins, a second
+ridged pass in brass for the gold ones.
+
+It is rendered ONCE at build time, by headless Chrome, into a 2.4KB AVIF. The
+browser gets an image, not a filter to rasterise every paint.
+
+**The vein opacity is set by contrast, not by taste.** The brass eyebrow sits
+on this stone, and it needs its background below L=0.0252 to clear 4.5:1. The
+first pass reached L=0.078 at the brightest vein and took the eyebrow to
+2.80:1. Three iterations later the brightest pixel is L=0.032, and the section
+uses `--c-accent-400` rather than `--c-accent-500` for accent TEXT, which
+measures 6.82:1 against that worst case where the 500 is 4.22:1. The filled
+category pill keeps the 500 — it is a shape, and its own label is dark on top
+of it.
+
+The band behind the arc had to become translucent (`--ground-raised` at 55%);
+opaque, it painted straight over the middle of the stone and left the texture
+visible only in the margins.
+
+## 61. Bronze light on brown-black, not a grey slab
+
+The dark sections were a flat warm charcoal. The reference is bronze light
+falling across dark stone — the ground is browner, and a large off-centre amber
+bloom does most of the work.
+
+`--c-n-900` went `#262320` -> `#201a14` (brown-black, not a neutral with a
+warm hint), raised `#2a2219`, rules `#3d3227`, and the neutral ramp warmed with
+them. `--glow-stage` is two layers reused by both dark sections: an off-centre
+radial of `--c-accent-700` and a vignette that pulls the corners back down.
+Amenities stacks it over the marble; floor plans uses it alone.
+
+**The bloom's strength is the tightest contrast budget in the build, and I got
+it wrong twice.** Text on these sections sits on whatever the bloom does to the
+ground beneath it, so the peak composite is what has to clear AA — not the
+ground token. Measured analytically from the texture file and the gradient
+rather than by eye:
+
+| pass | bloom | marble peak | composite | worst pair |
+|---|---|---|---|---|
+| 1 | 21% | L 0.026 | L 0.046 | faint 3.82:1 FAIL |
+| 2 | 21% | L 0.019 | L 0.038 | faint 4.18:1 FAIL |
+| 3 | 18% | L 0.019 | L 0.038 | faint 5.53:1 |
+
+What made pass 3 work was not a weaker bloom but a lighter faint step:
+`--c-n-350` `#9a998f` -> `#b3b0a6`. That token exists only as `--ink-faint` on
+the dark ground, so lifting it costs nothing elsewhere, and the disclaimer is
+the only thing that reads at that weight over the brightest part of the glow.
+
+Accent TEXT on the dark ground is now `--c-accent-400` for both sections
+(`[data-ground='stage']`, not per-component): the 500 measures 3.53:1 on the
+bloom's peak and the 400 measures 6.24:1. The filled category pill keeps the
+500, because a filled shape has no contrast minimum and its own label is dark
+on top of it.
+
+## 62. Liquid bronze, and a scrim that masks strips rather than the whole
+
+Superseding the marble and the radial bloom of #60/#61. The dark sections now
+carry flowing gold on brown-black — the reference's molten metal, built the way
+that kind of image is built:
+
+    ribbons  ridged turbulence (noise folded about its midpoint with a steep
+             slope and a negative alpha offset) makes thin bright bands; a
+             SECOND, lower-frequency noise driving feDisplacementMap is what
+             makes those bands flow instead of ripple
+    bloom    the same ribbons at a coarser scale, blurred 34px, for the spill
+             of light around the bright edges
+    dust     one octave at 0.55, thresholded hard, for the gold specks
+
+Still rendered once at build time — `node scripts/build-bronze.mjs` — into a
+13KB AVIF. The old marble is deleted.
+
+**The scrim strategy changed, because the arithmetic forced it.** The texture
+crests at L=0.366, thirty times the ground. Dimming the whole thing enough to
+put text on it takes a 94% scrim, which is opaque — you would be looking at
+flat ground with an expensive image behind it. So each section masks only the
+strip its OWN text occupies and leaves the rest at full strength:
+`--scrim-band-y` for the amenities heading above and its controls below,
+`--scrim-band-x` for the floor plans rail down the left. Measured in the
+rendered page, the text zones sit at exactly `#201a14` — the ground colour,
+15.3:1 for the heading — while the bronze runs at full strength everywhere
+else.
+
+Those gradients interpolate `--c-n-900`, NOT `--ground`. I wrote `--ground`
+first and it painted an ivory band across the top of a dark section: the
+properties are declared on `:root`, and a custom property is substituted where
+it is declared, so `var(--ground)` there is the LIGHT ground. This is the
+second time that rule has cost a build — see #57.
+
+The blanket `.section::before` scrim came out with the marble. With the zoned
+masks doing the work it was greying the whole section, panels included.

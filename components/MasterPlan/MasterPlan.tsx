@@ -101,7 +101,7 @@ export default function MasterPlan() {
   }, [near]);
 
   return (
-    <section ref={root} id={anchors.masterPlan} className={styles.section} data-ground="stage" aria-labelledby="masterplan-heading">
+    <section ref={root} id={anchors.masterPlan} className={styles.section} data-ground="light" aria-labelledby="masterplan-heading">
       <div className={styles.sticky}>
       {/* The six project figures, split evenly either side of the plan. */}
       <div className={`${styles.rail} ${styles.railLeft}`}>
