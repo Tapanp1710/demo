@@ -56,112 +56,17 @@
     linear-gradient(to top, rgb(20 18 15 / 0.82) 0%, rgb(20 18 15 / 0.34) 52%, rgb(20 18 15 / 0.18) 100%);
 }
 
-.copy {
+/* The headline block is gone from the hero — the poster and the wordmark are
+   the whole composition now. The <h1> it carried remains in the document,
+   unpainted, because a page still needs one. */
+.srOnly {
   position: absolute;
-  z-index: 3;
-  left: var(--gutter);
-  right: var(--gutter);
-  top: 50%;
-  transform: translateY(-58%);
-  max-width: 46rem;
-  isolation: isolate;
-}
-
-/* Local vignette. The page-wide scrim alone cannot carry the eyebrow: at some
-   scrub positions a bright patch of sky sits directly behind it (measured at
-   2.20:1). This reads as natural falloff and takes the worst case to 5.85:1. */
-.copy::before {
-  content: '';
-  position: absolute;
-  inset: -46% -34% -60% -26%;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(
-    100deg,
-    rgb(20 18 15 / 0.96) 0%,
-    rgb(20 18 15 / 0.93) 34%,
-    rgb(20 18 15 / 0.72) 58%,
-    rgb(20 18 15 / 0) 88%
-  );
-}
-
-.eyebrow {
-  width: fit-content;   /* hug the glyphs; a full-width box reaches into bright sky */
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--c-accent-500);
-  margin-bottom: var(--s-4);
-}
-
-.headline {
-  font-size: var(--t-display-2);
-  color: var(--c-n-50);
-}
-.lineMask {
-  display: block;
+  width: 1px;
+  height: 1px;
   overflow: hidden;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
-
-/* The hero entrance is CSS, NOT GSAP. The sub-heading below is the LCP
-   element; animating it from opacity:0 in JavaScript meant LCP could not
-   fire until the bundle loaded and ran (6.4s, nearly all render delay).
-   A keyframe runs at first paint and costs nothing on the main thread. */
-.line {
-  display: block;
-  will-change: transform;
-  animation: lineRise 0.7s cubic-bezier(0.16, 0.84, 0.44, 1) backwards;
-  animation-delay: calc(var(--line-i, 0) * 0.09s + 0.15s);
-}
-.italic { font-style: italic; }
-
-@keyframes lineRise {
-  from { transform: translateY(110%); }
-  to   { transform: none; }
-}
-
-.sub {
-  margin-top: var(--s-5);
-  max-width: 34rem;
-  color: var(--c-n-200);
-  font-size: var(--t-subhead);
-  line-height: var(--lh-tight);
-  animation: subIn 0.4s cubic-bezier(0.16, 0.84, 0.44, 1) backwards;
-  animation-delay: 0.45s;
-}
-
-/* Transform ONLY — never opacity. This paragraph is the LCP element, and
-   `animation-fill-mode: backwards` pins it to the `from` state until the
-   animation actually starts. With opacity:0 in that state, a busy main thread
-   deferring the animation start also defers LCP (measured 6.2s, of which 5.7s
-   was render delay). A translated element is still painted, so LCP fires at
-   first paint and the motion is unchanged to the eye. */
-@keyframes subIn {
-  from { transform: translateY(18px); }
-  to   { transform: none; }
-}
-
-.ctas { display: flex; flex-wrap: wrap; gap: var(--s-4); margin-top: var(--s-6); }
-
-.ctaPrimary, .ctaGhost {
-  font-family: var(--font-text);
-  font-size: var(--t-small);
-  font-weight: var(--fw-medium);
-  padding: var(--s-4) var(--s-6);
-  border-radius: var(--radius-sm);
-  border: var(--hairline) solid transparent;
-  transition: background var(--dur-micro) var(--ease-ui),
-              color var(--dur-micro) var(--ease-ui),
-              border-color var(--dur-micro) var(--ease-ui);
-}
-.ctaPrimary { background: var(--c-accent-500); color: var(--c-n-900); border-color: var(--c-accent-500); }
-.ctaPrimary:hover { background: var(--c-accent-400); border-color: var(--c-accent-400); }
-.ctaGhost { color: var(--c-n-50); border-color: rgb(236 231 222 / 0.4); }
-.ctaGhost:hover { border-color: var(--c-accent-500); color: var(--c-accent-500); }
 
 /* Target box for the nav's fixed wordmark: oversized across the lower third,
    optically flush to both margins. Invisible but laid out, so the Nav can
@@ -202,7 +107,6 @@
 
 @media (max-width: 767px) {
   .disclaimer { max-width: 12rem; font-size: 0.68rem; }
-  .copy { transform: translateY(-52%); }
 }
 
 /* Static, fully readable hero: no travel, so no track. */
@@ -210,5 +114,4 @@
   .hero { height: 100svh; }
   .sticky { position: static; }
   .media { transform: none !important; filter: none !important; }
-  .line { transform: none !important; }
 }

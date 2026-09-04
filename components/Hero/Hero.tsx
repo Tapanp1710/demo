@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap, MQ, EASE, shouldLoadHeroVideo } from '@/lib/gsap';
-import { site, legal, hero as heroCopy, phone } from '@/lib/content';
+import { site, legal, hero as heroCopy } from '@/lib/content';
 import styles from './Hero.module.css';
 
 /**
@@ -17,7 +17,6 @@ export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const media = useRef<HTMLDivElement>(null);
   const wordmark = useRef<HTMLSpanElement>(null);
-  const lines = useRef<HTMLSpanElement[]>([]);
   const [showVideo, setShowVideo] = useState(false);
 
   // The poster IS the hero for most visitors. The 4.6 MB video is a desktop-only
@@ -36,11 +35,11 @@ export default function Hero() {
     /**
      * The hero's scrub is built AFTER first paint, not during hydration.
      *
-     * The sub-heading inside .copy is the LCP element. Building the timeline
-     * immediately made GSAP write inline styles onto .copy while the main
-     * thread was still busy, which re-triggered the LCP candidate and pushed
-     * the reported LCP to 6.4s — even though the filmstrip showed the hero
-     * fully painted at ~2.4s. Deferring to idle leaves the first paint alone.
+     * The poster is the LCP element. Building the timeline immediately made
+     * GSAP write inline styles while the main thread was still busy, which
+     * re-triggered the LCP candidate and pushed the reported LCP to 6.4s —
+     * even though the filmstrip showed the hero fully painted at ~2.4s.
+     * Deferring to idle leaves the first paint alone.
      */
     let idle = 0;
     let ctx: gsap.Context | undefined;
@@ -48,10 +47,6 @@ export default function Hero() {
     const build = () => {
       ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
-
-      // NOTE: the headline and sub-heading entrance is deliberately CSS, not
-      // GSAP — see Hero.module.css. Keeping the entrance off the JS bundle
-      // means the copy is readable before any script has run.
 
       mm.add({ desktop: '(min-width: 768px)', small: '(max-width: 767px)', motion: MQ.motionOK }, (context) => {
         const { desktop, motion } = context.conditions as Record<string, boolean>;
@@ -84,10 +79,6 @@ export default function Hero() {
             filter: desktop ? 'brightness(0.55) blur(3px)' : 'brightness(0.62) blur(0px)',
             ease: EASE.scrub,
           }, 0);
-
-        // Copy clears out before the frame darkens enough to hurt contrast.
-        tl.to(`.${styles.copy}`, { yPercent: -18, opacity: 0, ease: EASE.scrub }, 0);
-
 
       });
       }, root);
@@ -131,27 +122,13 @@ export default function Hero() {
           <div className={styles.scrim} aria-hidden="true" />
         </div>
 
-        <div className={styles.copy}>
-          <p className={styles.eyebrow}>{site.developer}</p>
-          <h1 className={styles.headline}>
-            {heroCopy.headlineLines.map((line, i) => (
-              <span key={line.text} className={styles.lineMask}>
-                <span
-                  className={`${styles.line} ${line.italic ? styles.italic : ''}`}
-                  style={{ ['--line-i']: String(i) } as React.CSSProperties}
-                  ref={(el) => { if (el) lines.current[i] = el; }}
-                >
-                  {line.text}
-                </span>
-              </span>
-            ))}
-          </h1>
-          <p className={styles.sub}>{heroCopy.sub}</p>
-          <div className={styles.ctas}>
-            <a className={styles.ctaPrimary} href={`#${'leadform'}`}>Request Price</a>
-            <a className={styles.ctaGhost} href={phone.primary.telHref}>Call Now</a>
-          </div>
-        </div>
+        {/* The headline, sub-heading and the two CTAs are gone from the hero.
+            The <h1> stays in the document but unpainted: this is the home page
+            and every other section heading is an h2, so removing it outright
+            would leave the page with no first-level heading at all. */}
+        <h1 className={styles.srOnly}>
+          {heroCopy.headlineLines.map((line) => line.text).join(' ')}
+        </h1>
       </div>
 
       {/* Where the wordmark sits while the hero is on screen. The mark itself

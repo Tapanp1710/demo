@@ -115,7 +115,7 @@ export default function Home() {
         <Hero />
         
         {/* The stat band's six figures now flank the master plan. */}
-        <About />
+        <Hold ground="stage"><About /></Hold>
         {/* <DroneCube /> */}
 
         {/* <ParallaxOpener word="Amenities" images={AMENITY_OPENER} ground="stage" /> */}
