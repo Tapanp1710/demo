@@ -6,6 +6,8 @@ import { gsap, MQ, EASE } from '@/lib/gsap';
 import { amenities, amenityCategories, legal, anchors, type AmenityCategory } from '@/lib/content';
 import LineReveal from '@/components/LineReveal/LineReveal';
 import amenityImages from '@/lib/amenity-images.json';
+import { HALFTONE_FLOW } from '@/lib/flags';
+import { PredictiveArcCanvas } from '@/components/ThreeUI/PredictiveArcCanvas';
 import styles from './ArcCarousel.module.css';
 
 /** What the pipeline actually emitted per slug — see scripts/build-amenity-images.mjs. */
@@ -304,6 +306,20 @@ export default function ArcCarousel() {
       }}
     >
       <span id={anchors.amenitiesAlt} className={styles.anchor} aria-hidden="true" />
+
+      {/* Under review against the generated bronze — NEXT_PUBLIC_HALFTONE=1.
+          aria-hidden and pointer-events:none: it is decoration, and the frame
+          must not take the drag the carousel needs. */}
+      {HALFTONE_FLOW && (
+        <div className={styles.halftone} aria-hidden="true">
+          <PredictiveArcCanvas
+            variant="halftone-flow"
+            hue={0}
+            saturation={0.75}
+            brightness={1.00}
+          />
+        </div>
+      )}
 
       <div className={styles.head}>
         <p className={styles.eyebrow}>{amenities.length} amenities</p>

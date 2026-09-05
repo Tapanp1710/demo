@@ -2,7 +2,13 @@
    that overruns leaves the copyright line stranded below the fold. */
 .footer {
   max-height: 100svh;
-  background: var(--ground);
+  /* The same liquid bronze the amenities and floor plans carry, held off the
+     centred column by --scrim-band-c. */
+  background-color: var(--ground);
+  background-image: var(--ground-wash);
+  background-image: var(--scrim-band-c), var(--tex-bronze);
+  background-size: cover, cover;
+  background-position: center, center;
   color: var(--ink);
   border-top: var(--hairline) solid var(--rule);
   padding: var(--s-5) 0 var(--s-4);

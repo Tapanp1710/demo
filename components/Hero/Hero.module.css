@@ -5,6 +5,7 @@
   position: relative;
   height: calc(100svh + var(--scroll-len));
   background: var(--ground);
+  background-image: var(--ground-wash);
 }
 
 .sticky {
@@ -33,13 +34,27 @@
      than CSS keeps a filter off the poster's parent before the scrub begins. */
 }
 
-.poster,
-.video {
+/* The slides stack; opacity picks one. */
+.slide {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-ui);
+}
+.slideOn { opacity: 1; }
+.slide img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No interval runs in this mode, so nothing crossfades — but kill the
+     transition too, in case the first paint lands mid-value. */
+  .slide { transition: none; }
 }
 .video { z-index: 1; }
 

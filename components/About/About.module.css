@@ -2,6 +2,7 @@
 .section {
   height: 100svh;
   background: var(--ground);
+  background-image: var(--ground-wash);
   color: var(--ink);
   display: flex;
   align-items: stretch;
@@ -40,12 +41,14 @@
 
 .quote {
   font-size: var(--t-display-3);
+  font-weight: var(--fw-heading);
   color: var(--ink);
 }
 
-.left  { grid-column: 1; grid-row: 1; }
-/* Beside the FILM, not beside the heading. Row 1 holds the heading alone, so
-   the body starts on the film's top edge rather than level with the eyebrow. */
+/* Spans both columns and centres, like every other section's heading. The
+   film and the body then share row 2 beneath it. */
+.left  { grid-column: 1 / -1; grid-row: 1; text-align: center; }
+/* Beside the FILM, in the row under the heading. */
 .right { grid-column: 2; grid-row: 2; align-self: start; }
 
 .body {

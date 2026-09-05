@@ -5,6 +5,7 @@
   position: relative;
   height: calc(100svh + var(--scroll-len));
   background: var(--ground);
+  background-image: var(--ground-wash);
   color: var(--ink);
 }
 
@@ -48,7 +49,7 @@
   margin-bottom: var(--s-3);
 }
 
-.heading { font-size: var(--t-heading); color: var(--ink); }
+.heading { font-size: var(--t-display-3); color: var(--ink); }
 
 /* The mask. Only ever inset() — see the component note on why circle() cannot
    be interpolated to inset(). A square inset with a 50% radius IS a circle. */
@@ -107,4 +108,14 @@
   .sticky { position: static; height: auto; }
   .frame { clip-path: none !important; max-height: none; }
   .frame img { transform: none !important; }
+}
+
+/* Gold hairline under the eyebrow — see --rule-gold. */
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 1px;
+  margin: var(--s-2) auto 0;
+  background: var(--rule-gold);
 }

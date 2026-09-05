@@ -1,5 +1,6 @@
 .main {
   background: var(--ground);
+  background-image: var(--ground-wash);
   color: var(--ink);
   /* the ground swap is driven by GroundProvider; this only follows it */
   transition: background-color 120ms linear;

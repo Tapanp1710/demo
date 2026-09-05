@@ -3,6 +3,7 @@
 .section {
   height: 100svh;
   background: var(--ground);
+  background-image: var(--ground-wash);
   color: var(--ink);
   display: flex;
   overflow: hidden;
@@ -19,7 +20,7 @@
   gap: var(--s-5);
 }
 
-.head { flex: none; max-width: 40rem; }
+.head { flex: none; max-width: 40rem; margin-inline: auto; text-align: center; }
 
 .eyebrow {
   font-family: var(--font-text);
@@ -73,7 +74,7 @@
   height: 100%;
   gap: var(--s-3);
   width: 100%;
-  padding: 0.32rem 0;
+  padding: 0.32rem var(--s-3);
   background: none;
   border: 0;
   border-bottom: var(--hairline) solid var(--rule);
@@ -83,12 +84,22 @@
   transition: color var(--dur-micro) var(--ease-ui),
               border-color var(--dur-micro) var(--ease-ui);
 }
-.trigger:hover { color: var(--ink); }
+/* :not() so the hover does not win over the selected row — both are one class
+   deep, and the hover rule comes later, so it was repainting the bone label on
+   the bronze bar in the section's dark ink. */
+.trigger:hover:not(.triggerActive) { color: var(--ink); }
 .trigger:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
-.triggerActive { color: var(--ink-accent); border-bottom-color: var(--rule-accent); }
+/* The selected row IS the popup's surface, laid along a bar — so it takes the
+   dark ground's type, not the section's. */
+.triggerActive {
+  color: var(--c-bone);
+  background: var(--grad-bronze-bar);
+  border-bottom-color: transparent;
+  border-radius: var(--radius-sm);
+}
 
-.index { font-family: var(--font-text); font-size: var(--t-small); color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-.triggerActive .index { color: var(--ink-accent); }
+.index { font-family: var(--font-text); font-size: var(--t-small); color: var(--ink-gold); font-variant-numeric: tabular-nums; }
+.triggerActive .index { color: var(--c-accent-400); }
 .title {
   font-family: var(--font-text);
   font-size: var(--t-body);
@@ -102,23 +113,25 @@
   position: fixed;
   z-index: var(--layer-modal);
   padding: var(--s-4) var(--s-5);
-  border: var(--hairline) solid var(--rule);
+  border: var(--hairline) solid color-mix(in oklab, var(--c-accent-500), transparent 62%);
   border-radius: var(--radius-sm);
-  background: var(--ground-raised);
-  box-shadow: 0 12px 40px rgb(20 18 15 / 0.35);
+  background: var(--grad-bronze);
+  box-shadow: 0 12px 40px rgb(20 18 15 / 0.42);
   pointer-events: none;   /* never steals the pointer from the trigger */
   animation: popIn var(--dur-micro) var(--ease-ui);
 }
+/* The panel is dark whatever ground it opens over, so its type is the dark
+   ground's, not the section's. */
 .popupTitle {
   font-family: var(--font-display);
   font-size: var(--t-subhead);
-  color: var(--ink);
+  color: var(--c-bone);
   margin-bottom: var(--s-2);
 }
 .popupBody {
   font-size: var(--t-caption);
   line-height: var(--lh-body);
-  color: var(--ink-muted);
+  color: var(--c-n-200);
 }
 
 @keyframes popIn {
@@ -135,6 +148,18 @@
   .popup { animation: none; }
 }
 
+/* Eleven rows at Cormorant's size need more height than a short window has,
+   and the display-3 heading above them takes its share too. Three columns of
+   seven fit where two of eleven do not. */
+@media (max-height: 780px) and (min-width: 1200px) {
+  .list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(7, minmax(min-content, 1fr));
+  }
+  .title { font-size: var(--t-caption); }
+  .index { font-size: var(--t-caption); }
+}
+
 @media (max-width: 1199px) {
   .list { gap: 0 var(--s-6); }
 }
@@ -146,4 +171,14 @@
   .trigger { grid-template-columns: 1.7rem minmax(0, 1fr); gap: var(--s-2); padding: 0.24rem 0; }
   .index { font-size: var(--t-caption); }
   .title { font-size: var(--t-caption); }
+}
+
+/* Gold hairline under the eyebrow — see --rule-gold. */
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 1px;
+  margin: var(--s-2) auto 0;
+  background: var(--rule-gold);
 }

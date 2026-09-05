@@ -1,0 +1,216 @@
+/* The photograph fills the section; the names sheet is laid over its left end
+   and AMENITIES is cut out of that sheet. One screen, like every other
+   section. */
+.section {
+  position: relative;
+  height: 100svh;
+  /* The one section that marks with blue instead of copper: it sits on the
+     logo navy, so the mark is that navy's own hue lifted until it reads.
+     7.57:1 on the raised panel, 8.67:1 on the base ground. */
+  --ink-accent: #a9bdff;
+  --focus-ring: #a9bdff;
+  background: var(--ground);
+  background-image: var(--ground-wash);
+  color: var(--ink);
+  display: grid;
+  /* ONE column, because the photograph is not in the layout any more — it is
+     underneath it. The panel is the only thing the grid places. */
+  grid-template-columns: minmax(23rem, 30rem);
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.anchor { position: absolute; top: 0; width: 1px; height: 1px; }
+
+.srOnly {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* THE FLOOR. Edge to edge, behind everything, so the pixels showing through
+   the letters are the same object as the pixels beside them. */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.shot {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity var(--dur-entrance) var(--ease-ui);
+}
+.shotActive { opacity: 1; }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* TOP right, not bottom. The bottom-right corner belongs to the sticky
+   call/price buttons, which are fixed and sit above everything — the caption
+   was landing underneath them and could not be read at all. */
+.caption {
+  position: absolute;
+  right: var(--s-5);
+  top: calc(var(--nav-h) + var(--s-4));
+  margin: 0;
+  padding: var(--s-2) var(--s-4);
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--c-bone);
+  background: color-mix(in oklab, var(--c-n-900), transparent 25%);
+  border-radius: var(--radius-sm);
+}
+
+/* THE SHEET. Over the photograph, carrying the names. */
+.panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  /* An explicit row. Without it the implicit row is sized by its content, so
+     the names grew the panel past the section instead of compressing inside
+     it — 138px over at 1920, 545px at 1440, clipped both times. */
+  grid-template-rows: minmax(0, 100%);
+  align-items: stretch;
+  min-height: 0;
+  /* The PANEL carries no padding: the word column has to span the section's
+     full height so its viewBox — which is measured from the section — matches
+     what it renders into. Padding here made the SVG 80px taller than its
+     column and pushed 69px of it past the section, where the section's own
+     overflow clipped it. The names carry the padding instead. */
+  padding: 0 0 0 var(--s-6);
+}
+
+/* Only the names half is painted in CSS. The word half is painted by the SVG
+   rect, in the same colour, so the two read as one sheet with letters cut out
+   of its right end. */
+.names {
+  background: var(--ground-raised);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  min-height: 0;
+  overflow: hidden;
+  padding: var(--s-5) var(--s-5) var(--s-5) 0;
+  padding-top: max(var(--s-5), calc(var(--nav-h) + var(--s-4)));
+  /* The left gutter is the panel's padding, which sits outside this box — so
+     the paint has to be pushed back out to the section edge or a strip of
+     photograph shows down the far left. */
+  margin-left: calc(var(--s-6) * -1);
+  padding-left: var(--s-6);
+}
+
+.eyebrow {
+  flex: none;
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+}
+
+/* Nineteen rows share whatever the eyebrow and the disclaimer leave, so the
+   list never needs its own scrollbar. */
+.list {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(19, minmax(min-content, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-text);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  color: var(--ink-muted);
+  transition: color var(--dur-micro) var(--ease-ui);
+}
+.name:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+/* Marks which photograph you are looking at. */
+.nameActive { color: var(--ink-accent); }
+
+.disclaimer { flex: none; font-size: 0.7rem; color: var(--ink-faint); }
+
+/* The word column runs the full height of the section and ends where the open
+   photograph begins. See the component for why it is a mask and not a fill. */
+.vertical {
+  align-self: stretch;
+  width: clamp(8rem, 5rem + 7vw, 15rem);
+  height: 100%;
+  display: block;
+  /* CLIPPED, not visible. The sheet's shadow bleeds off every edge of its
+     silhouette — which is the point, because the letter holes are edges — but
+     that includes the rect's own OUTER left edge, and the shadow there fell
+     across the names column as a grey seam. Clipping to the viewBox drops the
+     outer bleed and keeps the rims inside the letters, where the shape is.
+     Nothing is lost to the clip: the glyphs are cut out of the rect, so no
+     part of the word is ever painted outside it. */
+  overflow: hidden;
+  user-select: none;
+}
+
+/* The sheet itself. The shadow has no offset, so it bleeds off every edge of
+   the silhouette — and the inside of each letter IS an edge. That is what
+   keeps the word readable where the photograph behind it happens to be as
+   pale as the sheet; nothing is painted over the picture. */
+.sheet {
+  fill: var(--ground-raised);
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c-n-900), transparent 55%));
+}
+.vertical text {
+  font-family: var(--font-display);
+  /* Heavier than the headings: a thin stroke cut out of the sheet shows too
+     little of the photograph to read as a window into it. */
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.02em;
+}
+
+/* Stacked: photograph on top, names beneath it. A 30rem rail over a phone-width
+   picture leaves nothing of the picture. */
+@media (max-width: 991px) {
+  .section { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; }
+  .vertical { display: none; }
+  .stage { position: relative; grid-row: 1; }
+  .panel { grid-row: 2; grid-template-columns: 1fr; padding: 0; }
+  .names { margin-left: 0; padding: var(--s-4) var(--gutter); }
+  .list { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(10, auto); grid-auto-flow: column; column-gap: var(--s-5); }
+  .name { font-size: var(--t-caption); padding: 0.2em 0; }
+  .caption { left: var(--s-4); right: auto; top: calc(var(--nav-h) + var(--s-3)); }
+}
+
+/* Nineteen rows at Cormorant's size need ~700px. A short window has to split
+   them, or the tail of the list is clipped by the section. */
+@media (max-height: 860px) and (min-width: 992px) {
+  .section { grid-template-columns: minmax(28rem, 38rem); }
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(10, minmax(min-content, 1fr));
+    grid-auto-flow: column;
+    column-gap: var(--s-5);
+  }
+  .name { font-size: var(--t-caption); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot { transition: none; }
+}

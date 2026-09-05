@@ -22,28 +22,30 @@
      combination that looks cheap at scale, and it is the default every other
      property site reaches for.
      --------------------------------------------------------------------- */
-  --c-accent-400: #d4b87a;   /* brass-soft — hover / highlight */
-  --c-accent-500: #b08d4f;   /* THE accent — antique brass */
+  --c-accent-400: #d9b48c;   /* copper, lifted — hover, and accent TEXT on dark */
+  --c-accent-500: #c89a6e;   /* THE accent — the logo's copper */
 
   /* Gold, for the wordmark in the nav bar. Warmer and more yellow than the
      bronze accent so it reads as gold rather than as the accent again, and
      light enough to hold contrast on the bar's fixed dark ground. Used ONLY
      on that constant-dark bar — it is not a ground-aware token and would not
      survive the light ground. */
-  --c-gold-400: #e2caa0;
-  --c-gold-500: #d4b87a;
+  --c-gold-400: #e5cbaa;
+  --c-gold-500: #d9b48c;
   /* Gold as TEXT on the LIGHT ground. #d9ae55 is 1.85:1 there and fails
      outright; this is 5.35:1. --ink-gold below crossfades between them on the
      same curve as every other ink token. */
-  --c-gold-700: #6e5527;
-  --c-accent-600: #9c7c45;   /* the darker brass */
+  --c-gold-700: #7d562c;
+  --c-accent-600: #a87a4a;   /* the darker copper */
   /* Accent-as-TEXT on the light ground. Measured, not assumed: the brand
      #d7955d is 2.25:1 on the light ground and fails outright as text; #a86c3c
      is 3.86:1 and #945d32 is 4.86:1 on the base ground but only 4.41:1 on the
      RAISED light ground. #8c582e clears AA on both (5.30:1 / 4.80:1). */
   /* Brass as TEXT on the light ground. The brief's #8a6d33 measured 4.47:1
      against the bone ground — just under AA — so it is two steps darker. */
-  --c-accent-700: #836529;
+  /* Copper as TEXT on the light ground. The logo's #c89a6e is 2.21:1 on the
+     beige and fails outright as text; this is 5.16:1 and still reads copper. */
+  --c-accent-700: #845c31;
 
   /* Warm neutral ramp, 9 steps, dark -> light */
   /* The MID stage: a warm grey the ground passes through between the two ends.
@@ -53,29 +55,31 @@
      the mid is still six to eight times the stage's luminance, so it reads
      clearly as a third stop, and every ink pair survives it. */
 
-  /* Neither ground is a neutral, and neither is green. The dark is a WARM
-     CHARCOAL — brown-black, the colour of the dark blocks in an editorial
-     lookbook — and the light is WARM IVORY. Both carry the same warmth as the
-     brass, so the accent reads as part of the palette rather than applied to
-     it. */
-  --c-n-900: #201a14;        /* the dark ground — warm brown-black */
-  --c-n-800: #2a2219;        /* raised surfaces on it */
-  --c-n-700: #352b21;
-  --c-n-600: #4a3f32;
-  --c-n-500: #5c5850;        /* muted text on the light ground */
-  --c-n-450: #6a655d;        /* the faint text step on light */
-  --c-n-400: #8d887f;        /* large text only on light */
+  /* THE LOGO'S TWO COLOURS, plus beige and black. The dark ground is the
+     wordmark's navy, not a brown or a neutral; the accent is the mark's
+     copper. Beige is the paper they sit on and black is the nav bar. */
+  --c-black: #0d0c14;        /* the nav bar — the palette's true black */
+  --c-n-900: #211e3d;        /* the dark ground — the logo's navy */
+  --c-n-800: #2b2750;        /* raised surfaces on it */
+  --c-n-700: #3a3566;
+  --c-n-600: #4c4780;
+  --c-n-500: #565270;        /* muted text on the light ground */
+  --c-n-450: #635f7d;        /* the faint text step on light */
+  --c-n-400: #7d7996;        /* large text only on light */
   /* The faint step used on DARK grounds. #8a8279 was 4.94:1 on the deepest
      stage and fell straight through 4.5 once the ground lifted toward the mid
      grey; this holds 7.85:1 on the stage and 4.83:1 on the mid. */
-  /* Faint text on the dark ground. Lifted from #9a998f: the warm bloom
-     brightens the ground under the disclaimer to L=0.038 at its peak, where
-     the old step measured 4.18:1. This holds 5.6:1 against the same pixel. */
-  --c-n-350: #b3b0a6;
-  --c-n-300: #a8a79e;        /* muted text on the dark ground */
-  --c-n-200: #cfcdc4;
-  --c-n-100: #faf7f1;        /* raised surfaces on it — warm, never pure white */
-  --c-n-50:  #f1ede6;        /* the light ground — warm ivory */
+  /* Faint text on the dark ground. Lifted above the muted step on purpose: the
+     copper bloom brightens the ground under the disclaimer, and this is the
+     step that has to survive its brightest pixel. */
+  --c-n-350: #c0bdd0;
+  --c-n-300: #a9a6bd;        /* muted text on the dark ground */
+  --c-n-200: #d5d3e0;
+  /* PROPOSAL — the light ground as a pale blue drawn from the logo navy's own
+     hue rather than beige. Two values; reverting is these two lines.
+       beige was  #fbf8f3 / #f4efe7 */
+  --c-n-100: #f6f8fc;        /* raised surfaces on it */
+  --c-n-50:  #eceff7;        /* the light ground — pale blue */
   --c-white: #ffffff;
 
   /* The two roles the ramp would otherwise collapse into one value. The bone
@@ -83,7 +87,7 @@
      ink on light is lifted off the deep ground so it reads as ink rather than
      as a hole in the page. */
   --c-bone:    #f4f1ea;      /* primary text on the dark ground */
-  --c-ink-900: #1e1b18;      /* primary text on the light ground */
+  --c-ink-900: #141225;      /* primary text on the light ground — navy-black */
 
   /* ---------------------------------------------------------------------
      COLOUR — semantic
@@ -109,8 +113,14 @@
   --ink-on-accent:     var(--c-n-900);       /* text on an accent-filled button */
 
   /* Hairlines — structure by line, not by shadow. A luxury-print cue. */
-  --rule-on-stage: #3d3227;
-  --rule-on-page:  #e3ddd2;
+  --rule-on-stage: #3a3566;
+  /* A struck hairline of the logo's gold, for under an eyebrow or along an
+     edge. It fades at both ends so it reads as a drawn line rather than as a
+     border that stopped early. --ink-gold was defined here from the start and
+     used by nothing; this is what puts it on the page. */
+  --rule-gold: linear-gradient(90deg, transparent, var(--c-gold-500) 22%, var(--c-gold-400) 50%, var(--c-gold-500) 78%, transparent);
+
+  --rule-on-page:  #d9def0;
   --rule-accent:   var(--c-accent-500);
 
   /* ---------------------------------------------------------------------
@@ -164,6 +174,46 @@
   --scrim-band-x: linear-gradient(to right,
     var(--c-n-900) 0%, var(--c-n-900) 23%, transparent 39%);
 
+  /* Bronze as a SURFACE, for the specification popup: the same gold running
+     through the dark sections, folded into a panel. The accent peaks at 20% of
+     the dark ground, which is L=0.067 — bone reads 7.99:1 on it and --c-n-200
+     5.66:1. --ink-muted would be 3.73:1, so the popup's body copy is the
+     lighter step. */
+  --grad-bronze: linear-gradient(135deg,
+    var(--c-n-900) 0%,
+    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 62%) 34%,
+    color-mix(in oklab, var(--c-accent-500), var(--c-n-900) 80%) 58%,
+    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 70%) 78%,
+    var(--c-n-900) 100%);
+
+  /* The same panel, laid out along a ROW rather than a card. Used for a
+     selected row on the light ground, which therefore carries the DARK
+     ground's type: bone at 7.99:1, the index in --c-accent-400 at 4.70:1. */
+  --grad-bronze-bar: linear-gradient(100deg,
+    var(--c-n-900) 0%,
+    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 62%) 26%,
+    color-mix(in oklab, var(--c-accent-500), var(--c-n-900) 80%) 52%,
+    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 70%) 74%,
+    var(--c-n-900) 100%);
+
+  /* For a section whose text is a CENTRED column — the footer. The bronze
+     survives in the margins the grid leaves; the column itself sits on flat
+     ground.
+
+     The stops are computed from --grid-max, NOT written as percentages. A
+     fixed 21%/79% covers the column at 1920 and misses it entirely at 1440,
+     where the same grid runs nearly edge to edge. max() clamps the margin to
+     zero below the grid's own width, so the mask simply becomes opaque there:
+     no room, no texture, which is the right answer. */
+  --scrim-edge: max(0px, (100% - var(--grid-max)) / 2);
+  --scrim-band-c: linear-gradient(to right,
+    transparent 0,
+    transparent max(0px, (100% - var(--grid-max) - 10rem) / 2),
+    var(--c-n-900) var(--scrim-edge),
+    var(--c-n-900) calc(100% - var(--scrim-edge)),
+    transparent calc(100% - max(0px, (100% - var(--grid-max) - 10rem) / 2)),
+    transparent 100%);
+
   --focus-ring: var(--c-accent-400);
 }
 
@@ -179,7 +229,26 @@
   --rule:          var(--rule-on-page);
 }
 
+[data-ground='light'] {
+  /* The light ground stays flat. --ground-wash exists on BOTH grounds so a
+     section can paint it unconditionally and a later ground flip cannot
+     stripe a dark gradient across a pale section — which is exactly what the
+     bronze texture did to the floor plans. */
+  --ground-wash: none;
+}
+
 [data-ground='stage'] {
+  /* Not a flat navy. A slow rake from the raised navy at the top down to the
+     near-black of the nav bar, with one low bloom of the logo's deep gold in
+     the bottom corner.
+
+     The LIGHTEST point is --c-n-800, deliberately: that is the value
+     scripts/check-contrast.mjs already measures every ink pair against as the
+     raised surface, so the gradient cannot take any pairing below what has
+     been verified. Everything below n-800 only increases contrast. */
+  --ground-wash:
+    radial-gradient(78% 62% at 88% 106%, color-mix(in oklab, var(--c-gold-700), transparent 80%), transparent 70%),
+    linear-gradient(166deg, var(--c-n-800) 0%, var(--c-n-900) 48%, var(--c-black) 100%);
   /* The LIGHTER brass for accent text. The warm bloom lifts the ground under
      it (peak L 0.029), where --c-accent-500 measures 4.26:1 and the 400
      measures 8.3:1. The filled pill keeps the 500 — a shape, with dark text on
@@ -198,14 +267,14 @@
 
   /* ---------------------------------------------------------------------
      TYPE
-     Display: high-contrast didone (Bodoni Moda, variable, OFL).
-     Text: geometric sans (Jost, variable, OFL).
+     ONE face throughout: Cormorant Garamond, variable, OFL — display and text
+     both. See app/layout.tsx.
      Families are injected by next/font via layout.tsx, which sets
      --font-display / --font-text; the fallbacks keep metrics sane if that
      ever fails to load.
      --------------------------------------------------------------------- */
-  --font-display: var(--font-bodoni), "Bodoni Moda", "Bodoni MT", Didot, "Times New Roman", serif;
-  --font-text: var(--font-jost), Jost, Futura, "Century Gothic", system-ui, sans-serif;
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
+  --font-text: var(--font-cormorant), "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
 
   /* Fluid ramp. Display sizes are set tight; body stays generous. */
   --t-display-1: clamp(3.25rem, 1.6rem + 6.9vw, 8rem);
@@ -213,13 +282,15 @@
   --t-display-3: clamp(2rem, 1.35rem + 2.7vw, 3.75rem);
   --t-heading:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
   --t-subhead:   clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
-  /* The text scale is one step up from where Inter had it. Jost's x-height is
-     about 0.50em against Inter's 0.73em, so the same pixel size reads a third
-     smaller — this restores the apparent size rather than enlarging anything. */
-  --t-body:      clamp(1.0625rem, 1.03rem + 0.15vw, 1.125rem);
-  --t-small:     1rem;
-  --t-caption:   0.875rem;
-  --t-eyebrow:   0.8rem;
+  /* Up again for Cormorant. Its x-height is around 0.48em — smaller than
+     Jost's 0.50 and far under Inter's 0.73 — and it is a light face, so the
+     same pixel size reads smaller AND thinner. Two steps up from where Inter
+     had it, which is what keeps running text at its apparent size rather than
+     making anything bigger. */
+  --t-body:      clamp(1.1875rem, 1.12rem + 0.28vw, 1.3125rem);
+  --t-small:     1.0625rem;
+  --t-caption:   0.9375rem;
+  --t-eyebrow:   0.8125rem;
 
   --lh-display: 1.05;
   --lh-heading: 1.15;
@@ -232,6 +303,9 @@
   --ls-eyebrow:   0.16em;   /* uppercase labels need the air */
 
   --fw-light: 300;
+  /* Every section heading, everywhere. Cormorant is a light face and 500 was
+     still thin at display sizes against a photograph or a bloom. */
+  --fw-heading: 600;
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
@@ -311,7 +385,7 @@
      bar; with a cream bar it would have had to be dark gold over that
      photograph, which is unreadable. A deep bar over a cream page is also the
      older and better-looking of the two. */
-  --nav-bg:    color-mix(in oklab, var(--c-n-900), transparent 6%);
+  --nav-bg:    color-mix(in oklab, var(--c-black), transparent 6%);
   --nav-rule:  var(--rule-on-stage);
   --nav-ink:   var(--c-bone);
   --nav-muted: var(--c-n-300);

@@ -88,7 +88,7 @@ export default function FloorPlans() {
       ref={root}
       id={anchors.floorPlan}
       className={styles.section}
-      data-ground="stage"
+      data-ground="light"
       aria-labelledby="plans-heading"
       /* The scroll length is reserved in the document, not added later by a
          pin spacer. One deck-length per card, matching the timeline below. */
@@ -99,25 +99,29 @@ export default function FloorPlans() {
         <p className={styles.eyebrow}>Residences</p>
         <LineReveal as="h2" id="plans-heading" className={styles.heading} lines={[{ text: 'Floor Plans' }]} />
 
-        <div className={styles.toggle} role="tablist" aria-label="Choose a tower">
-          {(['A', 'B'] as const).map((t) => (
-            <button
-              key={t}
-              type="button"
-              role="tab"
-              aria-selected={tower === t}
-              className={`${styles.toggleBtn} ${tower === t ? styles.toggleActive : ''}`}
-              onClick={() => setTower(t)}
-            >
-              Tower {t}
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* The deck is presentational: the cards sit on top of one another, so as
           interactive elements they were overlapping touch targets that failed
           WCAG target-size. The real, reachable links are the row beneath. */}
+      {/* The tower choice sits with the unit links in the left rail, not under
+          the centred heading — the two controls belong together and the
+          heading row is shorter without it, which the drawing takes. */}
+      <div className={styles.toggle} role="tablist" aria-label="Choose a tower">
+        {(['A', 'B'] as const).map((t) => (
+          <button
+            key={t}
+            type="button"
+            role="tab"
+            aria-selected={tower === t}
+            className={`${styles.toggleBtn} ${tower === t ? styles.toggleActive : ''}`}
+            onClick={() => setTower(t)}
+          >
+            Tower {t}
+          </button>
+        ))}
+      </div>
+
       <div ref={stage} className={styles.stage} aria-hidden="true">
         {deck.map((plan, i) => (
           <span
@@ -126,9 +130,14 @@ export default function FloorPlans() {
             style={{ ['--i' as string]: String(i), zIndex: String(deck.length - i) }}
           >
             <picture>
-              <source type="image/avif" sizes="(max-width: 991px) 92vw, min(62rem, 92vw)"
+              {/* 72vw, not min(62rem, …). That 62rem was the deck's old
+                  max-width, removed when the drawings were made full size —
+                  the stale value had the browser picking the 1000px file for a
+                  1353px box, a 1.35x upscale on the one image whose room
+                  labels are the point of the section. */}
+              <source type="image/avif" sizes="(max-width: 991px) 92vw, 72vw"
                 srcSet={`${plan.image}-1000.avif 1000w, ${plan.image}-1600.avif 1600w, ${plan.image}-2560.avif 2560w`} />
-              <source type="image/webp" sizes="(max-width: 991px) 92vw, min(62rem, 92vw)"
+              <source type="image/webp" sizes="(max-width: 991px) 92vw, 72vw"
                 srcSet={`${plan.image}-1000.webp 1000w, ${plan.image}-1600.webp 1600w, ${plan.image}-2560.webp 2560w`} />
               <img src={`${plan.image}-1000.webp`} alt={plan.alt} width={1600} height={978} loading="lazy" decoding="async" />
             </picture>
@@ -137,8 +146,11 @@ export default function FloorPlans() {
         ))}
       </div>
 
-      {/* Every plan in the visible deck, as a proper link. Keyboard-reachable
-          and each an unambiguous target. */}
+      {/* The unit pills are OFF the layout but not out of the document. The
+          deck itself is aria-hidden presentational — its cards overlap, which
+          made them failing touch targets — so these links are the only way to
+          reach a full-size plan without a mouse. They are visually hidden and
+          come back on focus, the skip-link pattern, rather than deleted. */}
       <ul className={styles.planLinks}>
         {deck.map((plan) => (
           <li key={plan.id}>

@@ -1,0 +1,46 @@
+[
+ {
+  "slug": "towers-dusk",
+  "alt": "The Bricks Marvella towers at dusk, Tellapur",
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ },
+ {
+  "slug": "towers-lake",
+  "alt": "The towers seen across the lake at Tellapur",
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ },
+ {
+  "slug": "grounds",
+  "alt": "Landscaped grounds and open areas at Bricks Marvella",
+  "w": 1920,
+  "h": 1067,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ },
+ {
+  "slug": "lobby",
+  "alt": "The double-height entrance lobby at Bricks Marvella",
+  "w": 2000,
+  "h": 1500,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ }
+]

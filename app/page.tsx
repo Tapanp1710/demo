@@ -2,14 +2,18 @@ import SmoothScroll from '@/components/SmoothScroll/SmoothScroll';
 import Nav from '@/components/Nav/Nav';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
+import Gallery from '@/components/Gallery/Gallery';
 // REMOVED FROM THE PAGE — do not re-add. The component files are being
 // deleted, so these imports stay commented out or the build breaks.
 // import DroneCube from '@/components/DroneCube/DroneCube';
 // import ParallaxOpener from '@/components/ParallaxOpener/ParallaxOpener';
-import ArcCarousel from '@/components/ArcCarousel/ArcCarousel';
+/* ArcCarousel stays in the repo — the amenities section is the brochure's
+   list-and-photograph spread now. See components/AmenityIndex. */
+import AmenityIndex from '@/components/AmenityIndex/AmenityIndex';
 import MasterPlan from '@/components/MasterPlan/MasterPlan';
 import FloorPlans from '@/components/FloorPlans/FloorPlans';
-import Location from '@/components/Location/Location';
+/* Location stays in the repo — the section is the paired arc now. */
+import LocationArc from '@/components/LocationArc/LocationArc';
 import Specifications from '@/components/Specifications/Specifications';
 import Testimonials from '@/components/Testimonials/Testimonials';
 import Footer from '@/components/Footer/Footer';
@@ -21,7 +25,10 @@ import styles from './page.module.css';
 
 /**
  * Section order follows the source site so every anchor and every piece of
- * content keeps its place. Grounds alternate stage → light → stage … driven by
+ * content keeps its place. The grounds ALTERNATE navy / light the whole way
+ * down — hero, gallery, master plan, location and the footer are the navy
+ * ones — so no two dark sections ever meet and the page reads as a set of
+ * plates rather than one long field. Grounds alternate stage → light → stage … driven by
  * the data-ground attribute each section sets; tokens.css reads them.
  */
 
@@ -111,16 +118,19 @@ export default function Home() {
         
         {/* The stat band's six figures now flank the master plan. */}
         <Hold ground="light"><About /></Hold>
+
+        {/* Owns a scroll track already — not wrapped. */}
+        <Gallery />
         {/* <DroneCube /> */}
 
         {/* <ParallaxOpener word="Amenities" images={AMENITY_OPENER} ground="stage" /> */}
-        <Hold ground="stage"><ArcCarousel /></Hold>
-
+       
+        <Hold ground="light"><AmenityIndex /></Hold>
         <MasterPlan />
         {/* <ParallaxOpener word="Residences" images={RESIDENCES_OPENER} ground="light" /> */}
         <FloorPlans />
 
-        <Hold ground="light"><Location /></Hold>
+        <Hold ground="stage"><LocationArc /></Hold>
 
         {/* <ParallaxOpener word="Specifications" images={SPEC_OPENER} ground="light" /> */}
         <Hold ground="light"><Specifications /></Hold>

@@ -1,0 +1,131 @@
+/* Scroll track: one viewport to look at, plus the travel that moves the strip
+   across it. Reserved in CSS so the document never changes height when the
+   trigger builds. */
+.section {
+  --scroll-len: 220svh;
+  position: relative;
+  height: calc(100svh + var(--scroll-len));
+  background: var(--ground);
+  background-image: var(--ground-wash);
+  color: var(--ink);
+}
+
+/* What you actually look at: exactly one viewport, held by sticky. */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--s-3);
+  padding: var(--s-4) 0;
+  /* Clears the fixed nav. A sticky inner is HELD at top:0 for its whole range,
+     so an overlap here is permanent, not a moment while scrolling past. */
+  padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
+  overflow: hidden;
+}
+
+/* The head keeps the page gutter; the strip deliberately does not, so frames
+   run off both edges and read as a continuing row rather than a slideshow. */
+.head { text-align: center; padding: 0 var(--gutter); }
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-2);
+}
+.heading { font-size: var(--t-display-3); color: var(--ink); }
+
+.viewport { min-height: 0; overflow: hidden; }
+
+/* One row, as wide as its contents. GSAP translates it on x. */
+.rail {
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-4);
+  height: 100%;
+  width: max-content;
+  /* Starts a gutter in from the left edge, so the first frame is not flush
+     against it before any scrolling has happened. */
+  padding: 0 var(--gutter);
+  will-change: transform;
+}
+
+.frame {
+  flex: none;
+  width: min(62vw, 56rem);
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--s-2);
+}
+
+.frame picture {
+  display: block;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--ground-raised);
+}
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--ink-muted);
+}
+.num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--ls-eyebrow);
+  color: var(--ink-gold);
+}
+
+.disclaimer {
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+
+@media (max-width: 767px) {
+  .frame {
+    width: 86vw;
+    /* Caption ABOVE the picture on a phone. The fixed call/price bar spans the
+       full width down there and sits above everything, so a caption under the
+       image is simply not readable — and it is the only thing naming what you
+       are looking at. */
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .frame picture { grid-row: 2; }
+  .caption { grid-row: 1; font-size: 0.8rem; }
+  .rail { gap: var(--s-3); }
+}
+
+/* No scrub, so no travel to reserve: the track collapses to one screen and the
+   strip becomes an ordinary swipeable row. */
+@media (prefers-reduced-motion: reduce) {
+  .section { --scroll-len: 0svh; }
+  .sticky { position: static; height: 100svh; }
+  .rail { transform: none !important; will-change: auto; }
+  .viewport { overflow-x: auto; overscroll-behavior-x: contain; }
+}
+
+/* Gold hairline under the eyebrow — see --rule-gold. */
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 1px;
+  margin: var(--s-2) auto 0;
+  background: var(--rule-gold);
+}

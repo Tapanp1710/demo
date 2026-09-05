@@ -1,0 +1,280 @@
+/* Two concave arcs side by side, turning against each other — see the
+   component. Panels sit on the inner surface of a cylinder, so the centre one
+   is square to the reader and its neighbours swing forward toward the camera. */
+.section {
+  position: relative;
+  height: 100svh;
+  background: var(--ground);
+  background-image: var(--ground-wash);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--gutter) var(--s-4);
+  padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
+  overflow: hidden;
+}
+
+.head { flex: none; text-align: center; max-width: 46rem; }
+
+.srOnly {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-accent);
+  margin-bottom: var(--s-2);
+}
+.heading { font-size: var(--t-display-3); color: var(--ink); }
+.tagline {
+  margin-top: var(--s-2);
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+/* Takes every pixel the heading and the disclaimer leave, and splits it into
+   two equal rings. The panel size is solved against one of them.
+
+   It runs past the section's gutter on both sides — negative inline margins —
+   because the arcs are the content here and the arrows sit in the margin. The
+   rings get the full window width, which is where a chunk of the extra panel
+   size comes from. */
+.track {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  width: auto;
+  align-self: stretch;
+  margin-inline: calc(var(--gutter) * -1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+
+/* Each ring gets its OWN perspective, so each is viewed head-on. One shared
+   perspective on the track would put the vanishing point between them, and
+   every panel in both rings would be seen from the side. */
+.ring {
+  min-width: 0;
+  min-height: 0;
+  perspective: 1400px;
+  display: grid;
+  place-items: center;
+  /* The ring CLIPS. Panels are sized against the centre one alone, so the
+     neighbours are free to run off the sides and get cut there — which is what
+     lets the centre panel take the full height instead of reserving width for
+     a panel that is three quarters turned away. */
+  overflow: hidden;
+}
+
+/* Anchored to the edge the two rings share, NOT centred — so the arc runs
+   outward from the middle of the window and the neighbour that used to sit in
+   the gap between the rings falls outside the box and is clipped.
+
+   These must come AFTER .ring: place-items on .ring is a shorthand that also
+   sets justify-items, so the same-specificity rule that lands later wins.
+   Written above .ring they were silently doing nothing. */
+.ringLeft { justify-items: end; }
+.ringRight { justify-items: start; }
+
+/* CONVEX. -R pushes the ring's axis away from the reader, and each panel
+   then steps +R back toward them along its own facing — so the centre panel
+   lands at z = 0 and its neighbours fall AWAY behind it, around the outside of
+   the cylinder. (Concave was the mirror of this: +R here and -R on the panel,
+   which swung the neighbours forward at the camera instead.)
+
+   It is not only a look. Concave neighbours are magnified by the perspective,
+   so the first one off centre is the widest thing in the ring and the panel
+   size had to be solved against IT — which is why the panels were coming out
+   390px wide in a 940px ring. Convex neighbours recede and shrink, so the
+   centre panel is the widest thing and the height sets the size. */
+.stage {
+  position: relative;
+  width: var(--panel-w, 20rem);
+  height: var(--panel-h, 24rem);
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--radius, 32rem) * -1));
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+  border: var(--hairline) solid var(--rule);
+  /* Not --radius-sm. That token is 2px, which is right on a chip and reads as
+     a hard-cornered box on a panel this size — part of what made the arc look
+     cuboidal rather than circular. */
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--ground-raised);
+  will-change: transform, opacity, filter;
+}
+
+.panelShot picture { display: block; width: 100%; height: 100%; }
+.panelShot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.map, .mapStub {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: var(--ground-raised);
+}
+.map { filter: contrast(1.04); }
+
+/* The text ring's panel. */
+.places {
+  height: 100%;
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  overflow: hidden;
+}
+.placesTitle {
+  font-family: var(--font-display);
+  font-size: var(--t-subhead);
+  color: var(--ink-accent);
+}
+.time {
+  font-family: var(--font-text);
+  font-size: var(--t-caption);
+  color: var(--ink-faint);
+}
+
+/* One column of names, spread down whatever the title leaves. */
+.list {
+  flex: 1 1 0;
+  min-height: 0;
+  display: grid;
+  grid-auto-rows: minmax(min-content, 1fr);
+  align-content: stretch;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-caption);
+  color: var(--ink-muted);
+}
+.list li::before {
+  content: '';
+  flex: none;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink-accent);
+}
+
+/* THE ONLY CONTROL, one at each extreme of the track and centred on the arcs.
+   They overlay the outermost panels, which at that distance are down to 38%
+   opacity and 3.4px of blur — so the arrow reads cleanly against them, and the
+   rings keep the full width rather than giving up a lane. The tinted disc is
+   what guarantees that against a photograph as well as against the ground. */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.7rem;
+  line-height: 1;
+  background: color-mix(in oklab, var(--ground), transparent 22%);
+  backdrop-filter: blur(3px);
+  border: var(--hairline) solid var(--rule);
+  border-radius: var(--radius-pill);
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: color var(--dur-micro) var(--ease-ui), border-color var(--dur-micro) var(--ease-ui);
+}
+.arrowLeft { left: var(--s-3); }
+.arrowRight { right: var(--s-3); }
+.arrow:hover { color: var(--ink-accent); border-color: var(--rule-accent); }
+.arrow:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+.disclaimer { flex: none; font-size: 0.7rem; color: var(--ink-faint); text-align: center; }
+
+/* No room for two arcs on a phone: the rings stack, flatten, and show only the
+   current category. The arrows stay at the extremes, now of the stack. */
+@media (max-width: 767px) {
+  .track {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--s-3);
+    margin-inline: 0;
+    padding-inline: 2.75rem;
+  }
+  .ring { perspective: none; min-height: 0; }
+  .stage { width: 100%; height: 100%; transform: none; display: grid; min-height: 0; }
+  .panel {
+    position: relative;
+    inset: auto;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: none;
+  }
+  /* Only the current category is in flow; the rest leave the layout entirely. */
+  .panelOn { display: block; min-height: 0; }
+  .places { padding: var(--s-4); }
+  /* TWO columns. Offices carries fourteen entries and a phone-width panel fits
+     nine of them in one column — the other five were being cut off by the
+     panel's own overflow, which the section audit cannot see because it
+     measures the section box, not the clip inside it. Seven rows covers the
+     longest list; a shorter one simply fills one column. */
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(7, minmax(min-content, 1fr));
+    grid-auto-flow: column;
+    column-gap: var(--s-4);
+  }
+  .list li { font-size: 0.8rem; gap: var(--s-2); }
+  .arrow { width: 2.5rem; height: 2.5rem; font-size: 1.3rem; }
+  .arrowLeft { left: 0; }
+  .arrowRight { right: 0; }
+}
+
+/* A short window has to find the arcs their height somewhere, and the panel
+   size is already solved against the near edge — so it comes out of the chrome
+   rather than out of the panels. The heading keeps its size: it is the one
+   thing that is meant to match every other section. */
+@media (max-height: 900px) {
+  .section { gap: var(--s-2); }
+  .tagline { font-size: var(--t-body); margin-top: var(--s-1); }
+  .disclaimer { font-size: 0.66rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel { transition: none; }
+}
+
+/* Gold hairline under the eyebrow — see --rule-gold. */
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 1px;
+  margin: var(--s-2) auto 0;
+  background: var(--rule-gold);
+}

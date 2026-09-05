@@ -35,7 +35,7 @@ const OUT = path.join(ROOT, 'public', 'textures');
 const W = 1600, H = 1000;
 
 /* LIQUID BRONZE, not marble.
-   Ribbons of gold on a brown-black ground, then bent into swirls by a
+   Ribbons of copper on the logo's navy, then bent into swirls by a
    displacement map — the same technique the reference image is made with. The
    pieces:
 
@@ -53,7 +53,7 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
     <filter id="ribbons" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
       <feTurbulence type="turbulence" baseFrequency="0.0013 0.0040" numOctaves="4" seed="11" result="t"/>
       <feColorMatrix in="t" type="matrix" result="r"
-        values="0 0 0 0 0.855  0 0 0 0 0.686  0 0 0 0 0.365  3.6 -1.7 0 0 -0.94"/>
+        values="0 0 0 0 0.784  0 0 0 0 0.604  0 0 0 0 0.431  3.6 -1.7 0 0 -0.94"/>
       <feGaussianBlur in="r" stdDeviation="1.5" result="b"/>
       <feTurbulence type="fractalNoise" baseFrequency="0.0019 0.0013" numOctaves="3" seed="3" result="n2"/>
       <feDisplacementMap in="b" in2="n2" scale="150"
@@ -65,7 +65,7 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
     <filter id="bloom" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
       <feTurbulence type="turbulence" baseFrequency="0.0011 0.0031" numOctaves="3" seed="11" result="t"/>
       <feColorMatrix in="t" type="matrix" result="r"
-        values="0 0 0 0 0.741  0 0 0 0 0.573  0 0 0 0 0.290  2.2 -1.1 0 0 -0.74"/>
+        values="0 0 0 0 0.518  0 0 0 0 0.361  0 0 0 0 0.192  2.2 -1.1 0 0 -0.74"/>
       <feGaussianBlur in="r" stdDeviation="34"/>
     </filter>
 
@@ -74,11 +74,11 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
     <filter id="dust" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
       <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="1" seed="23" result="t"/>
       <feColorMatrix in="t" type="matrix"
-        values="0 0 0 0 0.878  0 0 0 0 0.729  0 0 0 0 0.400  0 26 0 0 -22.4"/>
+        values="0 0 0 0 0.851  0 0 0 0 0.706  0 0 0 0 0.549  0 26 0 0 -22.4"/>
     </filter>
   </defs>
 
-  <rect width="100%" height="100%" fill="#201a14"/>
+  <rect width="100%" height="100%" fill="#211e3d"/>
   <g transform="rotate(-14 ${W / 2} ${H / 2}) scale(1.25)" transform-origin="center">
     <rect x="-${W}" y="-${H}" width="${W * 3}" height="${H * 3}" filter="url(#bloom)"   opacity="0.42"/>
     <rect x="-${W}" y="-${H}" width="${W * 3}" height="${H * 3}" filter="url(#ribbons)" opacity="0.85"/>

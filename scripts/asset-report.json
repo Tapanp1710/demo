@@ -1,0 +1,138 @@
+[
+  {
+    "out": "images/location/offices",
+    "status": "ok",
+    "source": "1000x667",
+    "sourceBytes": 1175470,
+    "outputs": [
+      {
+        "file": "images\\location\\offices-1000.avif",
+        "bytes": 62211
+      },
+      {
+        "file": "images\\location\\offices-1000.webp",
+        "bytes": 106946
+      },
+      {
+        "file": "images\\location\\offices-900.avif",
+        "bytes": 56530
+      },
+      {
+        "file": "images\\location\\offices-900.webp",
+        "bytes": 99606
+      },
+      {
+        "file": "images\\location\\offices-560.avif",
+        "bytes": 28659
+      },
+      {
+        "file": "images\\location\\offices-560.webp",
+        "bytes": 51946
+      }
+    ]
+  },
+  {
+    "out": "images/location/schools",
+    "status": "ok",
+    "source": "1500x1000",
+    "sourceBytes": 2226458,
+    "outputs": [
+      {
+        "file": "images\\location\\schools-1500.avif",
+        "bytes": 105599
+      },
+      {
+        "file": "images\\location\\schools-1500.webp",
+        "bytes": 161488
+      },
+      {
+        "file": "images\\location\\schools-1400.avif",
+        "bytes": 102668
+      },
+      {
+        "file": "images\\location\\schools-1400.webp",
+        "bytes": 165934
+      },
+      {
+        "file": "images\\location\\schools-900.avif",
+        "bytes": 60097
+      },
+      {
+        "file": "images\\location\\schools-900.webp",
+        "bytes": 100504
+      },
+      {
+        "file": "images\\location\\schools-560.avif",
+        "bytes": 32124
+      },
+      {
+        "file": "images\\location\\schools-560.webp",
+        "bytes": 52294
+      }
+    ]
+  },
+  {
+    "out": "images/location/hospitals",
+    "status": "ok",
+    "source": "1500x1500",
+    "sourceBytes": 2674213,
+    "outputs": [
+      {
+        "file": "images\\location\\hospitals-1500.avif",
+        "bytes": 129666
+      },
+      {
+        "file": "images\\location\\hospitals-1500.webp",
+        "bytes": 202970
+      },
+      {
+        "file": "images\\location\\hospitals-1400.avif",
+        "bytes": 127882
+      },
+      {
+        "file": "images\\location\\hospitals-1400.webp",
+        "bytes": 204232
+      },
+      {
+        "file": "images\\location\\hospitals-900.avif",
+        "bytes": 73619
+      },
+      {
+        "file": "images\\location\\hospitals-900.webp",
+        "bytes": 122950
+      },
+      {
+        "file": "images\\location\\hospitals-560.avif",
+        "bytes": 36323
+      },
+      {
+        "file": "images\\location\\hospitals-560.webp",
+        "bytes": 60980
+      }
+    ]
+  },
+  {
+    "out": "images/location/recreation",
+    "status": "ok",
+    "source": "865x1000",
+    "sourceBytes": 1447051,
+    "outputs": [
+      {
+        "file": "images\\location\\recreation-865.avif",
+        "bytes": 79488
+      },
+      {
+        "file": "images\\location\\recreation-865.webp",
+        "bytes": 133848
+      },
+      {
+        "file": "images\\location\\recreation-560.avif",
+        "bytes": 46022
+      },
+      {
+        "file": "images\\location\\recreation-560.webp",
+        "bytes": 76228
+      }
+    ]
+  }
+]

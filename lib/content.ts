@@ -386,6 +386,7 @@ export const nav = [
 /** In-page anchors carried over from the old site — every one must resolve. */
 export const anchors = {
   about: 'about-project',
+  gallery: 'gallery',
   amenities: 'club-house',
   amenitiesAlt: 'amenities',
   masterPlan: 'master-plan',

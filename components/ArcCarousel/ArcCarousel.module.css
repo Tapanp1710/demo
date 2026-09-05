@@ -54,6 +54,23 @@
   overflow: hidden;
 }
 
+/* The halftone frame, when the flag is on. Behind everything, and its ::after
+   re-lays the section's own text scrim OVER it — without that the heading and
+   the pills would sit on raw red-orange shader instead of on the ground. */
+.halftone {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.halftone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--scrim-band-y);
+}
+
 /* Everything except the arc keeps its natural height; the arc takes the rest.
    position+z-index puts them ABOVE the band — the band is painted after them
    in DOM order and was covering the category pills mid-height. */
@@ -77,7 +94,7 @@
   margin-bottom: var(--s-1);
 }
 
-.heading { font-size: var(--t-heading); color: var(--ink); }
+.heading { font-size: var(--t-display-3); color: var(--ink); }
 
 /* Category pills — the one place near-full radius is allowed. */
 .filters { display: flex; flex-wrap: wrap; gap: var(--s-3); justify-content: center; padding: 0 var(--gutter); }

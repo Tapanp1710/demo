@@ -18,7 +18,16 @@
   gap: var(--s-4);
 }
 
-.head { flex: none; max-width: 46rem; display: flex; flex-direction: column; gap: var(--s-2); }
+.head {
+  flex: none;
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
 
 .eyebrow {
   font-family: var(--font-text);
@@ -29,7 +38,7 @@
   color: var(--ink-accent);
 }
 
-.heading { font-size: var(--t-heading); color: var(--ink); }
+.heading { font-size: var(--t-display-3); color: var(--ink); }
 
 .tagline {
   font-family: var(--font-display);
@@ -41,6 +50,7 @@
 /* The intro paragraph. Kept at a reading measure — this is the rule that used
    to be called .body and silently capped the two-column split at 730px. */
 .intro {
+  margin-inline: auto;
   color: var(--ink-muted);
   /* Wider than a reading measure on purpose: at --measure this paragraph ran
      to five lines and ate the height the three columns below it need. */

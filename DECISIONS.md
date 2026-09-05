@@ -1039,3 +1039,184 @@ second time that rule has cost a build — see #57.
 
 The blanket `.section::before` scrim came out with the marble. With the zoned
 masks doing the work it was greying the whole section, panels included.
+
+## 63. The footer joins the bronze sections
+
+`data-ground` light -> stage, and the same `--tex-bronze` the amenities and
+floor plans carry. Its mask is the third of the family, `--scrim-band-c`, for a
+section whose text is a centred COLUMN rather than a strip at one edge.
+
+**Its stops are computed from `--grid-max`, not written as percentages.** A
+fixed 21%/79% covers the column at 1920 and misses it entirely at 1440, where
+the same 1320px grid runs nearly edge to edge — the brand mark and the
+copyright would have sat on open bronze. `max(0px, (100% - var(--grid-max))/2)`
+clamps the margin to zero below the grid's own width, so the mask simply goes
+opaque there: no room, no texture, which is the right answer on a phone.
+
+Measured in the rendered page at both widths: the worst row-median under the
+footer's text is L=0.034 — and that row is the hairline rule, not a text
+background — giving 11.06:1 for the wordmark, 5.16:1 muted, 5.75:1 faint,
+6.49:1 accent. The bronze runs at full strength in the ~300px margins either
+side.
+
+## 64. Every heading is centred
+
+Amenities and the master plan already were; the rest were left-aligned or
+buried in a side column. Now all of them sit on the centre line, which is what
+makes the page read as one system rather than six layouts.
+
+Two needed structural moves, not just `text-align`:
+
+**About** — `.left` spans both columns instead of sitting in the first, so the
+heading is centred over the film and the body rather than above the film alone.
+
+**Floor plans** — `.head` came out of the left rail and spans the top, taking
+the Tower A/B toggle with it. The rail keeps the unit links and the disclaimer.
+
+That last one has a cost worth stating: the deck was 1490x968 with the heading
+in the rail and is 1374x840 with it above. A centred heading row is ~110px of
+height the drawing used to have. The room labels are still comfortably legible
+at that size, but if the size matters more than the alignment, moving `.head`
+back to `grid-column: 1` and the stage back to `grid-row: 1 / -1` restores it.
+
+Location, Specifications, Construction and the /project-status header were
+`text-align` plus `margin-inline: auto` on a max-width block — no layout change.
+
+## 65. The popup and the active row take the bronze
+
+Two new gradient tokens, both derived from the accent and the dark ground so
+no component holds a colour of its own.
+
+`--grad-bronze` is bronze as a SURFACE: the specification popup is now a dark
+gold-shot panel rather than a raised light card, whichever ground it opens
+over. Its accent peaks at 20% of the dark ground — L=0.067, where bone reads
+7.99:1. `--ink-muted` would be 3.73:1 there, so the popup's body copy is
+`--c-n-200` (5.66:1) and its title `--c-bone`. The panel is dark on both
+grounds, so its type is the dark ground's, not the section's.
+
+`--grad-bronze-bar` is that same panel laid along a ROW. The selected row is
+the popup's surface, not a tint of the section's, so it carries the DARK
+ground's type: bone label at 7.99:1, the index in --c-accent-400 at 4.70:1,
+and the row's hairline goes transparent under it.
+
+The hover rule had to become `.trigger:hover:not(.triggerActive)`. Both are one
+class deep and the hover comes later in the file, so it won — repainting the
+bone label in the section's dark ink. A black label on a black bar, and only on
+the row the pointer is over, which is every row that has the popup open.
+
+**That wash cost a token change.** Brass text on ivory was 4.66:1 with nothing
+under it — no headroom for a tint. At a 10% wash it fell to 4.37:1.
+`--c-accent-700` went `#836529` -> `#7b5d23`, which reads 5.24:1 on the bare
+ground and 4.85:1 with the wash beneath it. Darkening the ink was the move,
+not thinning the wash: a 5% wash is the most the old value allowed, and at 5%
+nobody would see it.
+
+## 66. The palette is the logo
+
+Copper `#c89a6e` and navy `#211e3d` taken from the mark, plus beige and black.
+Every ground, ink and accent in tokens.css is now one of the four or a step of
+one; nothing else changed to make it work.
+
+| role | token | value |
+|---|---|---|
+| accent | `--c-accent-500` | `#c89a6e` — the mark's copper |
+| accent, on dark | `--c-accent-400` | `#d9b48c` |
+| accent as TEXT on beige | `--c-accent-700` | `#845c31` |
+| dark ground | `--c-n-900` | `#211e3d` — the wordmark's navy |
+| dark raised | `--c-n-800` | `#2b2750` |
+| light ground | `--c-n-50` | `#f4efe7` — beige |
+| light raised | `--c-n-100` | `#fbf8f3` |
+| ink on beige | `--c-ink-900` | `#141225` |
+| ink on navy | `--c-bone` | `#f4f1ea` |
+| the nav bar | `--c-black` | `#0d0c14` |
+
+The logo's copper is 2.21:1 on the beige and fails outright as text, exactly as
+the old brass did — `--c-accent-700` is the darkened step at 5.16:1. Black
+earns its own token rather than being "the darkest neutral": with the ground
+now navy, the bar is the one surface that is actually black, and the wordmark
+travels across it.
+
+The bronze texture was regenerated from the new pair — copper ribbons on navy
+rather than gold on brown — so the dark sections carry the logo too. Same
+generator, three colour matrices and the base fill.
+
+## 67. Amenities is the brochure spread
+
+The 3D arc carousel is off the page. The section is now the names down the
+left on the raised surface, AMENITIES set vertically beside them, and one large
+photograph on the right that changes as you move down the list.
+
+`components/ArcCarousel/` and `components/AmenityCube/` stay in the repo
+untouched, per the standing instruction — the new layout is its own component
+rather than a rewrite of theirs.
+
+**Every photograph is mounted and hover crossfades opacity between them.**
+Swapping the `src` of a single `<img>` puts a network fetch in the middle of a
+hover, so the first pass over each name flashes an empty frame. Nineteen
+stacked images cost a paint each; only the first is `eager`.
+
+Hover is not the only way in. Each name is a button that responds to focus as
+well, so the photograph follows the keyboard, and a `role="status"` caption
+names the current one for anyone who cannot see the swap.
+
+## 68. AMENITIES is filled with the photograph, and flipped
+
+The word runs bottom-to-top the full height of the section, filled with
+whichever photograph is showing.
+
+**SVG, not `background-clip: text`** — and the rotation is the whole reason.
+CSS rotates an element's BACKGROUND along with the element, so the first
+attempt had to choose between a flipped word and an upright photograph inside
+it; it kept the photograph and read top-to-bottom. An SVG `<pattern>` declared
+`patternUnits="userSpaceOnUse"` is anchored to the SVG's own coordinate system
+rather than to the shape it fills, so the `<text>` can be rotated -90 and the
+image inside the letters stays upright. That is the version the brochure has.
+
+`textLength` with `lengthAdjust="spacingAndGlyphs"` pins the word to the column
+height whatever the face's metrics are, so it spans the section at every
+viewport instead of needing a font-size guess per breakpoint.
+
+## 69. One face: Cormorant Garamond
+
+Bodoni Moda and Jost are both gone. The reference sets its display line and its
+running text in a single old-style serif, and so does this now — headings,
+body, nav, list rows, form fields, everything.
+
+**The text scale went up a second time.** Cormorant's x-height is around
+0.48em, under Jost's 0.50 and far under Inter's 0.73, and it is a lighter face
+— so the same pixel size reads both smaller and thinner. Body is
+1.1875-1.3125rem where Inter had 1-1.0625rem, small 1.0625, caption 0.9375,
+eyebrow 0.8125. Everything still fits: 8/8 sections at 1920/1440/390.
+
+This is a real legibility trade. A garalde at 0.9375rem for the specification
+index is more delicate than the geometric sans was at 0.875rem, and the
+numerals are old-style, so they sit below the cap line. It is the reference's
+look; it is not the more legible of the two.
+
+## 70. One heading size and weight, everywhere
+
+Section headings were split between `--t-display-3` and `--t-heading`
+depending on which section you were in. They are all `--t-display-3` now, and
+all `--fw-heading` — a new token at 500, because Cormorant at the old
+`--fw-light` 300 is a hairline at display sizes and the headings read as
+captions.
+
+`--fw-heading` is set once on `h1-h6` in globals, so a section cannot drift
+from it by forgetting to declare a weight.
+
+## 71. The amenities word sits on the panel
+
+It had a grid column of its own, which put a strip of the base ground between
+the panel and the photograph — visible as a paler band down the middle. The
+word is now the second cell INSIDE the panel, so it shares the panel's surface
+and its right edge is where the photograph begins: the letters end on the
+image rather than on a seam.
+
+The panel lost its right padding for the same reason — the word runs to the
+edge. The photograph gained the width: 1363px to 1488px at 1920.
+
+Nineteen names at Cormorant's size need around 700px of column. Below 860px of
+viewport height they split into two columns of ten, and the specification index
+below 780px goes from two columns of eleven to three of seven. Both were
+clipping their tails on a short window while still reporting "fits", because
+the section's own `overflow: hidden` hid the overflow rather than growing.

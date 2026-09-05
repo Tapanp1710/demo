@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-.head { flex: none; padding: 0 var(--gutter); max-width: 44rem; }
+.head { flex: none; padding: 0 var(--gutter); max-width: 44rem; margin-inline: auto; text-align: center; }
 
 .eyebrow {
   font-family: var(--font-text);
@@ -32,7 +32,7 @@
   margin-bottom: var(--s-3);
 }
 
-.heading { font-size: var(--t-heading); color: var(--ink); }
+.heading { font-size: var(--t-display-3); color: var(--ink); }
 
 /* A real scroll container: drag, wheel, touch and arrow keys all move it, and
    `flex: none` keeps it at its own height so the dates under the dots are

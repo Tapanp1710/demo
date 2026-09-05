@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Bodoni_Moda, Jost } from 'next/font/google';
+import { Cormorant_Garamond } from 'next/font/google';
 import { site } from '@/lib/content';
 import './globals.css';
 
@@ -8,39 +8,28 @@ import './globals.css';
  * no render-blocking stylesheet. Both are SIL Open Font License 1.1.
  */
 /**
- * Bodoni Moda, not Cormorant Garamond. Cormorant is an old-style face with
- * gentle contrast; the brief wants the high-contrast luxury serif — hairline
- * thin strokes against heavy stems, ball terminals. Bodoni Moda is the
- * freely-licensed face in that genre.
+ * ONE face for the whole site — headings, body, nav, forms, everything.
  *
- * It is variable over 400-900, so `--fw-light: 300` clamps to 400 wherever the
- * display face uses it. That is the intent: 400 is already the thin-hairline
- * cut, and anything lighter would not survive on the deep stage ground.
+ * Cormorant Garamond: an old-style serif with a small x-height, light stems
+ * and enough contrast in its capitals to carry a display line. The reference
+ * sets both its display and its running text in a single garalde, which is
+ * what this is; Bodoni Moda and Jost are gone.
+ *
+ * 300 is real here — the variable range covers it, so --fw-light means what it
+ * says again.
  */
-const display = Bodoni_Moda({
+const display = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-bodoni',
+  variable: '--font-cormorant',
   display: 'swap',
 });
 
-/**
- * Jost, not Inter. Inter is a UI face — engineered to be neutral in a
- * dashboard, which on a brand site reads as competent software rather than as
- * anything. Jost is geometric and Futura-derived, and geometric sans under a
- * didone is the century-old pairing from fashion and architectural printing.
- *
- * Its variable range covers 300, so --fw-light means 300 here even though the
- * display face clamps it to 400.
- */
-const text = Jost({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-jost',
-  display: 'swap',
-});
+/* The text face IS the display face. Kept as its own binding so any component
+   reading --font-text keeps working and a second face can be reintroduced
+   without touching them. */
+const text = display;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { gsap, MQ, EASE, shouldLoadHeroVideo } from '@/lib/gsap';
+import { gsap, MQ, EASE } from '@/lib/gsap';
 import { site, legal, hero as heroCopy } from '@/lib/content';
+import heroSlides from '@/lib/hero-slides.json';
 import styles from './Hero.module.css';
 
 /**
@@ -17,19 +18,22 @@ export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const media = useRef<HTMLDivElement>(null);
   const wordmark = useRef<HTMLSpanElement>(null);
-  const [showVideo, setShowVideo] = useState(false);
+  /* Four stills, crossfading. The 4.6 MB video is gone — this is 3.18 MB for
+     ALL of them across three widths, and only the first is fetched eagerly.
 
-  // The poster IS the hero for most visitors. The 4.6 MB video is a desktop-only
-  // enhancement — see shouldLoadHeroVideo for why the CPU gate alone is not enough.
+     The interval does not run under prefers-reduced-motion: an auto-advancing
+     carousel is exactly the kind of unrequested movement that setting asks to
+     be spared, so those visitors get the first slide and nothing moves. */
+  const [slide, setSlide] = useState(0);
+
   useEffect(() => {
-    if (!shouldLoadHeroVideo()) return;
-    const id = window.setTimeout(() => setShowVideo(true), 900);
-    return () => window.clearTimeout(id);
+    if (window.matchMedia(MQ.motionReduced).matches) return;
+    const id = window.setInterval(
+      () => setSlide((n) => (n + 1) % heroSlides.length),
+      6200,
+    );
+    return () => window.clearInterval(id);
   }, []);
-
-  useEffect(() => {
-    if (showVideo) void document.querySelector('video')?.play?.().catch(() => {});
-  }, [showVideo]);
 
   useEffect(() => {
     /**
@@ -103,22 +107,31 @@ export default function Hero() {
       <div className={styles.sticky}>
       <div className={styles.frame}>
         <div ref={media} className={styles.media}>
-          <img
-            className={styles.poster}
-            src="/videos/hero-poster.webp"
-            alt="Bricks Marvella's twin towers reflected in the lake at Tellapur, Hyderabad"
-            width={1920}
-            height={1080}
-            fetchPriority="high"
-            decoding="async"
-          />
-          {showVideo && (
-            <video className={styles.video} muted loop playsInline preload="none"
-              poster="/videos/hero-poster.webp" aria-hidden="true" tabIndex={-1}>
-              <source src="/videos/hero.webm" type="video/webm" />
-              <source src="/videos/hero.mp4" type="video/mp4" />
-            </video>
-          )}
+          {/* All four are mounted and opacity picks the visible one — the same
+              reason the amenities photographs are: swapping a src mid-fade puts
+              a network fetch inside the transition. Only the first is eager and
+              carries fetchPriority, so it is still the LCP candidate and the
+              other three arrive at their leisure. */}
+          {heroSlides.map((s, i) => (
+            <picture
+              key={s.slug}
+              className={`${styles.slide} ${i === slide ? styles.slideOn : ''}`}
+            >
+              <source type="image/avif" sizes="100vw"
+                srcSet={s.widths.map((w) => `/images/hero/${s.slug}-${w}.avif ${w}w`).join(', ')} />
+              <source type="image/webp" sizes="100vw"
+                srcSet={s.widths.map((w) => `/images/hero/${s.slug}-${w}.webp ${w}w`).join(', ')} />
+              <img
+                src={`/images/hero/${s.slug}-${s.widths[s.widths.length - 1]}.webp`}
+                alt={i === 0 ? s.alt : ''}
+                width={s.w}
+                height={s.h}
+                fetchPriority={i === 0 ? 'high' : undefined}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </picture>
+          ))}
           <div className={styles.scrim} aria-hidden="true" />
         </div>
 

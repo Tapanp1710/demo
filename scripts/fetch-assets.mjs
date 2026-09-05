@@ -59,7 +59,7 @@ const AMENITIES = [
   ['pool-table', '/2025/11/pool-table.webp'],
   ['squash-court', '/2025/11/squash-court.webp'],
   ['table-tennis', '/2025/11/table-tennis.webp'],
-].map(([slug, p]) => ({ src: '/wp-content/uploads' + p, out: `images/amenities/${slug}`, widths: [1400, 900, 560] }));
+].map(([slug, p]) => ({ src: '/wp-content/uploads' + p, out: `images/amenities/${slug}`, widths: [2400, 1920, 1400, 900, 560], q: true }));
 
 const PLANS = [
   ['master-plan', '/2024/10/Bricks-Marvella-master-plan-2048x1252-1.jpg'],
@@ -98,13 +98,15 @@ const LOCATION = [
   ['schools', '/2024/10/Brick-Marvella-Location-Nearby-Schools-1.jpg'],
   ['hospitals', '/2024/10/bricksmarvella-location-advantgaes-hopitals.jpg'],
   ['recreation', '/2024/10/147616-1.jpg'],
-].map(([name, p]) => ({ src: '/wp-content/uploads' + p, out: `images/location/${name}`, widths: [900, 560] }));
+].map(([name, p]) => ({ src: '/wp-content/uploads' + p, out: `images/location/${name}`, widths: [1920, 1400, 900, 560], q: true }));
 
 const PEOPLE = [
   ['phani', '/2026/06/phani-gopal-reddy-gudimetla-60x60.jpeg'],
 ].map(([name, p]) => ({ src: '/wp-content/uploads' + p, out: `images/testimonials/${name}`, widths: [60], logo: true }));
 
-const ALL = [...DRONE, ...AMENITIES, ...PLANS, ...LOGOS, ...LOCATION, ...PEOPLE];
+const ONLY = (process.argv.find((a) => a.startsWith('--only=')) || '').slice(7);
+const ALL = [...DRONE, ...AMENITIES, ...PLANS, ...LOGOS, ...LOCATION, ...PEOPLE]
+  .filter((i) => !ONLY || i.out.includes(ONLY));
 
 /**
  * Unified grading: the renders come from different sources and do not read as one
@@ -129,6 +131,20 @@ const grade = img => img
  * the real source silently upscales, so never set `native` on a guess.
  */
 const fetchPng = async (srcPath, native) => {
+  /* DIRECT FIRST. The proxy exists because this workstation's IP used to be
+     firewalled by the origin; it is not any more (verified 200 against the
+     uploads directory), and the proxy is strictly worse — it caps output at
+     1600px and re-encodes on the way through. Straight from the origin we get
+     the true native file, which is where the extra resolution comes from.
+     wsrv stays as the fallback for the day the block comes back. */
+  try {
+    const res = await fetch('https://' + ORIGIN + srcPath, { signal: AbortSignal.timeout(120000) });
+    if (res.ok) {
+      const buf = Buffer.from(await res.arrayBuffer());
+      if (buf.length > 1024) return await sharp(buf).png().toBuffer();
+    }
+  } catch { /* fall through to the proxy */ }
+
   const w = native ? `&w=${native}` : '';
   const url = `https://wsrv.nl/?url=${encodeURIComponent(ORIGIN + srcPath)}&output=png${w}&n=-1`;
   for (let attempt = 1; attempt <= 4; attempt++) {
@@ -170,15 +186,37 @@ for (const item of ALL) {
   }
 
   const meta = await sharp(png).metadata();
+
+  /* The ladder is fixed rungs, so a source whose native width falls BETWEEN
+     two rungs loses everything above the lower one — a 1080px source emitted
+     900 and threw away 180px it actually had. Add the native width as its own
+     top rung when the ladder's best is more than 5% short of it. */
+  const rungs = item.widths.filter((w) => w <= meta.width);
+  const best = Math.max(0, ...rungs);
+  const widths = best < meta.width * 0.95 ? [meta.width, ...rungs] : rungs;
+
   const outputs = [];
-  for (const w of item.widths) {
+  for (const w of widths) {
     if (w > meta.width) continue;                       // never upscale
-    const base = sharp(png).resize({ width: w, withoutEnlargement: true });
+    /* A gentle unsharp mask on anything displayed large. Resampling is a
+       low-pass filter — every downscale costs edge acuity, and the amenity
+       photographs are now drawn EDGE TO EDGE from a 1500px native, so they are
+       also being scaled up a little at 1920. sigma 0.6 restores the edge
+       without the halo a heavier setting leaves along skylines. Plans and
+       logos never get it: sharpening a line drawing is how you get ringing
+       around every dimension label. */
+    let base = sharp(png).resize({ width: w, withoutEnlargement: true });
+    if (item.q) base = base.sharpen({ sigma: 0.6 });
     const shaped = (item.plan || item.logo) ? base : grade(base);
-    const suffix = item.widths.length > 1 ? `-${w}` : '';
+    const suffix = widths.length > 1 ? `-${w}` : '';
     for (const fmt of ['avif', 'webp']) {
       const file = path.join(PUB, `${item.out}${suffix}.${fmt}`);
-      const opts = fmt === 'avif' ? { quality: item.plan ? 62 : 55, effort: 6 } : { quality: item.plan ? 86 : 80 };
+      /* item.q raises both encoders together for images that are displayed
+         large. At 55/80 the amenity photographs were tuned for a carousel
+         panel; they fill the whole section now, where that quantisation is
+         visible in flat areas — sky, walls, water. */
+      const hi = item.plan || item.q;
+      const opts = fmt === 'avif' ? { quality: hi ? 62 : 55, effort: 6 } : { quality: hi ? 86 : 80 };
       await sharp(await shaped.clone().toBuffer())[fmt](opts).toFile(file);
       outputs.push({ file: path.relative(PUB, file), bytes: (await stat(file)).size });
     }
