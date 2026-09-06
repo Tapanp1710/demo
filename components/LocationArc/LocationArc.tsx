@@ -5,6 +5,7 @@ import { gsap, MQ, EASE } from '@/lib/gsap';
 import { tellapur, locationCards, contact, anchors, legal } from '@/lib/content';
 import LineReveal from '@/components/LineReveal/LineReveal';
 import locationImages from '@/lib/location-images.json';
+import { useNearViewport } from '@/lib/useNearViewport';
 import styles from './LocationArc.module.css';
 
 /**
@@ -79,6 +80,9 @@ const wrapOffset = (d: number, n: number) => mod(d + n / 2, n) - n / 2;
 
 export default function LocationArc() {
   const root = useRef<HTMLElement>(null);
+  /* Turns true while the section is still well below the fold — the map is
+     mounted then, not when its category is selected. */
+  const near = useNearViewport(root);
   const ringBox = useRef<HTMLDivElement>(null);
   const textPanels = useRef<(HTMLDivElement | null)[]>([]);
   const shotPanels = useRef<(HTMLDivElement | null)[]>([]);
@@ -158,9 +162,15 @@ export default function LocationArc() {
         el.style.zIndex = String(100 - Math.round(ad * 10));
       }
     };
-    /* These two signs ARE the counter-rotation. */
-    ring(textPanels.current, -1);
-    ring(shotPanels.current, 1);
+    /* These two signs are BOTH the counter-rotation and the direction of
+       travel. Each ring is anchored to the edge it shares with the other, so
+       positive means the panels sweep toward that shared middle and negative
+       means they sweep away from it, out toward the window edge. Away is what
+       reads: the block you were reading slides out of the frame and the next
+       arrives from behind the centre, instead of everything converging on the
+       gap between the two rings. */
+    ring(textPanels.current, 1);
+    ring(shotPanels.current, -1);
   }, []);
 
   useEffect(() => { paint(); }, [paint]);
@@ -219,7 +229,17 @@ export default function LocationArc() {
   /** The right ring's panel body: the photograph, or the map on the last one. */
   const shot = (c: number, on: boolean) => {
     if (c === MAP) {
-      return on
+      /* Mounted on APPROACH, not on selection.
+         Gating this on `on` meant Google's embed only began loading at the
+         moment you stepped onto it, so the panel you had just turned to sat
+         blank while it fetched. useNearViewport fires while the section is
+         still well below the fold, which gives the embed the whole scroll
+         down to be ready. It is still lazy: nothing loads for a visitor who
+         never reaches this part of the page.
+         The stub remains for that case, and for the frames before the
+         observer fires — an empty panel is the right placeholder, it just
+         should not be what you see after arriving. */
+      return near
         ? (
           <iframe className={styles.map} src={contact.mapEmbed}
             title="Bricks Marvella Map" loading="lazy"
@@ -281,7 +301,7 @@ export default function LocationArc() {
                   ref={(el) => { textPanels.current[c] = el; }}
                   className={`${styles.panel} ${styles.panelPlaces} ${on ? styles.panelOn : ''}`}
                   aria-hidden={on ? undefined : true}
-                  {...(on ? {} : { inert: '' as unknown as boolean })}
+                  inert={!on}
                 >
                   {places(c)}
                 </div>
@@ -301,7 +321,7 @@ export default function LocationArc() {
                   ref={(el) => { shotPanels.current[c] = el; }}
                   className={`${styles.panel} ${styles.panelShot} ${on ? styles.panelOn : ''}`}
                   aria-hidden={on ? undefined : true}
-                  {...(on ? {} : { inert: '' as unknown as boolean })}
+                  inert={!on}
                 >
                   {shot(c, on)}
                 </div>

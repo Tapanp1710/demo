@@ -174,27 +174,36 @@
   --scrim-band-x: linear-gradient(to right,
     var(--c-n-900) 0%, var(--c-n-900) 23%, transparent 39%);
 
-  /* Bronze as a SURFACE, for the specification popup: the same gold running
-     through the dark sections, folded into a panel. The accent peaks at 20% of
-     the dark ground, which is L=0.067 — bone reads 7.99:1 on it and --c-n-200
-     5.66:1. --ink-muted would be 3.73:1, so the popup's body copy is the
-     lighter step. */
-  --grad-bronze: linear-gradient(135deg,
-    var(--c-n-900) 0%,
-    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 62%) 34%,
-    color-mix(in oklab, var(--c-accent-500), var(--c-n-900) 80%) 58%,
-    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 70%) 78%,
-    var(--c-n-900) 100%);
+  /* NAVY as a surface, for the specification popup and its selected row.
+     These were a bronze wash. They are the navy the dark sections carry, in
+     the same language as --ground-wash: a rake from the raised navy down to
+     the near-black of the bar, with one low bloom of the logo's deep gold in
+     the far corner. The popup also holds a line drawing rendered on
+     --c-n-900, so a navy panel puts the illustration on its own ground
+     instead of on a brown one.
 
-  /* The same panel, laid out along a ROW rather than a card. Used for a
-     selected row on the light ground, which therefore carries the DARK
-     ground's type: bone at 7.99:1, the index in --c-accent-400 at 4.70:1. */
-  --grad-bronze-bar: linear-gradient(100deg,
-    var(--c-n-900) 0%,
-    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 62%) 26%,
-    color-mix(in oklab, var(--c-accent-500), var(--c-n-900) 80%) 52%,
-    color-mix(in oklab, var(--c-accent-700), var(--c-n-900) 70%) 74%,
-    var(--c-n-900) 100%);
+     The LIGHTEST stop is --c-n-700. Bone reads 8.9:1 on it, --c-n-200 6.8:1
+     and --c-accent-400 5.4:1, so every step the panel uses clears AA with
+     room; everything darker along the ramp only increases it. */
+  --grad-navy: 
+    radial-gradient(72% 62% at 88% 108%, color-mix(in oklab, var(--c-gold-700), transparent 76%), transparent 70%),
+    linear-gradient(135deg,
+      var(--c-n-800) 0%,
+      var(--c-n-700) 32%,
+      var(--c-n-800) 62%,
+      var(--c-n-900) 86%,
+      var(--c-black) 100%);
+
+  /* The same panel laid out along a ROW rather than a card, so the rake runs
+     across it instead of down. */
+  --grad-navy-bar: 
+    radial-gradient(46% 130% at 94% 50%, color-mix(in oklab, var(--c-gold-700), transparent 78%), transparent 72%),
+    linear-gradient(100deg,
+      var(--c-n-800) 0%,
+      var(--c-n-700) 28%,
+      var(--c-n-800) 56%,
+      var(--c-n-900) 84%,
+      var(--c-black) 100%);
 
   /* For a section whose text is a CENTRED column — the footer. The bronze
      survives in the margins the grid leaves; the column itself sits on flat
@@ -273,8 +282,8 @@
      --font-display / --font-text; the fallbacks keep metrics sane if that
      ever fails to load.
      --------------------------------------------------------------------- */
-  --font-display: var(--font-cormorant), "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
-  --font-text: var(--font-cormorant), "Cormorant Garamond", Garamond, Georgia, "Times New Roman", serif;
+  --font-display: var(--font-poiret), "Poiret One", "Century Gothic", "Avenir Next", sans-serif;
+  --font-text: var(--font-jost), "Jost", "Futura", "Avenir Next", "Segoe UI", sans-serif;
 
   /* Fluid ramp. Display sizes are set tight; body stays generous. */
   --t-display-1: clamp(3.25rem, 1.6rem + 6.9vw, 8rem);
@@ -305,7 +314,11 @@
   --fw-light: 300;
   /* Every section heading, everywhere. Cormorant is a light face and 500 was
      still thin at display sizes against a photograph or a bloom. */
-  --fw-heading: 600;
+  /* 400, and it has to be. Poiret One ships ONE weight; asking for 600 does
+     not get a bolder cut, it gets the browser smearing the 400 outlines to
+     fake one, which on a hairline face turns into mud. Weight is not the
+     hierarchy here — size, letter-spacing and colour are. */
+  --fw-heading: 400;
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;

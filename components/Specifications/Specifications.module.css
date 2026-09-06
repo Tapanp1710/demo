@@ -15,6 +15,13 @@
   margin: 0 auto;
   padding: var(--section-y-fit) var(--gutter) var(--s-5);
   padding-top: max(var(--section-y-fit), calc(var(--nav-h) + var(--s-3)));
+  /* Clears the fixed Request Price / Call Now pair, which is positioned over
+     the bottom-right of whatever is on screen. At a short window the last row
+     of the third column landed underneath it and could not be hovered or
+     tapped at all — LPG Reticulation was unreachable at 1366x625 and below.
+     The rows give up the height instead; they are evenly spaced, so it costs
+     a couple of pixels each rather than hiding one of them. */
+  padding-bottom: max(var(--s-5), 5rem);
   display: flex;
   flex-direction: column;
   gap: var(--s-5);
@@ -93,7 +100,7 @@
    dark ground's type, not the section's. */
 .triggerActive {
   color: var(--c-bone);
-  background: var(--grad-bronze-bar);
+  background: var(--grad-navy-bar);
   border-bottom-color: transparent;
   border-radius: var(--radius-sm);
 }
@@ -115,13 +122,36 @@
   padding: var(--s-4) var(--s-5);
   border: var(--hairline) solid color-mix(in oklab, var(--c-accent-500), transparent 62%);
   border-radius: var(--radius-sm);
-  background: var(--grad-bronze);
+  background: var(--grad-navy);
   box-shadow: 0 12px 40px rgb(20 18 15 / 0.42);
   pointer-events: none;   /* never steals the pointer from the trigger */
   animation: popIn var(--dur-micro) var(--ease-ui);
 }
 /* The panel is dark whatever ground it opens over, so its type is the dark
    ground's, not the section's. */
+/* Bled to the popup's edges: the drawing is rendered on the same navy the
+   panel now carries, so a margin around it would read as a seam rather than a
+   frame. The negative margins cancel the popup's own padding on three sides. */
+.popupArt {
+  display: block;
+  /* globals caps every img/picture at max-width:100%, which resolves against
+     the popup's CONTENT box — so the negative margins pulled the box out to
+     the popup's edges and the cap immediately shrank it back to 270px.
+     Measured, not guessed: the art was rendering 270 wide in a 320 popup. */
+  max-width: none;
+  margin: calc(var(--s-4) * -1) calc(var(--s-5) * -1) var(--s-4);
+  border-bottom: var(--hairline) solid color-mix(in oklab, var(--c-accent-500), transparent 62%);
+}
+.popupArt img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* On a short window the drawing yields height before the text does, so the
+     body copy is never what gets pushed off-screen. */
+  max-height: 20vh;
+  object-fit: cover;
+}
+
 .popupTitle {
   font-family: var(--font-display);
   font-size: var(--t-subhead);

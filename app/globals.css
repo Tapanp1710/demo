@@ -5,6 +5,13 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
+  /* The scrollbar is hidden, not disabled: the page still scrolls by wheel,
+     touch, keyboard and the scrollbar's own drag is simply gone. Lenis already
+     owns the scroll feel, so the native gutter was only ever a 15px strip of
+     grey down the edge of a full-bleed design.
+     The trade is real and worth stating: no visual indication of position or
+     document length. Keyboard and screen-reader navigation are untouched. */
+  scrollbar-width: none;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   /* Zero for the same reason as ANCHOR_OFFSET in lib/gsap.ts: full-height
@@ -12,6 +19,8 @@ html {
      push their last rows below the fold. */
   scroll-padding-top: 0;
 }
+html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
+
 /* Lenis drives scrolling; native smooth-scroll would fight it. */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

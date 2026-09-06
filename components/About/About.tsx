@@ -69,7 +69,7 @@ export default function About() {
 
         {/* Across the foot of both columns: stacked under the body it was the
             item that ran past the bottom of the section and got clipped. */}
-        <VideoFacade id={about.videoId} title={about.videoTitle} className={styles.video} />
+        <VideoFacade id={about.videoId} title={about.videoTitle} className={styles.video} autoStart />
       </div>
     </section>
   );

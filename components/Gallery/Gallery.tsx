@@ -71,7 +71,8 @@ export default function Gallery() {
             as="h2"
             id="gallery-heading"
             className={styles.heading}
-            lines={[{ text: 'Experience 360° views' }]}
+            lines={[{ text: 'Experience the luxury' }]}
+            // 360° views
           />
         </div>
 

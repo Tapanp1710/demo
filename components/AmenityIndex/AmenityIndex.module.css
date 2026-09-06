@@ -4,6 +4,16 @@
 .section {
   position: relative;
   height: 100svh;
+  /* The bar is opaque and fixed, so anything drawn in the top --nav-h of the
+     viewport is simply not visible. The section keeps its full 100svh — the
+     page still tiles one screen per section — and gives that band back as
+     padding, which moves the IN-FLOW children (the panel, and the word inside
+     it) below the bar.
+     It does NOT move the photograph: an absolutely positioned child resolves
+     against the padding BOX, which includes the padding band, so top:0 still
+     lands at the very top of the section. The stage has to be offset by hand —
+     see .stage. */
+  padding-top: var(--nav-h);
   /* The one section that marks with blue instead of copper: it sits on the
      logo navy, so the mark is that navy's own hue lifted until it reads.
      7.57:1 on the raised panel, 8.67:1 on the base ground. */
@@ -15,7 +25,7 @@
   display: grid;
   /* ONE column, because the photograph is not in the layout any more — it is
      underneath it. The panel is the only thing the grid places. */
-  grid-template-columns: minmax(23rem, 30rem);
+  grid-template-columns: minmax(19rem, 25rem);
   align-items: stretch;
   overflow: hidden;
 }
@@ -34,7 +44,13 @@
    the letters are the same object as the pixels beside them. */
 .stage {
   position: absolute;
-  inset: 0;
+  /* Left: starts at the WORD column, not the section edge — see the
+     component. The names column sits over ground, not over photograph, and
+     nothing shows through it.
+     Top: --nav-h explicitly. Padding on the section does not inset an
+     absolutely positioned child, so without this the photograph kept running
+     up under the bar while everything else had moved down. */
+  inset: var(--nav-h) 0 0 var(--stage-left, 0px);
   z-index: 0;
   overflow: hidden;
 }
@@ -47,7 +63,13 @@
   transition: opacity var(--dur-entrance) var(--ease-ui);
 }
 .shotActive { opacity: 1; }
-.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  display: block;
+}
 
 /* TOP right, not bottom. The bottom-right corner belongs to the sticky
    call/price buttons, which are fixed and sit above everything — the caption
@@ -55,7 +77,7 @@
 .caption {
   position: absolute;
   right: var(--s-5);
-  top: calc(var(--nav-h) + var(--s-4));
+  top: var(--s-4);
   margin: 0;
   padding: var(--s-2) var(--s-4);
   font-family: var(--font-text);
@@ -98,7 +120,6 @@
   min-height: 0;
   overflow: hidden;
   padding: var(--s-5) var(--s-5) var(--s-5) 0;
-  padding-top: max(var(--s-5), calc(var(--nav-h) + var(--s-4)));
   /* The left gutter is the panel's padding, which sits outside this box — so
      the paint has to be pushed back out to the section edge or a strip of
      photograph shows down the far left. */
@@ -139,7 +160,11 @@
   text-align: left;
   cursor: pointer;
   font-family: var(--font-text);
-  font-size: var(--t-small);
+  /* --t-caption, not --t-small. The sheet is 400px now rather than 480, and at
+     the larger size the two longest names — Meditation & Yoga Centre, Cycling
+     and Jogging Track — wrapped to two lines, which broke the even rhythm of
+     the column and pushed the tail of the list against the disclaimer. */
+  font-size: var(--t-caption);
   line-height: 1.2;
   color: var(--ink-muted);
   transition: color var(--dur-micro) var(--ease-ui);
@@ -155,7 +180,7 @@
    photograph begins. See the component for why it is a mask and not a fill. */
 .vertical {
   align-self: stretch;
-  width: clamp(8rem, 5rem + 7vw, 15rem);
+  width: clamp(7rem, 4.2rem + 6vw, 12.5rem);
   height: 100%;
   display: block;
   /* CLIPPED, not visible. The sheet's shadow bleeds off every edge of its
@@ -190,18 +215,37 @@
 @media (max-width: 991px) {
   .section { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; }
   .vertical { display: none; }
-  .stage { position: relative; grid-row: 1; }
+  .stage { position: relative; grid-row: 1; inset: auto; }
   .panel { grid-row: 2; grid-template-columns: 1fr; padding: 0; }
-  .names { margin-left: 0; padding: var(--s-4) var(--gutter); }
-  .list { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(10, auto); grid-auto-flow: column; column-gap: var(--s-5); }
+  /* The fixed call/price bar spans the full width at the bottom of a phone
+     and sits above everything, so the last row of names and the disclaimer
+     were unreadable underneath it. The names column ends above the bar; the
+     photograph takes the height that frees up. */
+  .names {
+    margin-left: 0;
+    padding: var(--s-4) var(--gutter) calc(var(--s-4) + 4.25rem);
+  }
+  /* flex: none, NOT the base rule's flex: 1 1 0.
+     Stacked, the names row is auto-height, and a flex item with basis 0 and
+     min-height 0 inside an auto-height column resolves to nothing — the list
+     collapsed to 114px and nineteen names were clipped away behind the fixed
+     call bar. Sized by its content it claims what it needs, and the
+     photograph takes whatever is left over. */
+  .list {
+    flex: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(10, auto);
+    grid-auto-flow: column;
+    column-gap: var(--s-5);
+  }
   .name { font-size: var(--t-caption); padding: 0.2em 0; }
-  .caption { left: var(--s-4); right: auto; top: calc(var(--nav-h) + var(--s-3)); }
+  .caption { left: var(--s-4); right: auto; top: var(--s-3); }
 }
 
 /* Nineteen rows at Cormorant's size need ~700px. A short window has to split
    them, or the tail of the list is clipped by the section. */
 @media (max-height: 860px) and (min-width: 992px) {
-  .section { grid-template-columns: minmax(28rem, 38rem); }
+  .section { grid-template-columns: minmax(24rem, 33rem); }
   .list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(10, minmax(min-content, 1fr));

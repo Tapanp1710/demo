@@ -48,8 +48,14 @@
 /* Spans both columns and centres, like every other section's heading. The
    film and the body then share row 2 beneath it. */
 .left  { grid-column: 1 / -1; grid-row: 1; text-align: center; }
-/* Beside the FILM, in the row under the heading. */
-.right { grid-column: 2; grid-row: 2; align-self: start; }
+/* Beside the FILM, in the row under the heading. BOTH are centred in that
+   row, because which of the two is taller depends on the viewport: the copy
+   is the taller one at a desktop width, the film at a narrow one. Centring
+   only the copy did nothing at 1919 — it was already setting the row height,
+   so its own centre was where it started, and the film stayed pinned to the
+   top 41px above it. Centring both means the shorter one always sits level
+   with the taller, whichever way round they are. */
+.right { grid-column: 2; grid-row: 2; align-self: center; }
 
 .body {
   max-width: var(--measure);
@@ -67,6 +73,7 @@
 .video {
   grid-column: 1;
   grid-row: 2;
+  align-self: center;
   width: 100%;
   max-width: 100%;
 }
@@ -82,10 +89,19 @@
   .word { transform: none !important; }
 }
 
+/* A SHORT window on a laptop is the same squeeze as a phone, but with the
+   two-column layout still in play, so the phone rule below never fires for it.
+   Jost carries a much larger x-height than the Cormorant this section was
+   measured against, and at 1280x585 that put the body 18px past the section.
+   It gives up leading and a size step; every word stays. */
+@media (max-height: 660px) and (min-width: 768px) {
+  .inner { gap: var(--s-4) var(--s-8); }
+  .body { font-size: var(--t-small); line-height: 1.45; }
+}
+
 /* One screen on a phone. The body keeps every word — it loses leading and a
    size step instead, which is where the 41px of overflow was. */
 @media (max-width: 767px) {
   .inner { gap: var(--s-4); }
   .body { font-size: var(--t-small); line-height: 1.5; }
-  .heading { font-size: var(--t-heading); }
 }

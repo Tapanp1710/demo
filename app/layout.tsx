@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond } from 'next/font/google';
+import { Poiret_One, Jost } from 'next/font/google';
 import { site } from '@/lib/content';
 import './globals.css';
 
@@ -8,28 +8,36 @@ import './globals.css';
  * no render-blocking stylesheet. Both are SIL Open Font License 1.1.
  */
 /**
- * ONE face for the whole site — headings, body, nav, forms, everything.
+ * TWO faces, because the brief's reference is a display type.
  *
- * Cormorant Garamond: an old-style serif with a small x-height, light stems
- * and enough contrast in its capitals to carry a display line. The reference
- * sets both its display and its running text in a single garalde, which is
- * what this is; Bodoni Moda and Jost are gone.
+ * The direction is TAN Aegean — a thin, wide, geometric display face. It is a
+ * commercial licence and is not shipped here. Poiret One is the closest thing
+ * on the Open Font License: the same hairline geometry and the same generous
+ * width. Like the reference it is DISPLAY ONLY, one weight, no italic — which
+ * is exactly why it cannot also set the body. The specification index alone is
+ * 21 rows of dense copy, and a hairline face at 17px is unreadable however
+ * good the contrast ratio is.
  *
- * 300 is real here — the variable range covers it, so --fw-light means what it
- * says again.
+ * So Poiret One carries the headings and the vertical AMENITIES word, and Jost
+ * — a geometric sans from the same family of shapes, with a real 100–900
+ * variable range — carries everything that has to be read rather than looked
+ * at. They share the circular bowls and open apertures, so the pairing reads
+ * as one voice at two scales.
  */
-const display = Cormorant_Garamond({
+const display = Poiret_One({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-cormorant',
+  weight: '400',            // the family HAS no other weight — see --fw-heading
+  variable: '--font-poiret',
   display: 'swap',
 });
 
-/* The text face IS the display face. Kept as its own binding so any component
-   reading --font-text keeps working and a second face can be reintroduced
-   without touching them. */
-const text = display;
+const text = Jost({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-jost',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

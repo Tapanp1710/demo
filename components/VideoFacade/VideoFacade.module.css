@@ -19,6 +19,27 @@
 
 .frame { border-width: 0; }
 
+/* The pointer gate. The iframe ignores the mouse until the shell is hovered
+   or something inside it takes focus — keyboard users are not locked out. */
+.shell {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.shell .frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  pointer-events: none;
+}
+.shell:hover .frame,
+.shell:focus-within .frame { pointer-events: auto; }
+
 .play {
   position: absolute;
   top: 50%;

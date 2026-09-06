@@ -16,9 +16,14 @@
   top: 0;
   height: 100svh;
   display: grid;
+  /* The CAPTION's row is gone — it sits on the picture now, over its own
+     scrim, which gives every image back the 33px it was taking. The
+     disclaimer keeps its row: it spans the full width, so overlaying it would
+     put unscrimmed text on whichever image happened to be beneath, and its
+     contrast could not be verified for any of them. */
   grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: var(--s-3);
-  padding: var(--s-4) 0;
+  gap: var(--s-2);
+  padding: var(--s-3) 0 0;
   /* Clears the fixed nav. A sticky inner is HELD at top:0 for its whole range,
      so an overlap here is permanent, not a moment while scrolling past. */
   padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
@@ -61,28 +66,42 @@
   height: 100%;
   min-height: 0;
   margin: 0;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: var(--s-2);
+  /* One row: the picture takes the whole frame and the caption is laid over
+     its bottom edge. As two rows the caption was taking 33px off every image
+     on every screen. */
+  position: relative;
+  display: block;
 }
 
 .frame picture {
   display: block;
   min-height: 0;
   height: 100%;
+  width: 100%;
   overflow: hidden;
   border-radius: var(--radius-sm);
   background: var(--ground-raised);
 }
 .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* Over the foot of the picture, on a scrim that fades up out of nothing so
+   the photograph is not boxed in. */
 .caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: baseline;
   gap: var(--s-3);
+  padding: var(--s-7) var(--s-4) var(--s-3);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: linear-gradient(to top,
+    color-mix(in oklab, var(--c-black), transparent 8%),
+    transparent);
   font-family: var(--font-text);
   font-size: var(--t-caption);
-  color: var(--ink-muted);
+  color: var(--c-n-100);
 }
 .num {
   font-variant-numeric: tabular-nums;
