@@ -83,39 +83,81 @@ export function shouldLoadHeroVideo(): boolean {
 }
 
 let lenis: Lenis | null = null;
+/* The in-flight start, so overlapping calls share one instance. */
+let starting: Promise<() => void> | null = null;
+/* How many live callers hold it. The instance is shared, so it may only be
+   torn down when the LAST of them lets go — see initSmoothScroll. */
+let refs = 0;
 
 /**
  * Start Lenis and drive it from GSAP's ticker, so scroll position and
  * ScrollTrigger stay on one clock. Two rAF loops = scrub jitter.
- * Returns a disposer; safe to call twice (second call is a no-op).
+ *
+ * Returns a disposer. Safe to call any number of times, overlapping or not:
+ * every caller gets the same instance and the same disposer.
  */
 export async function initSmoothScroll(): Promise<() => void> {
   if (typeof window === 'undefined') return () => {};
   if (window.matchMedia(MQ.motionReduced).matches) return () => {};
-  if (lenis) return () => {};
 
-  const { default: LenisCtor } = await import('lenis');
-  lenis = new LenisCtor({
-    duration: 1.05,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    touchMultiplier: 1.6,
-    /* Anchors are handled by scrollToAnchor below, not by Lenis's own option —
-       a single jump lands in the wrong place here. See that function. */
-  });
+  /* ONE shared instance, ref-counted. Two separate faults lived here.
 
-  const onScroll = () => ScrollTrigger.update();
-  lenis.on('scroll', onScroll);
+     The old guard was `if (lenis) return () => {}`, which only caught a call
+     arriving after the first had FINISHED — but the first thing this function
+     does is await a dynamic import, so a call during that window saw
+     lenis === null and built a SECOND instance. React's development
+     double-invoke does exactly that on every mount. The caller then disposed
+     whichever one it happened to hold and the other was orphaned: still on the
+     ticker, still preventDefault-ing wheel events, with nothing left holding
+     its disposer. That orphan is what made /project-status/ ignore the wheel
+     after navigating to it from the home page — invisibly, because the sibling
+     instance's destroy() had already removed the html class.
 
-  const raf = (time: number) => lenis?.raf(time * 1000);
-  gsap.ticker.add(raf);
-  gsap.ticker.lagSmoothing(0);
+     Sharing the promise fixes that but is not enough on its own: the same
+     double-invoke mounts, unmounts, then mounts again, and the unmounted first
+     caller would tear down the instance the second, live one is using — which
+     left the page with no Lenis at all. Hence the count. The first caller's
+     release only decrements; the last one out destroys. */
+  refs += 1;
+  if (!starting) {
+    starting = (async () => {
+      const { default: LenisCtor } = await import('lenis');
+      lenis = new LenisCtor({
+        duration: 1.05,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+        touchMultiplier: 1.6,
+        /* Anchors are handled by scrollToAnchor below, not by Lenis's own
+           option — a single jump lands in the wrong place here. */
+      });
 
+      const onScroll = () => ScrollTrigger.update();
+      lenis.on('scroll', onScroll);
+
+      const raf = (time: number) => lenis?.raf(time * 1000);
+      gsap.ticker.add(raf);
+      gsap.ticker.lagSmoothing(0);
+
+      return () => {
+        lenis?.off('scroll', onScroll);
+        gsap.ticker.remove(raf);
+        lenis?.destroy();
+        lenis = null;
+        starting = null;
+      };
+    })();
+  }
+
+  const teardown = await starting;
+
+  /* One release per caller, idempotent — a double cleanup must not decrement
+     the count twice and strand a live instance with no holders. */
+  let released = false;
   return () => {
-    lenis?.off('scroll', onScroll);
-    gsap.ticker.remove(raf);
-    lenis?.destroy();
-    lenis = null;
+    if (released) return;
+    released = true;
+    refs -= 1;
+    if (refs <= 0) { refs = 0; teardown(); }
   };
 }
 

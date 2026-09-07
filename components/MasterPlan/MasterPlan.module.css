@@ -1,9 +1,9 @@
-/* Scroll track: one viewport plus 180svh of clip-path travel, reserved in CSS
-   so the document never changes height when the trigger builds. */
+/* One viewport, and only one. The 180svh track existed to give the clip-path
+   somewhere to travel; with the mask gone there is nothing to scrub and the
+   section is the plain full-height section it looks like. */
 .section {
-  --scroll-len: 180svh;
   position: relative;
-  height: calc(100svh + var(--scroll-len));
+  height: 100svh;
   background: var(--ground);
   background-image: var(--ground-wash);
   color: var(--ink);
@@ -68,10 +68,10 @@
   max-width: 100%;
   justify-self: center;
   align-self: center;
-  /* The resting shape before the scrub builds, matching the first frame the
-     timeline sets. */
-  clip-path: inset(12% 8% round 24px);
+  /* No clip-path. The drawing is a technical document with a numbered legend;
+     masking any of it hides the thing the section exists to show. */
   overflow: hidden;
+  border-radius: var(--radius-lg);
 }
 
 /* <picture> is display:inline with auto height, so the img's height:100% had
@@ -102,13 +102,8 @@
   .frame { flex: 1 1 0; height: auto; margin-inline: auto; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  /* No clip-path travel, so no track. */
-  .section { height: auto; }
-  .sticky { position: static; height: auto; }
-  .frame { clip-path: none !important; max-height: none; }
-  .frame img { transform: none !important; }
-}
+/* Nothing here animates any more, so prefers-reduced-motion has nothing left
+   to switch off — the reduced path and the normal one are now the same. */
 
 /* Gold hairline under the eyebrow — see --rule-gold. */
 .eyebrow::after {

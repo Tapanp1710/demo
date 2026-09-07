@@ -23,15 +23,18 @@
 /* Pages with no hero to morph show the bar immediately. */
 .standalone { opacity: 1; visibility: visible; }
 
-/* Eight plain labels in one row. */
-.links { display: flex; gap: var(--s-5); align-items: baseline; min-width: 0; }
+/* Plain labels, both to the right of the wordmark. */
+.linksRight { display: flex; gap: var(--s-5); align-items: baseline; min-width: 0; }
+
 
 .link { white-space: nowrap; }
 
 /* Explicit columns. `display: none` on .links takes it OUT of the grid, so
    with auto-placement the slot and the right-hand block each slid one column
    left and the phone number printed straight through the centred wordmark. */
-.links { grid-column: 1; }
+/* Column 1 carries nothing now. It is still declared because the bar's
+   1fr auto 1fr is what centres the wordmark, and the fixed mark is pinned to
+   left: 50% — drop the empty track and the slot stops matching the mark. */
 .slot  { grid-column: 2; }
 .right { grid-column: 3; }
 
@@ -202,13 +205,30 @@
   to   { opacity: 1; transform: none; }
 }
 
-@media (max-width: 1699px) {
-  /* MEASURED: eight labels span 732px, and the bar centres the wordmark, so the
-     left track is only (viewport/2 - half the wordmark - the gutter). That
-     clears 732px at 1920 and not at 1600, 1440 or 1280 — at 1280 the last two
-     labels ran straight under the gold wordmark. Below this width the Menu
-     panel is the nav, and it carries the same eight plus the phone. */
-  .links { display: none; }
+/* No breakpoint hides these any more. The whole reason the row used to
+   disappear below 1700px was that nine labels could not fit beside a centred
+   wordmark; two can, at every width down to a phone. */
+@media (max-width: 1500px) {
+  .link { font-size: var(--t-caption); }
+}
+/* Phones. MEASURED: at 390px the last label hung 6px off the right edge and
+   at 360px, 21px — the wordmark is centred and fixed, so the pair only ever
+   has (viewport/2 - half the mark - the gutter) to live in, which is about
+   96px at 390. Type step down, tighter gap, tighter gutter: together they buy
+   back roughly 30px, which clears the narrowest phone the site supports.
+   (The gap-to-wordmark check passed throughout — it never asked whether the
+   labels stayed inside the WINDOW, which is what was actually failing.) */
+@media (max-width: 560px) {
+  .bar { padding-inline: var(--s-3); }
+  .linksRight { gap: var(--s-2); }
+  .link { font-size: var(--t-eyebrow); }
+}
+
+/* Narrower still: "Project Status" reads "Status". Below about 400px the two
+   labels cannot both fit beside a centred wordmark at any size a person can
+   read, so the word that carries no information on its own is the one to go. */
+@media (max-width: 400px) {
+  .labelWide { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

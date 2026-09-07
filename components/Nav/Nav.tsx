@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap, MQ, EASE } from '@/lib/gsap';
-import { nav, sectionIndex, phone, site, anchors } from '@/lib/content';
-import ContactDialog, { OPEN as CONTACT_OPEN } from '@/components/ContactDialog/ContactDialog';
+import { site } from '@/lib/content';
+import ContactDialog from '@/components/ContactDialog/ContactDialog';
 import styles from './Nav.module.css';
 
 /**
@@ -22,17 +22,29 @@ import styles from './Nav.module.css';
  * in; and once the hero scrolled away it took the mark with it, leaving the bar
  * empty.)
  */
+/* THREE things in the bar and no more: the wordmark, which is the link home,
+   and the two routes that are not part of this page. Both sit to the RIGHT of
+   the wordmark; the left track is left empty on purpose, because the two 1fr
+   tracks either side are what hold the wordmark on the centre line — the mark
+   itself is position: fixed at left: 50%, so anything that moved that centre
+   would leave it painting off its own slot.
+
+   The home page's own sections are not here any more. They are a scroll away
+   on the page itself, and the footer carries the full index of them — a bar
+   that repeated all nine was competing with both. */
+const NAV_RIGHT = [
+  /* `drop` is the part of the label that goes on a very narrow phone, where
+     the right track is about 88px and no readable size fits the full pair.
+     "Project Status" becomes "Status"; the link and its destination do not
+     change. Marked up rather than swapped at a breakpoint in JS so there is
+     one DOM for both, and no hydration mismatch. */
+  { label: 'Project Status', href: '/project-status/', drop: 'Project ' },
+  { label: 'Blog', href: '/blog/' },
+] as { label: string; href: string; drop?: string }[];
+
 export default function Nav({ standalone = false }: { standalone?: boolean }) {
-  const [open, setOpen] = useState(false);
   const bar = useRef<HTMLElement>(null);
   const mark = useRef<HTMLAnchorElement>(null);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
-  }, [open]);
 
   useEffect(() => {
     // No hero to fly out of, so nothing morphs — but the sticky CTA still has
@@ -136,44 +148,29 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
         data-nav-bar
         className={`${styles.bar} ${standalone ? styles.standalone : ''}`}
       >
-        {/* Plain labels, no numbering. */}
-        <nav className={styles.links} aria-label="Sections">
-          {sectionIndex.map((item) => (
-            <Link key={item.href} href={item.href} className={styles.link}>{item.label}</Link>
-          ))}
-        </nav>
-
         {/* Reserves the mark's footprint so the bar's grid does not collapse —
             the mark itself is fixed and sits on top of this box. Same text,
             same type styles, hidden: the column is then exactly as wide as the
             mark at every breakpoint rather than a guessed clamp. */}
         <span className={styles.slot} aria-hidden="true">{site.name}</span>
 
-        {/* The centre line carries the wordmark and NOTHING else. The RERA
-            number moved to the footer, where it already appeared; the phone
-            moved into the Menu panel. Both used to sit on this line and the
-            three collided at every width under 1600px. */}
+        {/* The right-hand cell. It held Contact us and Menu; both are gone.
+            The lead form is still one click away from the sticky Request Price
+            pair, and ContactDialog still intercepts the old anchors, so the
+            footer's links to it keep working. */}
         <div className={styles.right}>
-          {/* The lead form is no longer a section of the page — this is how it
-              is reached. ContactDialog also intercepts every remaining link to
-              the old anchors, so the sticky CTA and the footer still work. */}
-          <button
-            type="button"
-            className={styles.contactButton}
-            onClick={() => window.dispatchEvent(new Event(CONTACT_OPEN))}
-          >
-            Contact us
-          </button>
-
-          <button
-            type="button"
-            className={styles.menuButton}
-            aria-expanded={open}
-            aria-controls="nav-overlay"
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? 'Close' : 'Menu'}
-          </button>
+          {/* Both labels, right of the wordmark. Two of them fit at any width
+              the site supports — which is why nothing here is hidden at a
+              breakpoint any more, and why there is no Menu button left to
+              reveal them. */}
+          <nav className={styles.linksRight} aria-label="Pages">
+            {NAV_RIGHT.map(({ href, label, drop }) => (
+              <Link key={href} href={href} className={styles.link}>
+                {drop ? <span className={styles.labelWide}>{drop}</span> : null}
+                {drop ? label.slice(drop.length) : label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
 
@@ -188,46 +185,6 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
       >
         {site.name}
       </Link>
-
-      <div
-        id="nav-overlay"
-        className={`${styles.overlay} ${open ? styles.overlayOpen : ''}`}
-        hidden={!open}
-      >
-        <nav className={styles.overlayNav} aria-label="All pages">
-          {sectionIndex.map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={styles.overlayLink}
-              style={{ ['--i' as string]: String(i) }}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-
-          {/* The pages that are not sections of this one. */}
-          <span className={styles.overlayRule} aria-hidden="true" />
-          {nav.filter((item) => !item.href.includes('#')).map((item, i) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`${styles.overlayLink} ${styles.overlayLinkSmall}`}
-              style={{ ['--i' as string]: String(sectionIndex.length + i) }}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link href={`/#${anchors.leadForm}`} className={styles.overlayCta} onClick={() => setOpen(false)}>
-            Request Price
-          </Link>
-
-          {/* The phone, displaced from the bar's centre line. */}
-          <a className={styles.overlayPhone} href={phone.primary.telHref}>{phone.primary.display}</a>
-        </nav>
-      </div>
 
       <ContactDialog />
     </>

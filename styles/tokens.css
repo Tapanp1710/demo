@@ -359,6 +359,10 @@
      --------------------------------------------------------------------- */
   --radius-none: 0;
   --radius-sm: 2px;
+  /* Panels and cards — the location arc's own. */
+  --radius-md: 1.25rem;
+  /* Full-height imagery, where a small radius disappears at that scale. */
+  --radius-lg: 2rem;
   --radius-pill: 999px;
   --hairline: 1px;
   --field-h: 3.5rem;

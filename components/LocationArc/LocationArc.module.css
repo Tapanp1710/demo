@@ -118,7 +118,7 @@
   /* Not --radius-sm. That token is 2px, which is right on a chip and reads as
      a hard-cornered box on a panel this size — part of what made the arc look
      cuboidal rather than circular. */
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--ground-raised);
   will-change: transform, opacity, filter;

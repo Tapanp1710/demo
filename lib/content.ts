@@ -413,9 +413,12 @@ export const sectionIndex = [
   { n: '04', label: 'Master Plan', href: `/#${anchors.masterPlan}` },
   { n: '05', label: 'Residences', href: `/#${anchors.floorPlan}` },
   { n: '06', label: 'Specifications', href: `/#${anchors.specifications}` },
-  /* The updates moved off the home page onto their own route. */
-  { n: '07', label: 'Construction', href: '/project-status/' },
-  { n: '08', label: 'Contact', href: `/#${anchors.contact}` },
+  /* The two routes that are not sections of the home page. Labelled as the
+     pages they are — "Construction" pointed at /project-status/ and read as an
+     anchor on this page. */
+  { n: '07', label: 'Project Status', href: '/project-status/' },
+  { n: '08', label: 'Blog', href: '/blog/' },
+  { n: '09', label: 'Contact', href: `/#${anchors.contact}` },
 ] as const;
 
 export const logos = {

@@ -112,34 +112,27 @@ export default function Home() {
       <StructuredData />
 
       <main id="main" className={styles.main}>
-        {/* Hero, MasterPlan and FloorPlans own scroll tracks
-            already and hold longer than one screen — they are not wrapped. */}
+        {/* Hero and FloorPlans own scroll tracks already and hold longer than
+            one screen — they are not wrapped. MasterPlan used to; its clip-path
+            reveal is gone, so it is a plain 100svh section now. */}
         <Hero />
-        
         {/* The stat band's six figures now flank the master plan. */}
-        <Hold ground="light"><About /></Hold>
-
+        <About />
         {/* Owns a scroll track already — not wrapped. */}
         <Gallery />
         {/* <DroneCube /> */}
-
         {/* <ParallaxOpener word="Amenities" images={AMENITY_OPENER} ground="stage" /> */}
-       
         <Hold ground="light"><AmenityIndex /></Hold>
         <MasterPlan />
         {/* <ParallaxOpener word="Residences" images={RESIDENCES_OPENER} ground="light" /> */}
         <FloorPlans />
-
         <Hold ground="stage"><LocationArc /></Hold>
-
         {/* <ParallaxOpener word="Specifications" images={SPEC_OPENER} ground="light" /> */}
         <Hold ground="light"><Specifications /></Hold>
-
         {/* The construction updates live on /project-status/ now. */}
         {/* <Hold ground="light"><Testimonials /></Hold> */}
         {/* The lead form is a dialog now — see components/ContactDialog. */}
       </main>
-
       <Footer />
       <StickyCTA />
     </>

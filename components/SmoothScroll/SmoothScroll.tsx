@@ -15,8 +15,12 @@ import { initSmoothScroll, refreshWhenSettled, scrollToAnchor, exposeTriggerTabl
  */
 export default function SmoothScroll() {
   useEffect(() => {
+    /* The start is async, so an unmount can beat it. Without the flag the
+       cleanup below runs with dispose still undefined, the import then
+       resolves, and Lenis is created with nothing left holding its disposer. */
     let dispose: (() => void) | undefined;
-    initSmoothScroll().then((d) => { dispose = d; });
+    let unmounted = false;
+    initSmoothScroll().then((d) => { if (unmounted) d(); else dispose = d; });
     refreshWhenSettled();
     exposeTriggerTable();
 
@@ -46,7 +50,11 @@ export default function SmoothScroll() {
     };
 
     document.addEventListener('click', onClick, true);
-    return () => { document.removeEventListener('click', onClick, true); dispose?.(); };
+    return () => {
+      unmounted = true;
+      document.removeEventListener('click', onClick, true);
+      dispose?.();
+    };
   }, []);
 
   return null;
