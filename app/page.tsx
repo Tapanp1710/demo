@@ -132,8 +132,6 @@ export default function Home() {
          <Hold ground="light"><About /></Hold>
         {/* Owns a scroll track already — not wrapped. */}
         <Gallery />
-        {/* <DroneCube /> */}
-        {/* <ParallaxOpener word="Amenities" images={AMENITY_OPENER} ground="stage" /> */}
         <Hold ground="light"><AmenityIndex /></Hold>
         <Hold ground="light"><MasterPlan /></Hold>
         {/* <ParallaxOpener word="Residences" images={RESIDENCES_OPENER} ground="light" /> */}
