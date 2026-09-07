@@ -4,7 +4,7 @@ import Nav from '@/components/Nav/Nav';
 import Construction from '@/components/Construction/Construction';
 import Footer from '@/components/Footer/Footer';
 import StickyCTA from '@/components/StickyCTA/StickyCTA';
-import { site, legal, construction } from '@/lib/content';
+import { site, construction } from '@/lib/content';
 import statusManifest from '@/lib/status-manifest.json';
 import styles from './status.module.css';
 
@@ -89,7 +89,6 @@ export default function ProjectStatusPage() {
           ))}
         </ol>
 
-        <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
         <p className={styles.back}><Link href="/">← Back to {site.name}</Link></p>
       </main>
 

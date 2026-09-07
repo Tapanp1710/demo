@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap, MQ, EASE, DUR } from '@/lib/gsap';
-import { floorPlans, anchors, legal } from '@/lib/content';
+import { floorPlans, anchors } from '@/lib/content';
 import LineReveal from '@/components/LineReveal/LineReveal';
 import { useNearViewport } from '@/lib/useNearViewport';
 import styles from './FloorPlans.module.css';
@@ -96,7 +96,6 @@ export default function FloorPlans() {
     >
       <div className={styles.sticky}>
       <div className={styles.head}>
-        <p className={styles.eyebrow}>Residences</p>
         <LineReveal as="h2" id="plans-heading" className={styles.heading} lines={[{ text: 'Floor Plans' }]} />
 
       </div>
@@ -161,7 +160,6 @@ export default function FloorPlans() {
         ))}
       </ul>
 
-      <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
       </div>
 
       {/* Reduced motion: every plan of both towers, as a plain list. */}

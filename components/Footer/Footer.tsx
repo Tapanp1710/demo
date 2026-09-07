@@ -58,7 +58,6 @@ export default function Footer() {
           <strong>{legal.buildingPermissionLabel}:</strong>{' '}
           <span className="tabular">{legal.buildingPermission}</span>
         </p>
-        <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
         <p className={styles.copyright}>
           © {new Date().getFullYear()} {site.developer}. All rights reserved.
         </p>

@@ -40,7 +40,11 @@
   inset: 0;
   display: block;
   opacity: 0;
-  transition: opacity 1.4s var(--ease-ui);
+  /* 0.8s, not the 1.4s this used to be. The hold is SLIDE_MS in Hero.tsx and
+     is now 2.5s; a 1.4s crossfade spends 56% of every cycle mid-fade, so no
+     slide is ever settled long enough to read as a photograph. At 0.8s each one
+     sits still for about 1.7s. Raise the hold before raising this again. */
+  transition: opacity 0.8s var(--ease-ui);
 }
 .slideOn { opacity: 1; }
 .slide img {
@@ -120,7 +124,10 @@
   position: absolute;
   z-index: 3;
   right: var(--gutter);
-  top: var(--s-5);
+  /* Below the bar, not under it. --s-5 alone put this at y=24 with the bar
+     ending at 52, so the whole first line ("The images provided are for
+     representation") sat behind it and the caption began mid-sentence. */
+  top: calc(var(--nav-h) + var(--s-3));
   font-size: var(--t-caption);
   color: var(--c-n-300);
   max-width: 20rem;
@@ -143,3 +150,56 @@
    itself uses, which is what keeps the two boxes identical. */
 .wordmarkSlot picture { display: block; }
 .wordmarkSlot img { display: block; height: 1.4em; width: auto; max-width: none; }
+
+/**
+ * The supplied marketing plate, over the left of the hero.
+ *
+ * Vertically centred rather than pinned to a corner: the disclaimer holds the
+ * top right, the wordmark slot the bottom right, and the fixed call/price bar
+ * the bottom right again — the left flank is the only clear run of the frame.
+ *
+ * The artwork is square and carries its own transparent margin, so it needs no
+ * plate, border or shadow of its own; anything added here would sit outside the
+ * artwork's own edge and read as a second, mismatched frame.
+ */
+/* The banner is a link now; the positioning moved onto it, and .plate is just
+   the picture filling it. pointer-events had to come OFF — it was set to none
+   back when nothing here was clickable, which would have made the whole target
+   dead. */
+.plateLink {
+  position: absolute;
+  z-index: 3;
+  left: var(--gutter);
+  top: 50%;
+  transform: translateY(-50%);
+  height: min(42rem, calc(100svh - var(--nav-h) - var(--s-6) * 2));
+  display: block;
+  border-radius: var(--radius-md);
+  transition: transform var(--dur-micro) var(--ease-ui);
+}
+.plateLink:hover { transform: translateY(-50%) scale(1.012); }
+.plateLink:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 6px; }
+
+.plate {
+  display: block;
+  height: 100%;
+  position: relative;
+}
+
+.plate img {
+  display: block;
+  height: 100%;
+  width: auto;
+  /* The global img rule is max-width: 100%, which against a shrink-to-fit
+     parent resolves circularly and squashes the plate. */
+  max-width: none;
+}
+
+@media (max-width: 767px) {
+  /* A phone is width-bound, not height-bound: the portrait artwork at any
+     readable height is wider than the screen. Flip the axis. */
+  .plateLink { height: auto; width: 78vw; }
+  .plate img { width: 100%; height: auto; }
+}
+
+

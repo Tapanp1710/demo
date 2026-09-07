@@ -23,7 +23,7 @@ const TYPE = [
   { token: '--t-subhead', label: 'Subhead', sample: 'Lakeside living in Tellapur', font: 'text' },
   { token: '--t-body', label: 'Body', sample: 'Two towers rising thirty-two floors over four and a half acres.', font: 'text' },
   { token: '--t-small', label: 'Small', sample: 'Starting from ₹1.55 Cr', font: 'text' },
-  { token: '--t-caption', label: 'Caption', sample: legal.imageDisclaimer, font: 'text' },
+  { token: '--t-caption', label: 'Caption', sample: 'Caption and disclaimer text, set at the caption step.', font: 'text' },
 ];
 
 export default function StyleguidePage() {
@@ -266,7 +266,6 @@ export default function StyleguidePage() {
         <p className={styles.monoSmall}>
           {legal.reraLabel}: {legal.rera} · {legal.buildingPermissionLabel}: {legal.buildingPermission}
         </p>
-        <p className={styles.caption}>{legal.imageDisclaimer}</p>
       </footer>
     </main>
   );

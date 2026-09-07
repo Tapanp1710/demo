@@ -1,3 +1,6 @@
+/* The single spacing value for every link in the bar. */
+.linkGroup { --nav-gap: var(--s-5); }
+
 .bar {
   position: fixed;
   top: 0;
@@ -30,8 +33,36 @@
 /* Pages with no hero to morph show the bar immediately. */
 .standalone { opacity: 1; visibility: visible; }
 
-/* Plain labels, both to the right of the wordmark. */
-.linksRight { display: flex; gap: var(--s-5); align-items: baseline; min-width: 0; }
+/* The two route links. */
+.pages { display: flex; gap: var(--nav-gap); align-items: baseline; min-width: 0; }
+
+/* The four section links, in column 1. Both side tracks stay 1fr and both may
+   shrink, so filling this one cannot move the centre off the fixed wordmark. */
+/* Both groups share column 1: the four section jumps, then the two routes,
+   with a wider gap between the groups than within them so they still read as
+   two things rather than one run of six. */
+.linkGroup {
+  grid-column: 3;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  /* The SAME gap the two navs use inside themselves. They are still two
+     elements for accessibility, but nothing about the spacing should give that
+     away — a wider seam here made six links read as four plus two. */
+  gap: var(--nav-gap);
+  min-width: 0;
+}
+
+/* Column 1 holds nothing. It exists because the bar's 1fr auto 1fr is what
+   centres the wordmark, and the fixed mark is pinned to left: 50%. */
+.spacer { grid-column: 1; }
+
+.sections {
+  display: flex;
+  gap: var(--nav-gap);
+  align-items: baseline;
+  min-width: 0;
+}
 
 
 .link { white-space: nowrap; }
@@ -43,14 +74,15 @@
    1fr auto 1fr is what centres the wordmark, and the fixed mark is pinned to
    left: 50% — drop the empty track and the slot stops matching the mark. */
 .slot  { grid-column: 2; }
-.right { grid-column: 3; }
 
 
 .link,
 .markText {
   font-family: var(--font-text);
-  font-size: var(--t-caption);
-  color: var(--nav-muted);
+  /* --t-small, a step up from the --t-caption these used to be. */
+  font-size: var(--t-small);
+  font-weight: var(--fw-regular);
+  color: rgb(223, 224, 236);
   letter-spacing: 0.02em;
 }
 .link { transition: color var(--dur-micro) var(--ease-ui); }
@@ -117,13 +149,6 @@
 /* One cell on the right. It holds only the Menu button now — the RERA number
    and the phone both left the bar, because all three were laid on the same
    centre line as the wordmark and collided under 1600px. */
-.right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: var(--s-4);
-  min-width: 0;
-}
 
 /* Sits beside Menu on the right of the bar. Filled, because it is the one
    conversion control that is present at every scroll position. */
@@ -224,12 +249,31 @@
   to   { opacity: 1; transform: none; }
 }
 
-/* No breakpoint hides these any more. The whole reason the row used to
-   disappear below 1700px was that nine labels could not fit beside a centred
-   wordmark; two can, at every width down to a phone. */
+/* Tighten the spacing before touching the type. The font-size step down that
+   used to live here was cancelling the whole size increase on every laptop
+   under 1500px, which is most of them. */
 @media (max-width: 1500px) {
-  .link { font-size: var(--t-caption); }
+  .linkGroup { --nav-gap: var(--s-4); }
 }
+
+/**
+ * Below 1250px the four section links go, leaving the two routes.
+ *
+ * They all share one cell to the right of a centred, FIXED wordmark, so the
+ * run only has (viewport - half the mark - the gutter) to live in. MEASURED,
+ * mark's right edge to the first link: 307px clear at 1920, 157 at 1600, 122
+ * at 1440, 47 at 1280 — and at 1200 the two navs begin overlapping each other
+ * (the gap between them goes 12, then -4 at 1152, -20 at 1100, -43 at 1024) as
+ * the flex boxes shrink past their content. 1250 is the cut.
+ *
+ * The sections are a scroll away on the page itself and the footer carries the
+ * full index, so this is the row that can go; the two ROUTES cannot, because
+ * nothing else in the bar reaches those pages.
+ */
+@media (max-width: 1249px) {
+  .sections { display: none; }
+}
+
 /* Phones. MEASURED: at 390px the last label hung 6px off the right edge and
    at 360px, 21px — the wordmark is centred and fixed, so the pair only ever
    has (viewport/2 - half the mark - the gutter) to live in, which is about
@@ -239,7 +283,7 @@
    labels stayed inside the WINDOW, which is what was actually failing.) */
 @media (max-width: 560px) {
   .bar { padding-inline: var(--s-3); }
-  .linksRight { gap: var(--s-2); }
+  .linkGroup { --nav-gap: var(--s-3); }
   .link { font-size: var(--t-eyebrow); }
 }
 

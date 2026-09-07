@@ -23,21 +23,31 @@
      and the bottom of the film together.) */
   display: grid;
   grid-template-columns: 1.15fr 1fr;
-  grid-template-rows: auto auto;
-  align-content: center;
-  gap: var(--s-6) var(--s-8);
+  /* auto, then the REST. With two auto rows and align-content:start the whole
+     block sat in the top half and left ~470px of empty ground under it. The
+     heading keeps its own row at the top; the film and the copy share
+     everything below it and centre in there, so the section is filled without
+     the heading drifting back down to the middle. */
+  grid-template-rows: auto minmax(0, 1fr);
+  /* START, not centre. Every other section's heading sits ~104px below its own
+     top edge; centring the whole grid put this one at 322px, floating in the
+     middle of the screen while the rest of the page opened at a consistent
+     line. The leftover space now pools BELOW the film instead of being split
+     above and below it. (Centring was itself a fix for an older bug where the
+     block was centred inside overflow:hidden and clipped at both ends — start
+     cannot clip the top, which was the half that mattered.) */
+  align-content: start;
+  /* The ROW gap is what drops the film and the copy down the screen, and it is
+     deliberately the lever rather than align-self: center on the two items.
+     Centring them individually is what put the film at 348 and the copy at 448
+     — each centres on its own height, so two items of different height start on
+     different lines. Growing the gap moves the pair down together and leaves
+     them top-aligned on one line. Viewport-relative so it scales, clamped at
+     both ends so a short window cannot push the content out of the section. */
+  gap: clamp(var(--s-6), 22svh, 15rem) var(--s-8);
   align-items: start;
 }
 
-.eyebrow {
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-accent);
-  margin-bottom: var(--s-3);
-}
 
 .quote {
   font-size: var(--t-display-3);
@@ -48,20 +58,20 @@
 /* Spans both columns and centres, like every other section's heading. The
    film and the body then share row 2 beneath it. */
 .left  { grid-column: 1 / -1; grid-row: 1; text-align: center; }
-/* Beside the FILM, in the row under the heading. BOTH are centred in that
-   row, because which of the two is taller depends on the viewport: the copy
-   is the taller one at a desktop width, the film at a narrow one. Centring
-   only the copy did nothing at 1919 — it was already setting the row height,
-   so its own centre was where it started, and the film stayed pinned to the
-   top 41px above it. Centring both means the shorter one always sits level
-   with the taller, whichever way round they are. */
-.right { grid-column: 2; grid-row: 2; align-self: center; }
+/* Beside the FILM, in the row under the heading, TOP-ALIGNED with it.
+   Centring both in a 1fr row left a ~130px hole under the heading and started
+   the two columns on different lines — the film at 348 and the copy at 448,
+   which read as a mistake rather than a composition. Start pins both to the
+   same line directly beneath the heading; the leftover height falls at the
+   foot of the section, where it is quiet. */
+.right { grid-column: 2; grid-row: 2; align-self: start; }
 
 .body {
   max-width: var(--measure);
   color: var(--ink-muted);
   font-size: var(--t-body);
   line-height: var(--lh-body);
+  margin-top:100px
 }
 
 /* inline-block so the reveal can be staggered per word without breaking
@@ -73,9 +83,10 @@
 .video {
   grid-column: 1;
   grid-row: 2;
-  align-self: center;
+  align-self: start;
   width: 100%;
   max-width: 100%;
+  margin-top:50px
 }
 
 @media (max-width: 991px) {
@@ -95,7 +106,7 @@
    measured against, and at 1280x585 that put the body 18px past the section.
    It gives up leading and a size step; every word stays. */
 @media (max-height: 660px) and (min-width: 768px) {
-  .inner { gap: var(--s-4) var(--s-8); }
+  .inner { gap: var(--s-4) var(--s-8); }   /* row gap collapses: no room to drop into */
   .body { font-size: var(--t-small); line-height: 1.45; }
 }
 

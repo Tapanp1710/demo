@@ -6,7 +6,9 @@
   z-index: var(--layer-sticky);
   right: var(--s-5);
   bottom: var(--s-5);
+  /* Stacked, not side by side. */
   display: flex;
+  flex-direction: column;
   gap: var(--s-3);
   opacity: 0;
   visibility: hidden;
@@ -19,24 +21,74 @@
 }
 
 .price, .call {
-  padding: var(--s-4) var(--s-5);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-text);
-  font-size: var(--t-small);
-  font-weight: var(--fw-medium);
+  /* 3.25rem = 52px, comfortably past the 44px that a finger needs and well past
+     the 24px WCAG target-size floor. The label moved into aria-label when the
+     text left, so nothing here may shrink below a real touch target to look
+     neater. */
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  /* Filled copper with a navy glyph — the same disc the LocationArc arrows now
+     wear, so every floating circular control on the site reads as one family.
+     Navy on copper measures 6.30:1, and 8.24:1 on the lifted hover copper. */
+  background: var(--c-accent-500);
   border: var(--hairline) solid var(--c-accent-500);
+  /* --c-n-900, NOT --ink. --ink inverts with the section ground and would turn
+     pale over the dark sections — which is right for ink sitting on the page,
+     and wrong here, because these discs carry their own copper with them past
+     every section boundary. */
+  color: var(--c-n-900);
+  /* A circle floating over photographs needs its own edge; the flat rectangles
+     had the page's own ground behind them to sit against. */
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--c-black), transparent 65%);
   /* transform only — nothing that reflows or delays the tap */
-  transition: transform var(--dur-micro) var(--ease-ui);
+  transition: transform var(--dur-micro) var(--ease-ui),
+              background var(--dur-micro) var(--ease-ui),
+              border-color var(--dur-micro) var(--ease-ui);
 }
 
-.price { background: var(--c-accent-500); color: var(--c-n-900); }
-.call { background: var(--c-n-900); color: var(--c-n-50); }
+.icon { width: 1.4rem; height: 1.4rem; display: block; }
 
-.price:hover, .call:hover { transform: translateY(-3px); }
+/* Lift, and the disc brightens to the lifted copper — the same hover the arrows
+   use. The glyph stays navy: it reads 8.24:1 on this lighter copper. */
+.price:hover, .call:hover {
+  transform: translateY(-3px);
+  background: var(--c-accent-400);
+  border-color: var(--c-accent-400);
+}
+/**
+ * Call is the inverse of the pair: navy disc, copper ring, copper glyph.
+ *
+ * Two identical discs stacked in a corner are one control drawn twice — nothing
+ * but the glyph says which is which, and at 20px a tag and a handset are easy to
+ * confuse in a hurry. Inverting one separates them at a glance while keeping
+ * both in the same two colours.
+ *
+ * Copper on navy is the same 6.30:1 the filled disc measures, read the other
+ * way round, so nothing is lost by flipping it. These rules come AFTER the
+ * shared ones and match their specificity, so they win on the properties they
+ * name and inherit the rest — the size, the shadow and the hover lift.
+ */
+.call {
+  background: var(--c-n-900);
+  border-color: var(--c-accent-500);
+  color: var(--c-accent-500);
+}
+.call:hover {
+  background: var(--c-n-900);
+  border-color: var(--c-accent-400);
+  color: var(--c-accent-400);
+}
+
+.price:focus-visible, .call:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; }
 
 @media (max-width: 767px) {
-  .bar { left: var(--s-4); right: var(--s-4); bottom: var(--s-4); }
-  .price, .call { flex: 1; text-align: center; }
+  /* Still circles, still stacked — just tucked closer to the corner. They no
+     longer span the width, so the foot of every section gains back the room the
+     full-width bar used to take. */
+  .bar { right: var(--s-4); bottom: var(--s-4); }
 }
 
 @media (prefers-reduced-motion: reduce) {

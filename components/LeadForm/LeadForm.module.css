@@ -19,9 +19,57 @@
 }
 .modal .inner {
   max-width: none;
-  padding: var(--s-6);
-  padding-top: var(--s-6);
-  gap: var(--s-6);
+  padding: var(--s-5);
+  padding-top: var(--s-5);
+  gap: var(--s-5);
+}
+
+/**
+ * The modal is a smaller room than the section this form was designed for, and
+ * every size in it is stepped down to suit.
+ *
+ * --t-display-3 resolves to 60px at a desktop width. That is the right size for
+ * a heading that owns a whole screen; inside a 768px panel it was taking a
+ * quarter of the height on its own and pushing the site address off the bottom.
+ * Everything here is scoped to .modal, so the standalone section — which still
+ * has the room — is untouched.
+ */
+.modal .heading { font-size: var(--t-subhead); line-height: 1.25; }
+.modal .eyebrow { font-size: 0.7rem; }
+.modal .sub { margin-top: var(--s-3); font-size: var(--t-caption); }
+.modal .details { margin-top: var(--s-5); gap: var(--s-4); }
+.modal .details dd { font-size: var(--t-caption); line-height: 1.5; }
+.modal .details dt { margin-bottom: 0.15rem; }
+.modal .detail { gap: var(--s-3); grid-template-columns: 1.15rem 1fr; }
+.modal .icon { width: 1rem; height: 1rem; }
+
+/* The form side: shorter fields and tighter stacking buy back the rest. */
+.modal .form { gap: var(--s-4); }
+/* Height AND padding together. .input carries 24px of top padding to clear the
+   floating label, so at 3rem the content box was 16px and the select's own text
+   was sliced in half — "Please select your preference" showed its top halves
+   only. There is no .select class to target separately; the select wears
+   .input, so the fix has to work for both. */
+.modal .input {
+  height: 3.25rem;
+  padding-top: var(--s-4);
+  padding-bottom: var(--s-1);
+  /* The select was inheriting 21px while its own label sat at 13px and the
+     contact list at 15px — the largest text in a panel that is meant to read
+     as compact. */
+  font-size: var(--t-small);
+}
+.modal .label { top: 0.95rem; }
+.modal .labelStatic { top: 0.3rem; }
+.modal .consent { font-size: var(--t-caption); line-height: 1.45; }
+.modal .submit { padding: var(--s-3) var(--s-5); }
+
+/* A phone gives the panel the whole screen and it was still 12px over — the one
+   place the form genuinely runs out of room rather than merely looking large.
+   Tighter padding and stacking clears it without another type step down. */
+@media (max-width: 767px) {
+  .modal .inner { padding: var(--s-4); gap: var(--s-4); }
+  .modal .details { margin-top: var(--s-4); gap: var(--s-3); }
 }
 
 /* Legacy anchor targets, offset so the fixed nav never covers the heading. */
@@ -62,6 +110,23 @@
   display: grid;
   gap: var(--s-5);
 }
+/* Icon and text side by side; the icon column is fixed so every label starts
+   on the same line whatever the glyph. */
+.detail {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: var(--s-4);
+  align-items: start;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  color: var(--ink-gold);
+  flex: none;
+}
+
 .details dt {
   font-family: var(--font-text);
   font-size: var(--t-eyebrow);

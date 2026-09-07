@@ -45,7 +45,6 @@ export default function About() {
     <section ref={root} id={anchors.about} className={styles.section} aria-labelledby="about-heading">
       <div className={styles.inner}>
         <div className={styles.left}>
-          <p className={styles.eyebrow}>{about.heading}</p>
           <LineReveal
             as="h2"
             id="about-heading"

@@ -39,16 +39,6 @@
 .railLeft { grid-column: 1; }
 .railRight { grid-column: 3; }
 
-.eyebrow {
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-accent);
-  margin-bottom: var(--s-3);
-}
-
 .heading { font-size: var(--t-display-3); color: var(--ink); }
 
 /* The mask. Only ever inset() — see the component note on why circle() cannot
@@ -104,13 +94,3 @@
 
 /* Nothing here animates any more, so prefers-reduced-motion has nothing left
    to switch off — the reduced path and the normal one are now the same. */
-
-/* Gold hairline under the eyebrow — see --rule-gold. */
-.eyebrow::after {
-  content: '';
-  display: block;
-  width: 3.75rem;
-  height: 1px;
-  margin: var(--s-2) auto 0;
-  background: var(--rule-gold);
-}

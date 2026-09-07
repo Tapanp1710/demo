@@ -62,7 +62,6 @@ export default function Construction({ entries }: { entries: StatusEntry[] }) {
     <section id={anchors.construction} className={styles.section} data-ground="stage" aria-labelledby="construction-heading">
       <div className={styles.sticky}>
       <div className={styles.head}>
-        <p className={styles.eyebrow}>{construction.eyebrow}</p>
         <LineReveal
           as="h2"
           id="construction-heading"

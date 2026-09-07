@@ -79,7 +79,7 @@ export const legal = {
   reraUrl: 'https://rera.telangana.gov.in/',
   buildingPermission: '047316/SKP/R1/U6/HMDA/17072021',
   buildingPermissionLabel: 'Building Permission No',
-  imageDisclaimer: 'The images provided are for representation purposes only. Actual images may differ.',
+  // imageDisclaimer: 'The images provided are for representation purposes only. Actual images may differ.',
   formConsent:
     'I authorise Bricks InfraTech & its representatives to contact me with updates and notifications via Email/SMS/WhatsApp/Call. This will override DND/NDNC.',
 } as const;
@@ -137,6 +137,24 @@ export const hero = {
   /** The old site's visible slider text. */
   sliderText: 'Experience 360° Views',
   legacyHeading: 'EXPERIENCE PERFECT LIFE',
+} as const;
+
+/**
+ * The marketing plate laid over the left of the hero.
+ *
+ * It is a supplied graphic with its headline, figures and prices baked into the
+ * pixels, so none of that is text a search engine or a screen reader can read.
+ * The alt below is the only place that content exists as words — it is long on
+ * purpose, because it is standing in for the whole banner rather than labelling
+ * a picture. If the artwork is re-cut, this has to be re-read against it.
+ */
+export const heroPlate = {
+  src: '/images/hero/hero-plate',
+  alt: 'Bricks Marvella, Tellapur, Hyderabad — Where Life Rises Higher. '
+    + 'Two high-sky towers of 3 and 4 BHK flats for sale, with a 42,000 sq. ft. '
+    + 'clubhouse over 5 levels. Box price ₹1.55 Cr for 2,100 sq. ft. and '
+    + '₹2.55 Cr for 3,570 sq. ft. 32 storeys, 536 residences, 4.5 acres, '
+    + 'lake-view amenities. Luxury living in Tellapur.',
 } as const;
 
 export const stats: Stat[] = [
@@ -225,9 +243,24 @@ export const reflectionOfMastery = {
   heading: 'Reflection of Mastery !',
 } as const;
 
-export const cityViews = {
-  heading: ['Immerse yourself', 'in the city views'],
+/**
+ * The aerial film between the hero and the About spread.
+ *
+ * Was `cityViews` — the old site's copy for this same footage, read by nothing
+ * since DroneCube left the page. The sub-line is that original copy kept
+ * verbatim; the heading carries the 360 the source render actually shows.
+ * `hero.sliderText` holds the same words but has never been rendered, and the
+ * Gallery heading was changed to 'Experience the luxury' so this line is used
+ * in exactly one place on the page.
+ */
+export const views = {
+  eyebrow: 'Aerial Film',
+  lines: [
+    { text: 'Experience', italic: false },
+    { text: '360° views', italic: true },
+  ],
   sub: 'Indulge in breathtaking urban panoramas from your safe havens.',
+  alt: 'Aerial film opening across the lake and flying in to the two Bricks Marvella towers at Tellapur',
 } as const;
 
 /** Cube faces. Captions state only what the source content claims. */
@@ -386,6 +419,7 @@ export const nav = [
 /** In-page anchors carried over from the old site — every one must resolve. */
 export const anchors = {
   about: 'about-project',
+  views: 'views',
   gallery: 'gallery',
   amenities: 'club-house',
   amenitiesAlt: 'amenities',

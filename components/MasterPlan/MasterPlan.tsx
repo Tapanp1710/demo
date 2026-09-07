@@ -1,4 +1,4 @@
-import { masterPlan, anchors, legal, stats } from '@/lib/content';
+import { masterPlan, anchors, stats } from '@/lib/content';
 import { StatList } from '@/components/StatBand/StatBand';
 import LineReveal from '@/components/LineReveal/LineReveal';
 import styles from './MasterPlan.module.css';
@@ -28,7 +28,6 @@ export default function MasterPlan() {
       </div>
 
       <div className={styles.head}>
-        <p className={styles.eyebrow}>The site</p>
         <LineReveal as="h2" id="masterplan-heading" className={styles.heading} lines={[{ text: 'Master Plan' }]} />
       </div>
 
@@ -53,7 +52,6 @@ export default function MasterPlan() {
         <StatList items={stats.slice(Math.ceil(stats.length / 2))} vertical />
       </div>
 
-      <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
       </div>
 
       {/* Reduced motion / no-JS: the plan simply renders, full width. */}

@@ -134,7 +134,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-eyebrow);
   text-transform: uppercase;
-  color: var(--ink-accent);
+  color: var(--ink-gold);
 }
 
 /* Nineteen rows share whatever the eyebrow and the disclaimer leave, so the
@@ -172,7 +172,7 @@
 .name:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
 /* Marks which photograph you are looking at. */
-.nameActive { color: var(--ink-accent); }
+.nameActive { color: var(--ink-gold); }
 
 .disclaimer { flex: none; font-size: 0.7rem; color: var(--ink-faint); }
 

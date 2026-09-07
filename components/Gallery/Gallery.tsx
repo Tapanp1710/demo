@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap, MQ, EASE } from '@/lib/gsap';
-import { anchors, legal } from '@/lib/content';
-import heroSlides from '@/lib/hero-slides.json';
+import { anchors } from '@/lib/content';
+import gallerySlides from '@/lib/gallery-slides.json';
 import { useNearViewport } from '@/lib/useNearViewport';
 import LineReveal from '@/components/LineReveal/LineReveal';
 import styles from './Gallery.module.css';
@@ -13,9 +13,11 @@ import styles from './Gallery.module.css';
  * down moves the row sideways, so the vertical gesture reads as a horizontal
  * pan across the project.
  *
- * It draws from lib/hero-slides.json — the same manifest the hero itself
- * uses — deliberately. Replacing the hero photographs replaces these too, with
- * no second list to keep in step.
+ * It has its OWN manifest, lib/gallery-slides.json. It used to share the
+ * hero's, so that replacing the hero's photographs replaced these too — which
+ * stopped being what was wanted the moment the two sections were given
+ * different pictures. The hero carries the newer renders; this strip keeps the
+ * four originals.
  *
  * No `pin`. The section is a tall track with a sticky inner (see the CSS), so
  * the scroll length is reserved from first paint and the document never
@@ -66,7 +68,6 @@ export default function Gallery() {
     >
       <div className={styles.sticky}>
         <div className={styles.head}>
-          <p className={styles.eyebrow}>Gallery</p>
           <LineReveal
             as="h2"
             id="gallery-heading"
@@ -79,21 +80,21 @@ export default function Gallery() {
         {/* The window. The rail is wider than it is and slides underneath. */}
         <div ref={viewport} className={styles.viewport}>
           <div ref={rail} className={styles.rail}>
-            {heroSlides.map((s, i) => (
+            {gallerySlides.map((s, i) => (
               <figure key={s.slug} className={styles.frame}>
                 <picture>
                   <source
                     type="image/avif"
                     sizes="(max-width: 767px) 86vw, 62vw"
-                    srcSet={s.widths.map((w) => `/images/hero/${s.slug}-${w}.avif ${w}w`).join(', ')}
+                    srcSet={s.widths.map((w) => `/images/gallery/${s.slug}-${w}.avif ${w}w`).join(', ')}
                   />
                   <source
                     type="image/webp"
                     sizes="(max-width: 767px) 86vw, 62vw"
-                    srcSet={s.widths.map((w) => `/images/hero/${s.slug}-${w}.webp ${w}w`).join(', ')}
+                    srcSet={s.widths.map((w) => `/images/gallery/${s.slug}-${w}.webp ${w}w`).join(', ')}
                   />
                   <img
-                    src={`/images/hero/${s.slug}-${s.widths[s.widths.length - 1]}.webp`}
+                    src={`/images/gallery/${s.slug}-${s.widths[s.widths.length - 1]}.webp`}
                     alt={s.alt}
                     width={s.w}
                     height={s.h}
@@ -110,7 +111,6 @@ export default function Gallery() {
           </div>
         </div>
 
-        <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
       </div>
     </section>
   );

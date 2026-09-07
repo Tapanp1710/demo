@@ -129,7 +129,6 @@ export default function Specifications() {
     >
       <div className={styles.inner}>
         <header className={styles.head}>
-          <p className={styles.eyebrow}>The detail</p>
           <LineReveal
             as="h2"
             id="specs-heading"

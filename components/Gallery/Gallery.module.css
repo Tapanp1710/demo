@@ -34,15 +34,6 @@
    run off both edges and read as a continuing row rather than a slideshow. */
 .head { text-align: center; padding: 0 var(--gutter); }
 
-.eyebrow {
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-accent);
-  margin-bottom: var(--s-2);
-}
 .heading { font-size: var(--t-display-3); color: var(--ink); }
 
 .viewport { min-height: 0; overflow: hidden; }
@@ -137,14 +128,4 @@
   .sticky { position: static; height: 100svh; }
   .rail { transform: none !important; will-change: auto; }
   .viewport { overflow-x: auto; overscroll-behavior-x: contain; }
-}
-
-/* Gold hairline under the eyebrow — see --rule-gold. */
-.eyebrow::after {
-  content: '';
-  display: block;
-  width: 3.75rem;
-  height: 1px;
-  margin: var(--s-2) auto 0;
-  background: var(--rule-gold);
 }

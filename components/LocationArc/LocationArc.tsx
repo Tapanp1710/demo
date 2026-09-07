@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { gsap, MQ, EASE } from '@/lib/gsap';
-import { tellapur, locationCards, contact, anchors, legal } from '@/lib/content';
+import { tellapur, locationCards, contact, anchors } from '@/lib/content';
 import LineReveal from '@/components/LineReveal/LineReveal';
 import locationImages from '@/lib/location-images.json';
 import { useNearViewport } from '@/lib/useNearViewport';
@@ -276,7 +276,6 @@ export default function LocationArc() {
       }}
     >
       <div className={styles.head}>
-        <p className={styles.eyebrow}>Location</p>
         <LineReveal as="h2" id="location-heading" className={styles.heading}
           lines={[{ text: 'Tellapur, the future is here' }]} />
         <p className={styles.tagline}>{tellapur.tagline}</p>
@@ -341,7 +340,6 @@ export default function LocationArc() {
           inside the left panel is the visible equivalent. */}
       <p className={styles.srOnly} role="status" aria-live="polite">{label(active)}</p>
 
-      <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
     </section>
   );
 }

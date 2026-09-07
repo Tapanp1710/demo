@@ -27,15 +27,6 @@
   white-space: nowrap;
 }
 
-.eyebrow {
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-accent);
-  margin-bottom: var(--s-2);
-}
 .heading { font-size: var(--t-display-3); color: var(--ink); }
 .tagline {
   margin-top: var(--s-2);
@@ -199,20 +190,24 @@
   place-items: center;
   font-size: 1.7rem;
   line-height: 1;
-  background: color-mix(in oklab, var(--ground), transparent 22%);
-  backdrop-filter: blur(3px);
-  /* Gold, not the muted ink. These are the only control in the section and the
-     only thing a reader has to find, so they carry the logo's gold instead of
-     receding into the ground. --ink-gold measures 8.24:1 on the navy. */
-  border: var(--hairline) solid color-mix(in oklab, var(--c-gold-500), transparent 55%);
+  /* FILLED copper with a navy chevron, matching the sticky pair — every
+     floating circular control on the site wears the same disc.
+     It was a translucent navy disc with a gold ring and a gold glyph: readable,
+     but it receded into whatever photograph was behind it at exactly the moment
+     someone was looking for the control. A solid fill cannot.
+     Navy on copper measures 6.30:1, and 8.24:1 on the lifted hover copper. */
+  background: var(--c-accent-500);
+  border: var(--hairline) solid var(--c-accent-500);
   border-radius: var(--radius-pill);
-  color: var(--ink-gold);
+  /* --c-n-900, not --ink: the disc brings its own copper, so the glyph must not
+     invert with the section ground underneath it. */
+  color: var(--c-n-900);
   cursor: pointer;
-  transition: color var(--dur-micro) var(--ease-ui), border-color var(--dur-micro) var(--ease-ui);
+  transition: background var(--dur-micro) var(--ease-ui), border-color var(--dur-micro) var(--ease-ui);
 }
 .arrowLeft { left: var(--s-3); }
 .arrowRight { right: var(--s-3); }
-.arrow:hover { color: var(--c-gold-400); border-color: var(--c-gold-500); }
+.arrow:hover { background: var(--c-accent-400); border-color: var(--c-accent-400); }
 .arrow:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
 
 .disclaimer { flex: none; font-size: 0.7rem; color: var(--ink-faint); text-align: center; }
@@ -270,14 +265,4 @@
 
 @media (prefers-reduced-motion: reduce) {
   .panel { transition: none; }
-}
-
-/* Gold hairline under the eyebrow — see --rule-gold. */
-.eyebrow::after {
-  content: '';
-  display: block;
-  width: 3.75rem;
-  height: 1px;
-  margin: var(--s-2) auto 0;
-  background: var(--rule-gold);
 }

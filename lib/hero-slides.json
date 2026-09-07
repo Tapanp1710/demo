@@ -1,46 +1,57 @@
 [
  {
-  "slug": "towers-dusk",
-  "alt": "The Bricks Marvella towers at dusk, Tellapur",
-  "w": 1920,
-  "h": 1440,
+  "slug": "marvella-dusk",
+  "alt": "The two Bricks Marvella towers lit at dusk, Tellapur",
+  "w": 1600,
+  "h": 900,
   "widths": [
-   900,
-   1400,
-   1920
+   800,
+   1200,
+   1600
   ]
  },
  {
-  "slug": "towers-lake",
-  "alt": "The towers seen across the lake at Tellapur",
-  "w": 1920,
-  "h": 1440,
+  "slug": "marvella-street",
+  "alt": "The Bricks Marvella towers seen from the road at Tellapur",
+  "w": 1600,
+  "h": 900,
   "widths": [
-   900,
-   1400,
-   1920
+   800,
+   1200,
+   1600
   ]
  },
  {
-  "slug": "grounds",
-  "alt": "Landscaped grounds and open areas at Bricks Marvella",
-  "w": 1920,
-  "h": 1067,
+  "slug": "marvella-lake",
+  "alt": "The Bricks Marvella towers reflected in the lake at Tellapur",
+  "w": 1600,
+  "h": 900,
   "widths": [
-   900,
-   1400,
-   1920
+   800,
+   1200,
+   1600
   ]
  },
  {
-  "slug": "lobby",
-  "alt": "The double-height entrance lobby at Bricks Marvella",
-  "w": 2000,
-  "h": 1500,
+  "slug": "marvella-sunset",
+  "alt": "The entrance to Bricks Marvella at sunset",
+  "w": 1600,
+  "h": 900,
   "widths": [
-   900,
-   1400,
-   1920
+   800,
+   1200,
+   1600
+  ]
+ },
+ {
+  "slug": "marvella-facade",
+  "alt": "Looking up the balconies of a Bricks Marvella tower",
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   800,
+   1200,
+   1600
   ]
  }
 ]

@@ -86,7 +86,6 @@ export default async function AmenityPage({ params }: { params: Promise<{ slug: 
             decoding="async"
           />
         </picture>
-        <figcaption className={styles.caption}>{legal.imageDisclaimer}</figcaption>
       </figure>
 
       {/* Renders only once the client supplies copy — nothing invented here. */}

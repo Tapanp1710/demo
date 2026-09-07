@@ -1,15 +1,27 @@
 /* The dialog element IS the backdrop area: it fills the viewport and centres
    its panel, so a click that lands on it rather than on a child is outside. */
 .dialog {
-  width: 100vw;
-  max-width: 100vw;
-  height: 100svh;
-  max-height: 100svh;
+  /* inset:0 with margin:0 — NOT 100vw/100svh. 100vw counts the scrollbar
+     gutter, so the box was a few pixels wider than the space it had and
+     everything centred inside it sat that much right of true centre. Insetting
+     against the viewport has no such error. */
+  position: fixed;
+  inset: 0;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
   margin: 0;
   padding: var(--s-5);
   border: 0;
   background: none;
   overflow: hidden;
+  /* The panel is centred BY THE DIALOG. It used to rely on margin: auto, which
+     centres horizontally in a block container and does nothing vertically — so
+     the panel had been sitting against the top padding all along, not in the
+     middle of the screen. */
+  display: grid;
+  place-items: center;
 }
 .dialog::backdrop { background: rgb(12 11 9 / 0.72); }
 .dialog:not([open]) { display: none; }
@@ -17,17 +29,21 @@
 .panel {
   position: relative;
   width: 100%;
-  max-width: 64rem;
+  /* 48rem, down from 64. At the wider size the two columns sat far apart with
+     the form fields stretched across half a laptop; this is closer to the
+     measure the type was set for. */
+  max-width: 48rem;
   max-height: 100%;
-  margin: auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   background: var(--ground-raised);
   color: var(--ink);
   border: var(--hairline) solid var(--rule);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 24px 80px rgb(12 11 9 / 0.5);
+  border-radius: var(--radius-lg);
+  /* Softer and further out than the old 24/80 — a smaller panel needs the
+     shadow to do more of the work of lifting it off the page. */
+  box-shadow: 0 32px 90px rgb(12 11 9 / 0.55);
 }
 
 .close {

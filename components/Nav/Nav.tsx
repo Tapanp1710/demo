@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { gsap, MQ, EASE } from '@/lib/gsap';
-import { site } from '@/lib/content';
+import { site, anchors } from '@/lib/content';
 import ContactDialog from '@/components/ContactDialog/ContactDialog';
 import Wordmark from '@/components/Wordmark/Wordmark';
 import styles from './Nav.module.css';
@@ -33,6 +33,22 @@ import styles from './Nav.module.css';
    The home page's own sections are not here any more. They are a scroll away
    on the page itself, and the footer carries the full index of them — a bar
    that repeated all nine was competing with both. */
+/* The four sections asked for, in the LEFT track — which the bar's
+   1fr auto 1fr otherwise leaves empty purely to hold the wordmark on the centre
+   line. They are in-page anchors rather than routes, so they get their own
+   <nav> with its own label: a screen reader announcing "Pages" over a list of
+   jumps within this page is wrong about what following one does.
+
+   The hrefs come from `anchors`, never typed out here — those ids are the old
+   site's URLs and are load-bearing. The labels are free text because they are
+   what was asked for; the destinations are not. */
+const NAV_LEFT = [
+  { label: 'About', href: `/#${anchors.about}` },
+  { label: 'Amenities', href: `/#${anchors.amenities}` },
+  { label: 'Master Plan', href: `/#${anchors.masterPlan}` },
+  { label: 'Location', href: `/#${anchors.location}` },
+];
+
 const NAV_RIGHT = [
   /* `drop` is the part of the label that goes on a very narrow phone, where
      the right track is about 88px and no readable size fits the full pair.
@@ -160,22 +176,31 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
         data-nav-bar
         className={`${styles.bar} ${standalone ? styles.standalone : ''}`}
       >
+        {/* Column 1 is deliberately EMPTY and deliberately still there. The
+            bar's 1fr auto 1fr is what holds the wordmark on the centre line,
+            and the mark itself is fixed at left: 50% — drop the track and the
+            hidden slot stops lining up with the mark it is reserving for. */}
+        <div className={styles.spacer} aria-hidden="true" />
+
         {/* Reserves the mark's footprint so the bar's grid does not collapse —
             the mark itself is fixed and sits on top of this box. Same text,
             same type styles, hidden: the column is then exactly as wide as the
             mark at every breakpoint rather than a guessed clamp. */}
         <span className={styles.slot} aria-hidden="true"><Wordmark /></span>
 
-        {/* The right-hand cell. It held Contact us and Menu; both are gone.
-            The lead form is still one click away from the sticky Request Price
-            pair, and ContactDialog still intercepts the old anchors, so the
-            footer's links to it keep working. */}
-        <div className={styles.right}>
-          {/* Both labels, right of the wordmark. Two of them fit at any width
-              the site supports — which is why nothing here is hidden at a
-              breakpoint any more, and why there is no Menu button left to
-              reveal them. */}
-          <nav className={styles.linksRight} aria-label="Pages">
+        {/* EVERY link sits to the RIGHT of the wordmark. The two groups stay
+            separate <nav> elements inside the one cell rather than being merged
+            into a single list: the first four are jumps within this page and
+            the last two are routes to other pages, and one label read over both
+            would misdescribe half of them. */}
+        <div className={styles.linkGroup}>
+          <nav className={styles.sections} aria-label="Sections">
+            {NAV_LEFT.map(({ href, label }) => (
+              <Link key={href} href={href} className={styles.link}>{label}</Link>
+            ))}
+          </nav>
+
+          <nav className={styles.pages} aria-label="Pages">
             {NAV_RIGHT.map(({ href, label, drop }) => (
               <Link key={href} href={href} className={styles.link}>
                 {drop ? <span className={styles.labelWide}>{drop}</span> : null}
@@ -184,6 +209,7 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
             ))}
           </nav>
         </div>
+
       </header>
 
       {/* One element, fixed, always present: large over the hero at the top of

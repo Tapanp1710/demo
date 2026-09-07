@@ -22,15 +22,6 @@
 
 .head { flex: none; padding: 0 var(--gutter); max-width: 44rem; margin-inline: auto; text-align: center; }
 
-.eyebrow {
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-accent);
-  margin-bottom: var(--s-3);
-}
 
 .heading { font-size: var(--t-display-3); color: var(--ink); }
 

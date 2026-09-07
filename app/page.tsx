@@ -2,6 +2,7 @@ import SmoothScroll from '@/components/SmoothScroll/SmoothScroll';
 import Nav from '@/components/Nav/Nav';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
+import Views from '@/components/Views/Views';
 import Gallery from '@/components/Gallery/Gallery';
 // REMOVED FROM THE PAGE — do not re-add. The component files are being
 // deleted, so these imports stay commented out or the build breaks.
@@ -116,14 +117,25 @@ export default function Home() {
             one screen — they are not wrapped. MasterPlan used to; its clip-path
             reveal is gone, so it is a plain 100svh section now. */}
         <Hero />
+        {/* Full-bleed film. It is the second dark screen in a row and that is
+            fine: the hero and this are both covered edge to edge by their own
+            imagery, so no two flat navy panels ever meet — which is what the
+            alternation exists to prevent — and the hero runs straight into
+            moving footage instead of into a band of ground colour.
+
+            The hold gives the ten-second loop two screens of scroll to play
+            across. The wrapper's ground is inert here — the section inside
+            declares its own `stage`, and that is what every token inside it
+            resolves against. */}
+        <Hold ground="light"><Views /></Hold>
         {/* The stat band's six figures now flank the master plan. */}
-        <About />
+         <Hold ground="light"><About /></Hold>
         {/* Owns a scroll track already — not wrapped. */}
         <Gallery />
         {/* <DroneCube /> */}
         {/* <ParallaxOpener word="Amenities" images={AMENITY_OPENER} ground="stage" /> */}
         <Hold ground="light"><AmenityIndex /></Hold>
-        <MasterPlan />
+        <Hold ground="light"><MasterPlan /></Hold>
         {/* <ParallaxOpener word="Residences" images={RESIDENCES_OPENER} ground="light" /> */}
         <FloorPlans />
         <Hold ground="stage"><LocationArc /></Hold>

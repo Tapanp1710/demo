@@ -1,0 +1,46 @@
+[
+ {
+  "slug": "garden-walk",
+  "alt": "A landscaped walkway and raised timber deck in the gardens at Bricks Marvella",
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ },
+ {
+  "slug": "clubhouse",
+  "alt": "The Club Marvella clubhouse building at Bricks Marvella",
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ },
+ {
+  "slug": "pool",
+  "alt": "The swimming pool, loungers and shades beside a tower at Bricks Marvella",
+  "w": 1920,
+  "h": 1067,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ },
+ {
+  "slug": "lobby",
+  "alt": "The double-height clubhouse lobby and reception at Bricks Marvella",
+  "w": 2000,
+  "h": 1500,
+  "widths": [
+   900,
+   1400,
+   1920
+  ]
+ }
+]

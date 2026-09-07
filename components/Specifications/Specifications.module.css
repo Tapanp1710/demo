@@ -29,16 +29,6 @@
 
 .head { flex: none; max-width: 40rem; margin-inline: auto; text-align: center; }
 
-.eyebrow {
-  font-family: var(--font-text);
-  font-size: var(--t-eyebrow);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-eyebrow);
-  text-transform: uppercase;
-  color: var(--ink-accent);
-  margin-bottom: var(--s-3);
-}
-
 .heading { font-size: var(--t-display-3); color: var(--ink); }
 
 /* Three columns of seven at desktop. Two at 900px viewports the stack would
@@ -201,14 +191,4 @@
   .trigger { grid-template-columns: 1.7rem minmax(0, 1fr); gap: var(--s-2); padding: 0.24rem 0; }
   .index { font-size: var(--t-caption); }
   .title { font-size: var(--t-caption); }
-}
-
-/* Gold hairline under the eyebrow — see --rule-gold. */
-.eyebrow::after {
-  content: '';
-  display: block;
-  width: 3.75rem;
-  height: 1px;
-  margin: var(--s-2) auto 0;
-  background: var(--rule-gold);
 }

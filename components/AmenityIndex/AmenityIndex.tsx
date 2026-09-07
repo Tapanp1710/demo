@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { amenities, legal, anchors } from '@/lib/content';
+import { amenities, anchors } from '@/lib/content';
 import amenityImages from '@/lib/amenity-images.json';
 import styles from './AmenityIndex.module.css';
 
@@ -187,7 +187,6 @@ export default function AmenityIndex() {
             ))}
           </ul>
 
-          <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>
         </div>
 
         {/* The right end of the panel sheet, with AMENITIES cut out of it.

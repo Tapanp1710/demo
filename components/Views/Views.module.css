@@ -1,0 +1,171 @@
+/* Sized to the FILM, not to the screen.
+ *
+ * Full width and the whole frame cannot both be had from a fixed 100svh box:
+ * the box would be 1.87:1 or worse against the film's 1.78:1, so it is a crop
+ * (cover) or bars (contain) every time — which is exactly the pair of
+ * complaints this section collected. Letting the height follow the width at the
+ * film's own ratio removes the choice: the frame fills the section edge to edge
+ * with nothing cropped and nothing empty.
+ *
+ * The cost is that the section is no longer exactly one screen. At 1920 it is
+ * 1080 of film plus the bar, so on a window shorter than that you scroll a
+ * little to clear it. That is the trade this asks for.
+ *
+ * It is also why Views is no longer wrapped in <Hold>: a sticky child taller
+ * than the viewport pins its top and hides its foot for the whole of its range,
+ * which would have put the crop back in a different disguise. */
+.section {
+  position: relative;
+  overflow: hidden;
+  /* The bar's own black, NOT the stage ground.
+     Only one strip of this section is ever visible — the --nav-h band the fixed
+     bar sits on, above the film. The stage wash rakes from --c-n-800 at its top
+     down to --c-black, so that strip was getting the LIGHTEST stop in the
+     gradient: a purple band between the black above it and the film below,
+     visible whenever the section boundary crosses mid-screen. --c-black is
+     what --nav-bg is mixed from, so the strip and the bar are now the same
+     colour and there is no seam either way. */
+  background: var(--c-black);
+  color: var(--ink);
+  isolation: isolate;
+}
+
+/* Below the bar, not behind it. `inset` and not padding on the section: an
+   absolutely positioned child resolves against the PADDING box, so padding does
+   not move it — the same trap the amenities stage hit. The strip the bar sits
+   on is the section's own dark ground, which is what the bar is painted on
+   everywhere else. */
+.video {
+  /* In normal flow, not absolute. The section has no height of its own now, so
+     the film's own box is what gives it one — and aspect-ratio states that box
+     from the width without any viewport arithmetic, so it is right whatever the
+     scrollbar is doing.
+
+     margin-top clears the fixed bar. The strip it sits on is the section's dark
+     ground, which is what the bar is painted on everywhere else. */
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin-top: var(--nav-h);
+  /* Cover, but there is nothing left to crop: the box is now the film's own
+     ratio, so this only guards against a rounding pixel. */
+  object-fit: cover;
+  /* The render is already graded. Nothing is filtered here — see the project
+     rule on desaturation. */
+}
+
+/* Top and bottom only. A flat wash over the whole frame would dull the middle
+   of the shot, which is the part worth showing.
+ *
+ * The foot is heavy on purpose. The eyebrow is the topmost of the three lines
+ * and the film passes bright architecture directly behind it — near-white
+ * pixels, against which gold measured 1.84:1 unscrimmed.
+ *
+ * The fade reaches 66%, not the 58% it first did. Enlarging the heading to
+ * --t-display-1 made the copy block taller, which lifted the eyebrow from 44%
+ * up the frame to 56% — into the part where the old gradient had almost run
+ * out, and contrast fell to 4.47:1 against a 4.5 threshold. The stops are set
+ * from where the type actually sits, so they have to move when it does. */
+.scrim {
+  position: absolute;
+  inset: var(--nav-h) 0 0 0;
+  pointer-events: none;
+  /* HEAD ONLY. The foot band and the bottom-right corner wash are gone: both
+     existed solely to hold contrast under the eyebrow, heading and sub-line,
+     and that copy is commented out of Views.tsx, so they were darkening the
+     lake to protect type that is no longer painted. If the copy comes back,
+     so must they — the measurements that set their stops are in the history of
+     this file. */
+  background:
+    linear-gradient(to bottom,
+      color-mix(in oklab, var(--c-black), transparent 45%) 0%,
+      transparent 28%);
+}
+
+.copy {
+  /* ABSOLUTE, over the film. It was relative and in normal flow, which was
+     harmless while the section had a fixed height — but the section is sized by
+     its content now, so the copy's own padding was being ADDED to the film's
+     height and hanging 168px of empty ground under it. */
+  position: absolute;
+  inset: var(--nav-h) 0 0 0;
+  display: grid;
+  align-content: end;
+  /* Right-hand side. The film's subject sits centre-left through most of the
+     move, so the type has the quiet half of the frame to itself. */
+  justify-items: end;
+  text-align: right;
+  /* --s-1: this gap IS the rule-to-title distance here — there is no margin on
+     the eyebrow to tighten. It also tightens heading-to-sub, which reads as
+     one block rather than three stacked items. */
+  gap: var(--s-1);
+  /* The frame itself now starts below the bar, so this only has to hold the
+     type off the top of the film on a short viewport. */
+  /* The foot padding clears the fixed call/price pair. It did not have to when
+     this copy was centred — the pair sits in the bottom RIGHT, and moving the
+     type to the same corner put the sub-line straight underneath it. 4.25rem is
+     the pair plus its offset, the same figure the amenities panel uses. */
+  padding:
+    calc(var(--nav-h) + var(--s-4))
+    var(--gutter)
+    calc(var(--s-6) + 4.25rem);
+  /* Under reduced motion the video carries real controls; type laid over them
+     must never be the thing that swallows the click. */
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-gold);
+}
+
+/* Gold hairline under the eyebrow — see --rule-gold. */
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 3.75rem;
+  height: 1px;
+  margin: var(--s-2) 0 0 auto;
+  background: var(--rule-gold);
+}
+
+.heading {
+  /**
+   * --t-display-1, the page's largest step — but capped against the viewport
+   * HEIGHT, which the token itself does not consider.
+   *
+   * Every --t-* step scales on vw alone. On a 1366x768 laptop that gives a
+   * ~120px heading, so two lines plus the eyebrow and sub-line stand ~360px
+   * tall in a 716px frame and the block's top edge lands at 40% of the way
+   * down — up in the open sky, above any foot scrim, where the eyebrow
+   * measured 2.12:1. The type has to know how tall the window is, not just how
+   * wide, because it is anchored to the bottom of it.
+   */
+  font-size: min(var(--t-display-1), 12svh);
+  color: var(--c-n-100);
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+.sub {
+  font-family: var(--font-text);
+  font-size: var(--t-body);
+  color: var(--c-n-200);
+  max-width: 46ch;
+}
+
+@media (max-width: 767px) {
+
+  .heading { font-size: var(--t-display-3); }
+  /* Clears the fixed call/price bar, which spans the full width down there and
+     sits above everything — 4.25rem is the bar plus its offset, the same figure
+     AmenityIndex uses. At --s-8 (4rem) the sub-line's second line was cut in
+     half by it. */
+  .copy { padding-bottom: calc(var(--s-4) + 4.25rem); }
+  .sub { font-size: var(--t-caption); max-width: 34ch; }
+}

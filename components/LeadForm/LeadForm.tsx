@@ -17,6 +17,22 @@ import styles from './LeadForm.module.css';
  */
 type Errors = Partial<Record<'name' | 'email' | 'phone' | 'preference' | 'consent' | 'form', string>>;
 
+/** Material Symbols paths, 24x24 viewBox. */
+const ICONS = {
+  call: 'M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z',
+  mail: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z',
+  place: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z',
+} as const;
+
+/** Decorative: the <dt> beside it already names the row. */
+function Icon({ path }: { path: string }) {
+  return (
+    <svg className={styles.icon} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d={path} fill="currentColor" />
+    </svg>
+  );
+}
+
 export default function LeadForm({ modal = false }: { modal?: boolean } = {}) {
   const [errors, setErrors] = useState<Errors>({});
   const [state, setState] = useState<'idle' | 'sending' | 'sent'>('idle');
@@ -70,22 +86,37 @@ export default function LeadForm({ modal = false }: { modal?: boolean } = {}) {
           />
           <p className={styles.sub}>{leadForm.sub}</p>
 
+          {/* Google's Material Symbols, as inline paths rather than the icon font.
+              The font is ~100 KB of glyphs to draw three of them, and it would
+              have to come from gstatic — which this site deliberately does not
+              touch, since next/font self-hosts everything else (see the note in
+              app/layout.tsx). Inline SVG costs no request and cannot arrive
+              late on the panel someone opened to make contact. */}
           <dl className={styles.details}>
-            <div>
-              <dt>Call</dt>
-              <dd>
-                <a href={phone.primary.telHref}>{phone.primary.display}</a>
-                <br />
-                <a href={phone.secondary.telHref}>{phone.secondary.display}</a>
-              </dd>
+            <div className={styles.detail}>
+              <Icon path={ICONS.call} />
+              <div>
+                <dt>Call</dt>
+                <dd>
+                  <a href={phone.primary.telHref}>{phone.primary.display}</a>
+                  <br />
+                  <a href={phone.secondary.telHref}>{phone.secondary.display}</a>
+                </dd>
+              </div>
             </div>
-            <div>
-              <dt>Email</dt>
-              <dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
+            <div className={styles.detail}>
+              <Icon path={ICONS.mail} />
+              <div>
+                <dt>Email</dt>
+                <dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
+              </div>
             </div>
-            <div>
-              <dt>Site office</dt>
-              <dd>{contact.address}</dd>
+            <div className={styles.detail}>
+              <Icon path={ICONS.place} />
+              <div>
+                <dt>Site office</dt>
+                <dd>{contact.address}</dd>
+              </div>
             </div>
           </dl>
         </div>
