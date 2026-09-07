@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { gsap, MQ, EASE } from '@/lib/gsap';
 import { site, hero as heroCopy, heroPlate } from '@/lib/content';
 import plate from '@/lib/hero-plate.json';
@@ -175,7 +176,7 @@ export default function Hero() {
           square to 1145x2056 portrait, with the pills landing somewhere new
           each time — and the price is the reason anyone taps a price banner, so
           a larger target is the right one anyway. */}
-      <a
+      <Link
         href="/#leadform"
         className={styles.plateLink}
         aria-label="Request the price for Bricks Marvella"
@@ -188,7 +189,7 @@ export default function Hero() {
           <img src={`${plate.src}-${plate.widths[plate.widths.length - 1]}.webp`}
             alt={heroPlate.alt} width={plate.w} height={plate.h} decoding="async" />
         </picture>
-      </a>
+      </Link>
 
       {/* Where the wordmark sits while the hero is on screen. The mark itself
           belongs to the Nav (fixed, so it never scrolls away); this only marks
