@@ -9,6 +9,13 @@
   align-items: center;
   gap: var(--s-4);
   padding: var(--s-2) var(--gutter);
+  /* The bar IS --nav-h, stated rather than left to its contents.
+     Every full-height section reserves exactly --nav-h to clear this bar, but
+     the bar's own height was whatever its tallest child happened to make it —
+     48px against a 52px token. Any change to what sits in it (the logo for the
+     wordmark, most recently) silently moved the bar out from under the value
+     the rest of the page is padding against. Now it cannot drift. */
+  height: var(--nav-h);
   /* Constant dark, deliberately NOT var(--ground): the bar must not invert
      with the page, or it flips colour at every section boundary. */
   background: var(--nav-bg);
@@ -90,6 +97,18 @@
   will-change: transform;
 }
 .mark:hover { color: var(--ink-accent); }
+
+/* The logo, in BOTH the mark and the slot. Height in em is what lets the
+   scroll timeline go on animating font-size: the image tracks it. */
+.mark picture,
+.slot picture { display: block; }
+.mark img,
+.slot img {
+  display: block;
+  height: 1.4em;
+  width: auto;
+  max-width: none;
+}
 
 /* Pages with no hero: the mark just sits in the bar, same gold — the bar is
    the same constant dark there. */

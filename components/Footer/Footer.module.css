@@ -25,11 +25,11 @@
 
 .brand { display: flex; flex-direction: column; gap: var(--s-2); }
 
-.mark {
-  font-family: var(--font-display);
-  font-size: var(--t-subhead);
-  color: var(--ink);
-}
+/* The logo, not the name in type. Sized by width because the lockup is a
+   fixed 2.83:1 — a height would leave it a different size beside the Bricks
+   Ramabhupal mark below it, which is also set by width. */
+.mark { display: block; }
+.mark img { display: block; width: 9rem; height: auto; }
 .by { font-size: var(--t-caption); color: var(--ink-faint); }
 .logo { width: 7.5rem; height: auto; margin-top: var(--s-3); }
 

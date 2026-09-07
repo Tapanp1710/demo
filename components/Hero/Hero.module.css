@@ -97,11 +97,18 @@
   bottom: clamp(var(--s-6), 6vh, var(--s-8));
   display: block;
   width: fit-content;
-  margin-inline: auto;
-  text-align: center;
+  /* Right, not centred. `margin-left: auto` alone pushes a fit-content box to
+     the end of its inline space — the box still spans gutter to gutter, so the
+     logo sits on the right margin at every width without a magic offset. */
+  margin-left: auto;
+  margin-right: 0;
+  text-align: right;
   font-family: var(--font-display);
   font-weight: var(--fw-light);
-  font-size: clamp(2.5rem, 13vw, 13rem);
+  /* Was clamp(2.5rem, 13vw, 13rem) — sized for the site's NAME set in a light
+     display face, which is a long thin run. The logo is a compact lockup and
+     read as enormous at the same value. */
+  font-size: clamp(1.5rem, 6vw, 6rem);
   line-height: 0.9;
   letter-spacing: var(--ls-display);
   white-space: nowrap;
@@ -130,3 +137,9 @@
   .sticky { position: static; }
   .media { transform: none !important; filter: none !important; }
 }
+
+/* The slot holds the lockup now, not the site's name in type. Height in em so
+   the box tracks the font-size the nav reads off it — the same rule the mark
+   itself uses, which is what keeps the two boxes identical. */
+.wordmarkSlot picture { display: block; }
+.wordmarkSlot img { display: block; height: 1.4em; width: auto; max-width: none; }

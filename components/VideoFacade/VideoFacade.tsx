@@ -46,6 +46,13 @@ export default function VideoFacade({
   const [auto, setAuto] = useState(false);
   const host = useRef<HTMLButtonElement>(null);
   const frame = useRef<HTMLIFrameElement>(null);
+  /* The player cannot be spoken to until it exists. Until the iframe has
+     loaded, its contentWindow is still about:blank, so a postMessage aimed at
+     youtube-nocookie.com is refused outright — "the target origin does not
+     match the recipient window's origin" — and the command is simply lost.
+     The wanted state is held here and sent as soon as the player is there. */
+  const ready = useRef(false);
+  const wanted = useRef<string | null>(null);
 
   /* 1. Mount on approach, then stop watching. */
   useEffect(() => {
@@ -77,6 +84,8 @@ export default function VideoFacade({
     if (!el || typeof IntersectionObserver === 'undefined') return;
 
     const send = (func: string) => {
+      wanted.current = func;
+      if (!ready.current) return;
       el.contentWindow?.postMessage(
         JSON.stringify({ event: 'command', func, args: [] }),
         'https://www.youtube-nocookie.com',
@@ -127,6 +136,18 @@ export default function VideoFacade({
       <div className={[styles.shell, className].filter(Boolean).join(' ')}>
         <iframe
           ref={frame}
+          onLoad={() => {
+            ready.current = true;
+            /* Catch up: if it scrolled out of view while the player was still
+               loading, the pause that was dropped is applied now. */
+            const f = wanted.current;
+            if (f) {
+              frame.current?.contentWindow?.postMessage(
+                JSON.stringify({ event: 'command', func: f, args: [] }),
+                'https://www.youtube-nocookie.com',
+              );
+            }
+          }}
           className={styles.frame}
           src={`https://www.youtube-nocookie.com/embed/${id}?${params}`}
           title={title}

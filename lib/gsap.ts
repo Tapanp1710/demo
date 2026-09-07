@@ -49,39 +49,6 @@ export const MQ = {
   motionReduced: '(prefers-reduced-motion: reduce)',
 } as const;
 
-/**
- * True when this device should not be asked to run the heavy 3D work.
- * Drives module degradation and whether the hero video loads at all.
- */
-export function isLowPowerDevice(): boolean {
-  if (typeof navigator === 'undefined') return false;
-  const conn = (navigator as Navigator & {
-    connection?: { saveData?: boolean; effectiveType?: string };
-  }).connection;
-  if (conn?.saveData) return true;
-  if (conn?.effectiveType && /(^|-)([23]g|slow-2g)$/.test(conn.effectiveType)) return true;
-  if ((navigator.hardwareConcurrency ?? 8) <= 4) return true;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-/**
- * Should the hero background video load at all?
- *
- * Beyond isLowPowerDevice, this refuses on small viewports outright. The file
- * is 4.6 MB — a third of the page's weight — and phone users are the ones most
- * likely to be on a metered connection. The poster is 207 KB and carries the
- * hero perfectly well on its own, so the video is desktop-only enhancement.
- *
- * (hardwareConcurrency alone is not enough of a signal: an emulated phone in
- * a lab still reports the host machine's core count, so the CPU gate never
- * trips there and the video downloads on a "mobile" run.)
- */
-export function shouldLoadHeroVideo(): boolean {
-  if (typeof window === 'undefined') return false;
-  if (isLowPowerDevice()) return false;
-  return window.matchMedia('(min-width: 768px)').matches;
-}
-
 let lenis: Lenis | null = null;
 /* The in-flight start, so overlapping calls share one instance. */
 let starting: Promise<() => void> | null = null;

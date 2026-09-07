@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { gsap, MQ, EASE } from '@/lib/gsap';
 import { site } from '@/lib/content';
 import ContactDialog from '@/components/ContactDialog/ContactDialog';
+import Wordmark from '@/components/Wordmark/Wordmark';
 import styles from './Nav.module.css';
 
 /**
@@ -72,14 +73,17 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
          * the glyphs at every frame, and on one `position: fixed` element with
          * nothing in flow beneath it the extra layout is free.
          *
-         * Only `y` travels: both the hero slot and the bar slot are centred, so
-         * `left: 50%` already holds x at every size.
+         * X TRAVELS TOO, now that the hero slot is right-aligned and the bar
+         * slot is centred. It used to be free — both were centred, so
+         * `left: 50%` held x at every size — and leaving it out once the hero
+         * moved would have landed the mark in the middle of the hero instead
+         * of on its right margin.
          */
         const from = () => {
           const target = document.querySelector<HTMLElement>('[data-hero-wordmark]');
           // Neutralise the tween's own output before measuring the resting box.
           gsap.set(el, { clearProps: 'transform,fontSize' });
-          if (!target) return { y: 0, fontSize: getComputedStyle(el).fontSize };
+          if (!target) return { x: 0, y: 0, fontSize: getComputedStyle(el).fontSize };
 
           /* Measure the mark AT the hero size, not at its resting size. The box
              grows downward from `top` as font-size grows, so an offset computed
@@ -93,7 +97,11 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
              so their boxes differ in height at the same glyph size; only the
              centres line up with what the eye reads as the same position. */
           const t = target.getBoundingClientRect();
-          return { y: (t.top + t.height / 2) - (m.top + m.height / 2), fontSize };
+          return {
+            x: (t.left + t.width / 2) - (m.left + m.width / 2),
+            y: (t.top + t.height / 2) - (m.top + m.height / 2),
+            fontSize,
+          };
         };
 
         const tl = gsap.timeline({
@@ -115,9 +123,13 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
         };
 
         // Unwind from the hero state to identity — the bar slot.
+        /* from() is called per property and re-measures each time, so it is
+           read once per refresh into a single object — three calls would each
+           clear and re-set the mark's own styles while measuring. */
+        let start = from();
         tl.fromTo(el,
-          { y: () => from().y, fontSize: () => from().fontSize },
-          { y: 0, fontSize: rest, ease: EASE.scrub }, 0);
+          { x: () => (start = from()).x, y: () => start.y, fontSize: () => start.fontSize },
+          { x: 0, y: 0, fontSize: rest, ease: EASE.scrub }, 0);
 
         // The bar itself arrives underneath as the mark settles, and the sticky
         // conversion pair with it — it stands in for the hero's own CTAs, so it
@@ -152,7 +164,7 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
             the mark itself is fixed and sits on top of this box. Same text,
             same type styles, hidden: the column is then exactly as wide as the
             mark at every breakpoint rather than a guessed clamp. */}
-        <span className={styles.slot} aria-hidden="true">{site.name}</span>
+        <span className={styles.slot} aria-hidden="true"><Wordmark /></span>
 
         {/* The right-hand cell. It held Contact us and Menu; both are gone.
             The lead form is still one click away from the sticky Request Price
@@ -183,7 +195,7 @@ export default function Nav({ standalone = false }: { standalone?: boolean }) {
         className={`${styles.mark} ${standalone ? styles.markStandalone : ''}`}
         aria-label={`${site.name} — home`}
       >
-        {site.name}
+        <Wordmark />
       </Link>
 
       <ContactDialog />

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap, MQ, EASE } from '@/lib/gsap';
 import { site, legal, hero as heroCopy } from '@/lib/content';
 import heroSlides from '@/lib/hero-slides.json';
+import Wordmark from '@/components/Wordmark/Wordmark';
 import styles from './Hero.module.css';
 
 /**
@@ -72,15 +73,20 @@ export default function Hero() {
           },
         });
 
-        // Media shrinks upward, revealing the ground beneath. No zoom-in.
-        // fromTo, not to: the start filter must be stated explicitly or GSAP
-        // substitutes zero for each function and the hero renders black.
+        /* The media used to shrink upward and slide up, uncovering the
+           section's navy ground around it. That reveal is what put a hard
+           rectangle of photograph inside a navy window at every scroll
+           position between the two sections — there was no blend, just an
+           edge. It only DIMS now: the picture stays full-bleed to all four
+           margins and darkens as you leave, so the hero hands over to the next
+           section by fading rather than by shrinking away from it.
+
+           fromTo, not to: the start filter must be stated explicitly or GSAP
+           substitutes zero for each function and the hero renders black. */
         tl.fromTo(media.current,
           { filter: 'brightness(1) blur(0px)' },
           {
-            scale: desktop ? 0.88 : 0.94,
-            yPercent: desktop ? -6 : -3,
-            filter: desktop ? 'brightness(0.55) blur(3px)' : 'brightness(0.62) blur(0px)',
+            filter: desktop ? 'brightness(0.5) blur(4px)' : 'brightness(0.6) blur(0px)',
             ease: EASE.scrub,
           }, 0);
 
@@ -149,7 +155,7 @@ export default function Hero() {
           the target box for it to measure against. Text is present but
           invisible so the box has the mark's true width at this font size. */}
       <span ref={wordmark} className={styles.wordmarkSlot} data-hero-wordmark aria-hidden="true">
-        {heroCopy.wordmark}
+        <Wordmark />
       </span>
 
       <p className={styles.disclaimer}>{legal.imageDisclaimer}</p>

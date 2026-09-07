@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { site, legal, contact, phone, nav } from '@/lib/content';
+import { site, legal, contact, phone, nav, logos } from '@/lib/content';
 import styles from './Footer.module.css';
 
 /**
@@ -12,7 +12,13 @@ export default function Footer() {
     <footer className={styles.footer} data-ground="stage">
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <p className={styles.mark}>{site.name}</p>
+          {/* The same logo the bar carries, so the site signs off with the
+              mark it opens with rather than with its name set in type. */}
+          <picture className={styles.mark}>
+            <source srcSet={`${logos.marvellaFlat}-300.avif`} type="image/avif" />
+            <source srcSet={`${logos.marvellaFlat}-300.webp`} type="image/webp" />
+            <img src={`${logos.marvellaFlat}-300.webp`} alt={site.name} width={300} height={106} />
+          </picture>
           <p className={styles.by}>by {site.developer}</p>
           <picture>
             <source srcSet="/logos/bricks-ramabhupal-300.avif" type="image/avif" />
