@@ -53,6 +53,13 @@
   object-fit: cover;
   /* The render is already graded. Nothing is filtered here — see the project
      rule on desaturation. */
+  /* INERT. The film carries no controls and is not a thing to be operated —
+     this stops a long press raising the browser's own video menu over it. The
+     page still sees the tap, because a pointer-events:none element is simply
+     never the target: the event lands on what is behind it and still reaches
+     the document listener that retries a refused autoplay. */
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Top and bottom only. A flat wash over the whole frame would dull the middle

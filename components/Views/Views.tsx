@@ -52,22 +52,22 @@ export default function Views() {
     el.preload = 'auto';
     el.load();
 
-    /* Reduced motion gets the poster and real controls instead. An autoplaying
-       loop is precisely what that setting asks us not to do, but never offering
-       the film at all is not the same as respecting it. */
-    if (window.matchMedia(MQ.motionReduced).matches) {
-      el.controls = true;
-      return;
-    }
+    /* Reduced motion gets the poster and nothing else. It used to get real
+       controls; the section carries NO controls at any viewport now, so the
+       only thing left to honour the setting with is stillness. */
+    if (window.matchMedia(MQ.motionReduced).matches) return;
 
     /* REFUSED is not the same as failed. iOS in Low Power Mode blocks autoplay
-       outright however muted the film is, and so do the data-saver modes — the
-       promise rejects, and the rejection used to be swallowed into an empty
-       catch, which left the reader looking at a poster with no way to ask for
-       the film. Handing the element its own controls turns a dead frame into a
-       tappable one, which is the same fallback the reduced-motion branch above
-       already gives. */
-    const attempt = () => { void el.play().catch(() => { el.controls = true; }); };
+       outright however muted the film is, and so do the data-saver modes.
+       There are no controls to fall back to, so the recovery has to be
+       INVISIBLE: any pointer down on the page is a user gesture, and retrying
+       inside one satisfies the autoplay policy without putting a single
+       control on screen. Not `once` — the first tap may land before the
+       section is anywhere near the viewport, and starting it off-screen is
+       what the observer below exists to prevent. */
+    const attempt = () => { void el.play().catch(() => {}); };
+    const onGesture = () => { if (visible.current) attempt(); };
+    document.addEventListener('pointerdown', onGesture);
 
     /* Playback follows visibility: a loop running behind five other sections is
        battery spent on something nobody is looking at. */
@@ -93,6 +93,7 @@ export default function Views() {
       io.disconnect();
       el.removeEventListener('canplay', onCanPlay);
       document.removeEventListener('visibilitychange', onVisibility);
+      document.removeEventListener('pointerdown', onGesture);
     };
   }, [near]);
 
@@ -112,6 +113,14 @@ export default function Views() {
         muted
         loop
         playsInline
+        /* Declarative autoplay ALONGSIDE the play() calls in the effect. The
+           two are not redundant: the attribute is the form the autoplay policy
+           is written against and the browser honours on its own, while the
+           effect is what pauses and resumes on scroll. */
+        autoPlay
+        /* No controls anywhere, so nothing may offer a way to lift the film out
+           of the page and give it some. */
+        disablePictureInPicture
         preload="none"
       />
 
