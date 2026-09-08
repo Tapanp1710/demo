@@ -164,7 +164,15 @@
      makes it a 219px band with the rest of the section empty — technically
      uncropped, and useless. A phone is portrait: give the film 62svh and let it
      crop the sides, which is the trade every full-bleed video makes on mobile. */
-  .video { aspect-ratio: auto; height: 62svh; object-fit: cover; }
+   .video {
+      width: 100vw;
+      max-width: none;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      aspect-ratio: auto;
+      height: 62svh;
+      object-fit: cover;
+   }
 
 
   .heading { font-size: var(--t-display-3); }
