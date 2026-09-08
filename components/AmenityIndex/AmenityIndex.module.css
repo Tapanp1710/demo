@@ -202,13 +202,10 @@
   fill: var(--ground-raised);
   filter: drop-shadow(0 0 6px color-mix(in oklab, var(--c-n-900), transparent 55%));
 }
-.vertical text {
-  font-family: var(--font-display);
-  /* Heavier than the headings: a thin stroke cut out of the sheet shows too
-     little of the photograph to read as a window into it. */
-  font-weight: var(--fw-semibold);
-  letter-spacing: 0.02em;
-}
+/* The type rules that were here have gone with the live <text>. The word is
+   supplied artwork now — see the mask in AmenityIndex.tsx — so its weight and
+   letter-spacing are baked into the PNG, and there is no face to pick or
+   fallback to guard against. */
 
 /* Stacked: photograph on top, names beneath it. A 30rem rail over a phone-width
    picture leaves nothing of the picture. */

@@ -53,15 +53,6 @@ export default function AmenityIndex() {
   const word = useRef<SVGSVGElement>(null);
   const names = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ w: 180, h: 900, top: 56 });
-  /* How tall this face's capitals actually are, as a share of its font-size.
-     MEASURED, not assumed: the word is rotated a quarter turn, so its cap
-     height runs ACROSS the column and is what decides whether the glyphs fit
-     the column's width. The number differs per typeface — Cormorant's caps
-     are about 0.66em, Poiret One's about 0.73 — so a hardcoded font-size
-     factor is only ever right for the face it was tuned against, and silently
-     starts shaving the letters when the face changes. It did: the S was being
-     sliced flat down one side after the switch. */
-  const [capRatio, setCapRatio] = useState(0.7);
 
   useEffect(() => {
     const el = word.current;
@@ -94,27 +85,10 @@ export default function AmenityIndex() {
     const ro = new ResizeObserver(measure);
     ro.observe(el);
 
-    /* Canvas reports the INK box of real glyphs, which is the thing that gets
-       clipped — unlike SVG's getBBox, which returns the em box (ascender to
-       descender) and so reported clearance while the letters were visibly
-       being cut. Waits for the webfont: measured against the fallback the
-       ratio would be wrong by exactly the amount that matters. */
-    let cancelled = false;
-    void (document.fonts?.ready ?? Promise.resolve()).then(() => {
-      if (cancelled) return;
-      const txt = el.querySelector('text');
-      if (!txt) return;
-      const cs = getComputedStyle(txt);
-      const ctx = document.createElement('canvas').getContext('2d');
-      if (!ctx) return;
-      const REF = 200;
-      ctx.font = `${cs.fontWeight} ${REF}px ${cs.fontFamily}`;
-      const m = ctx.measureText('AMENITIES');
-      const ink = m.actualBoundingBoxAscent + Math.max(0, m.actualBoundingBoxDescent);
-      if (ink > 0) setCapRatio(ink / REF);
-    });
-
-    return () => { cancelled = true; ro.disconnect(); };
+    /* The cap-height measurement that used to live here is gone with the live
+       text: artwork has no font metrics to wait on and no fallback face to be
+       wrong about, so the box alone sizes it now. */
+    return () => ro.disconnect();
   }, []);
 
   const midY = box.top + (box.h - box.top) / 2;
@@ -211,28 +185,36 @@ export default function AmenityIndex() {
           <defs>
             <mask id="amenity-knockout" maskUnits="userSpaceOnUse" x="0" y="0" width={box.w} height={box.h}>
               <rect x="0" y="0" width={box.w} height={box.h} fill="white" />
-              {/* Baseline on the word's right edge, so the bottoms of the
-                  letters land where the panel ends and the open picture
-                  begins. */}
-              <text
-                x={box.w}
-                y={midY}
-                transform={`rotate(-90 ${box.w} ${midY})`}
-                textAnchor="middle"
-                textLength={(box.h - box.top) * 0.94}
-                lengthAdjust="spacingAndGlyphs"
-                /* 1.38, not 0.94. Cormorant's cap height is ~0.66em and
-                   AMENITIES is all caps with no descender, so the visible
-                   letters are only ~0.66 of whatever font-size is set. Sizing
-                   the EM box to the column left a third of it blank beside
-                   the word; 0.66 x 1.38 = 0.91 puts the caps across it. */
-                /* Sized so the INK spans 92% of the column, whatever face is
-                   in use: font-size = target ink / cap ratio. */
-                fontSize={(box.w * 0.92) / capRatio}
-                fill="black"
-              >
-                AMENITIES
-              </text>
+              {/* THE ARTWORK, not a typeface. /logos/amenities-wordmark.png is
+                  the supplied lettering reduced to the two values a luminance
+                  mask can read — black letters cut the sheet, the white field
+                  around them keeps it. It is built from the source PNG's ALPHA
+                  channel, negated: the artwork ships as white letterforms on
+                  transparency, which as a mask would have kept the letters and
+                  cut everything else, exactly inverted.
+
+                  Laid out unrotated as a horizontal strip and turned a quarter
+                  turn about the column's centre, so it reads bottom to top like
+                  the text it replaces. WIDTH is the run down the column and
+                  HEIGHT is the ink across it — they swap under the rotation.
+                  preserveAspectRatio="none" because the strip is 6.06:1 and the
+                  column is nearer 5:1: it stretches to span, which is what
+                  textLength + lengthAdjust="spacingAndGlyphs" was already doing
+                  to the glyphs.
+
+                  The y term is what keeps the promise the old baseline made —
+                  the bottoms of the letters landing where the panel ends and
+                  the open picture begins. After the rotation the strip's far
+                  edge sits at x = box.w. */}
+              <image
+                href="/logos/amenities-wordmark.png"
+                x={box.w / 2 - ((box.h - box.top) * 0.94) / 2}
+                y={midY + box.w / 2 - box.w * 0.92}
+                width={(box.h - box.top) * 0.94}
+                height={box.w * 0.92}
+                preserveAspectRatio="none"
+                transform={`rotate(-90 ${box.w / 2} ${midY})`}
+              />
             </mask>
           </defs>
           {/* The filter is on the GROUP and the mask on the rect inside it —
