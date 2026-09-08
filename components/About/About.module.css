@@ -21,12 +21,16 @@
      would pass the bottom of the viewport, and the section is inside a <Hold>
      whose sticky child shows only its first screen. 11.5rem is what the
      padding, the heading and the row gap take; x32/9 converts the height that
-     leaves into the width of TWO 16:9 columns, and margin auto centres what
-     the cap holds back. It only binds on a wide, short window — 2560x790, or
-     1920x700 — and is inert at every normal size. */
-  max-width: calc((100svh - 11.5rem) * 32 / 9 + var(--s-8));
+     leaves into the width of TWO 16:9 columns, plus what the gap and the two
+     margins take — border-box, so the padding is inside this figure. margin
+     auto centres what the cap holds back. It only binds on a wide, short
+     window — 2560x790, or 1920x700 — and is inert at every normal size. */
+  max-width: calc((100svh - 11.5rem) * 32 / 9 + var(--s-8) + var(--s-5) * 2);
   margin: 0 auto;
-  padding: var(--s-4) 0;
+  /* --s-5 is 24px: the film and the copy come off the screen edge by that much
+     rather than bleeding into it. Not --gutter — that is the 59px the padded
+     grid used, which is the thing this layout gave up. */
+  padding: var(--s-4) var(--s-5);
   padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
   /* Heading and film run down the LEFT column, the body sits beside them on
      the right. Rows are content-sized and the pair is centred in the section,
