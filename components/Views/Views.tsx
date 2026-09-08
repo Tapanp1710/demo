@@ -9,9 +9,14 @@ import styles from './Views.module.css';
 /**
  * The aerial film, full bleed, directly under the hero.
  *
- * The desktop encode is used at every viewport. The mobile layout changes the
- * displayed dimensions with CSS, but keeping the full-quality source avoids
- * soft footage after the portrait crop.
+ * Two encodes, picked by viewport — 19 MB at crf 24 on a pointer device, 2.9 MB
+ * at crf 31 on a phone, both 1920x1080. scripts/build-video.mjs has always
+ * written both; only the heavy one was ever loaded, at every size.
+ *
+ * That was once deliberate: the section cropped the film to a portrait 62svh on
+ * a phone, which upscales it, and the bitrate paid for the upscale. The crop is
+ * gone — a phone now gets the whole 16:9 frame in a band — so the only thing
+ * the heavy file buys on mobile data is a longer wait before anything moves.
  *
  * Nothing is fetched until the section is within reach. The `<video>` renders
  * from the first paint so its poster paints with the rest of the page, but it
@@ -35,7 +40,19 @@ export default function Views() {
     const el = video.current;
     if (!near || !el) return;
 
-    el.src = '/videos/views-1080.mp4';
+    /* THE MOBILE RUNG, on a phone. Both encodes are 1920x1080 and differ only
+       in CRF — 24 against 31 — so this is 2.9 MB where the desktop file is 19,
+       at the same pixel count. See scripts/build-video.mjs, which has always
+       produced both; nothing was ever loading this one.
+       Keeping the heavy file everywhere was a REASONED choice once: the section
+       used to crop the film to a portrait 62svh on a phone, upscaling it, and
+       the extra bitrate paid for that. It does not crop any more — the phone
+       shows the whole 16:9 frame in a ~219px band — so 19 MB over mobile data
+       now buys nothing and costs the one thing that matters, which is whether
+       it ever buffers enough to start at all. */
+    el.src = window.matchMedia(MQ.mobile).matches
+      ? '/videos/views-mobile.mp4'
+      : '/videos/views-1080.mp4';
     /* `preload="none"` in the markup is what keeps the file off the initial
        load. Once we are deliberately within a screen and a half of the section,
        buffering is the whole point — otherwise the first frame arrives late and
@@ -51,12 +68,21 @@ export default function Views() {
       return;
     }
 
+    /* REFUSED is not the same as failed. iOS in Low Power Mode blocks autoplay
+       outright however muted the film is, and so do the data-saver modes — the
+       promise rejects, and the rejection used to be swallowed into an empty
+       catch, which left the reader looking at a poster with no way to ask for
+       the film. Handing the element its own controls turns a dead frame into a
+       tappable one, which is the same fallback the reduced-motion branch above
+       already gives. */
+    const attempt = () => { void el.play().catch(() => { el.controls = true; }); };
+
     /* Playback follows visibility: a loop running behind five other sections is
        battery spent on something nobody is looking at. */
     const io = new IntersectionObserver(
       ([e]) => {
         visible.current = e.isIntersecting;
-        if (e.isIntersecting) void el.play().catch(() => {});
+        if (e.isIntersecting) attempt();
         else el.pause();
       },
       { threshold: 0.35 },
@@ -64,7 +90,7 @@ export default function Views() {
     io.observe(el);
 
     const onCanPlay = () => {
-      if (visible.current) void el.play().catch(() => {});
+      if (visible.current) attempt();
     };
     el.addEventListener('canplay', onCanPlay);
 
