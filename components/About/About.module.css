@@ -12,9 +12,21 @@
 
 .inner {
   width: 100%;
-  max-width: var(--grid-max);
+  /* EDGE TO EDGE, not to --grid-max. The two halves take the gutter as well,
+     so the film starts at the left edge of the screen and the copy runs to the
+     right of centre — at 1440 that is 688px a side against the 569 the padded
+     1320 grid allowed.
+     The cap is the only thing left holding the section to one screen. The film
+     is 16:9 of half the row, so width drives height: past this width its foot
+     would pass the bottom of the viewport, and the section is inside a <Hold>
+     whose sticky child shows only its first screen. 11.5rem is what the
+     padding, the heading and the row gap take; x32/9 converts the height that
+     leaves into the width of TWO 16:9 columns, and margin auto centres what
+     the cap holds back. It only binds on a wide, short window — 2560x790, or
+     1920x700 — and is inert at every normal size. */
+  max-width: calc((100svh - 11.5rem) * 32 / 9 + var(--s-8));
   margin: 0 auto;
-  padding: var(--s-4) var(--gutter);
+  padding: var(--s-4) 0;
   padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
   /* Heading and film run down the LEFT column, the body sits beside them on
      the right. Rows are content-sized and the pair is centred in the section,
@@ -23,19 +35,11 @@
      `overflow: hidden`, which cut BOTH ends at once — the top of the heading
      and the bottom of the film together.) */
   display: grid;
-  /* THE FILM IS SIZED FROM THE VIEWPORT HEIGHT, not from a fraction of the row.
-     1.15fr gave it 672px on a 1440 Mac — 378px of film in a 790px window, so
-     under half the screen was the thing the section exists to show and the rest
-     fell as empty ground at the foot.
-     The first track is whatever height is left under the heading, converted to
-     a width at the film's own 16:9 (11.5rem is the section's padding, the
-     heading and the row gap), capped at 66% so the body keeps a readable
-     measure. The cap binds on a normal window and the height binds on a short
-     one, which is what stops the section growing past 100svh — it is inside a
-     <Hold>, and a sticky section taller than the viewport has its foot cut. */
-  grid-template-columns:
-    min(calc((100svh - 11.5rem) * 16 / 9), 72%)
-    minmax(0, 1fr);
+  /* HALF AND HALF. The film and the copy get an equal share of the row — 1.15fr
+     gave the film the larger column but the copy the larger MEASURE, which read
+     as neither. minmax(0, 1fr) rather than a bare 1fr so a long unbroken word
+     in the paragraph cannot push its track past its share. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto auto;
   align-content: start;
   gap: clamp(var(--s-6), 7vw, 6.5rem) var(--s-8);
@@ -73,17 +77,6 @@
 .body { overflow: hidden; }
 .word { display: inline-block; }
 
-/* One step down, desktop only — and this is what PAYS for the film above.
-   The two share a row, so the row is as tall as whichever is taller: at
-   --t-body the 660-character paragraph runs ~19 lines in the column the wider
-   film leaves, which is taller than the film and, because .body clips, would
-   have quietly eaten the last five lines. At --t-small it runs ~14 lines and
-   sits inside the film's height, so the film governs the row again. Later
-   queries still override this — see the short-viewport rules below. */
-@media (min-width: 992px) {
-  .body { font-size: var(--t-small); line-height: 1.5; }
-}
-
 /* Under the heading, in the left column, at its own 16:9. */
 .video {
   grid-column: 1;
@@ -95,7 +88,13 @@
 }
 
 @media (max-width: 991px) {
-   .inner { grid-template-columns: 1fr; grid-template-rows: auto auto auto; gap: var(--s-5); }
+  /* One column again, so the gutter comes BACK — full-bleed is a two-column
+     trick. Stacked, edge-to-edge body copy would run to both screen edges. */
+   .inner {
+      grid-template-columns: 1fr; grid-template-rows: auto auto auto; gap: var(--s-5);
+      max-width: var(--grid-max);
+      padding-inline: var(--gutter);
+   }
   .left  { grid-column: 1; grid-row: 1; }
    .video { grid-column: 1; grid-row: 2; }
    .right { grid-column: 1; grid-row: 3; align-self: start; }
