@@ -23,7 +23,19 @@
      `overflow: hidden`, which cut BOTH ends at once — the top of the heading
      and the bottom of the film together.) */
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  /* THE FILM IS SIZED FROM THE VIEWPORT HEIGHT, not from a fraction of the row.
+     1.15fr gave it 672px on a 1440 Mac — 378px of film in a 790px window, so
+     under half the screen was the thing the section exists to show and the rest
+     fell as empty ground at the foot.
+     The first track is whatever height is left under the heading, converted to
+     a width at the film's own 16:9 (11.5rem is the section's padding, the
+     heading and the row gap), capped at 66% so the body keeps a readable
+     measure. The cap binds on a normal window and the height binds on a short
+     one, which is what stops the section growing past 100svh — it is inside a
+     <Hold>, and a sticky section taller than the viewport has its foot cut. */
+  grid-template-columns:
+    min(calc((100svh - 11.5rem) * 16 / 9), 72%)
+    minmax(0, 1fr);
   grid-template-rows: auto auto;
   align-content: start;
   gap: clamp(var(--s-6), 7vw, 6.5rem) var(--s-8);
@@ -60,6 +72,17 @@
    wrapping; the clip keeps each word's rise contained to its own line box. */
 .body { overflow: hidden; }
 .word { display: inline-block; }
+
+/* One step down, desktop only — and this is what PAYS for the film above.
+   The two share a row, so the row is as tall as whichever is taller: at
+   --t-body the 660-character paragraph runs ~19 lines in the column the wider
+   film leaves, which is taller than the film and, because .body clips, would
+   have quietly eaten the last five lines. At --t-small it runs ~14 lines and
+   sits inside the film's height, so the film governs the row again. Later
+   queries still override this — see the short-viewport rules below. */
+@media (min-width: 992px) {
+  .body { font-size: var(--t-small); line-height: 1.5; }
+}
 
 /* Under the heading, in the left column, at its own 16:9. */
 .video {
