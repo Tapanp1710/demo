@@ -43,3 +43,7 @@ next-env.d.ts
 # asset pipeline intermediates (regenerate with scripts/fetch-assets.mjs)
 .asset-cache/
 .content-cache/
+
+# A clone of the separate bricksmarvella repo was once nested here and got
+# committed as a gitlink. Keeps it from happening again.
+bricksmarvella/

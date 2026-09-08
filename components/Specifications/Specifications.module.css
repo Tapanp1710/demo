@@ -159,6 +159,53 @@
   to   { opacity: 1; transform: none; }
 }
 
+/* ---- PHONE: the popup is a centred modal ---------------------------------
+   Rendered only on a phone (see the component), so no rule is needed to hide
+   either of these on a pointer device. */
+
+/* The modal's ground. One step under --layer-modal, so the panel it dims is
+   the one thing still above it. */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--layer-modal) - 1);
+  background: color-mix(in oklab, var(--c-black), transparent 30%);
+  animation: fadeIn var(--dur-micro) var(--ease-ui);
+}
+
+/* Over the drawing, which bleeds to the panel's top edge — hence the disc: the
+   glyph alone would be sitting on whatever the illustration happens to be. */
+.popupClose {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  /* 2.25rem, not the glyph's size. A tap target is 36px whatever the x looks
+     like. */
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--c-black), transparent 22%);
+  color: var(--c-bone);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.popupClose:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* The entrance has to carry the centring transform with it — a bare
+   translateY would drop the -50%/-50% for the length of the animation and the
+   panel would fly in from the bottom-right corner. */
+@keyframes popInCentre {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 4px)); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
+}
+
 /* No scripting: no popup to open, so every group prints in full. */
 .noscript { display: grid; gap: var(--s-4); }
 .noscript dt { font-family: var(--font-display); font-size: var(--t-subhead); color: var(--ink); }
@@ -191,4 +238,37 @@
   .trigger { grid-template-columns: 1.7rem minmax(0, 1fr); gap: var(--s-2); padding: 0.24rem 0; }
   .index { font-size: var(--t-caption); }
   .title { font-size: var(--t-caption); }
+
+  /* CENTRED, not placed. The component writes no inline left/top on a phone,
+     so these govern.
+     Centred in the USABLE band, not the viewport: the nav bar is opaque at the
+     top and the Call / Request Price pair is fixed across the foot, so the
+     middle of the screen is not the middle of what can be seen. 5.25rem is the
+     same figure .inner reserves for that pair. */
+  .popup {
+    left: 50%;
+    top: calc(var(--nav-h) + (100svh - var(--nav-h) - 5.25rem) / 2);
+    transform: translate(-50%, -50%);
+    width: min(calc(100vw - var(--s-5) * 2), 24rem);
+    max-height: calc(100svh - var(--nav-h) - 5.25rem - var(--s-4));
+    overflow-y: auto;
+    /* It holds a control now, so it has to take the pointer — the tooltip on
+       a pointer device deliberately does not. */
+    pointer-events: auto;
+    animation: popInCentre var(--dur-micro) var(--ease-ui);
+  }
+  /* More of the drawing than the 20vh a cursor-side tooltip could afford: the
+     panel is the only thing on screen now, and the whole point of opening it. */
+  .popupArt img { max-height: 30svh; }
+  /* Clear of the close disc, for the few groups that have no drawing above the
+     title for it to sit on. */
+  .popupTitle { padding-right: 2.25rem; }
+}
+
+/* LAST IN THE FILE, deliberately. The phone block above re-declares .popup's
+   animation, and between rules of equal specificity the later one wins — so
+   the reduced-motion rule further up was being overridden on precisely the
+   devices the centred modal is for. This one cannot be. */
+@media (prefers-reduced-motion: reduce) {
+  .popup, .scrim { animation: none; }
 }
