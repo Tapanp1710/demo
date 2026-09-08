@@ -33,6 +33,7 @@ export default function Views() {
   const root = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const near = useNearViewport(root);
+  const visible = useRef(false);
 
   useEffect(() => {
     const el = video.current;
@@ -46,6 +47,7 @@ export default function Views() {
        buffering is the whole point — otherwise the first frame arrives late and
        the poster visibly jumps. */
     el.preload = 'auto';
+    el.load();
 
     /* Reduced motion gets the poster and real controls instead. An autoplaying
        loop is precisely what that setting asks us not to do, but never offering
@@ -58,16 +60,26 @@ export default function Views() {
     /* Playback follows visibility: a loop running behind five other sections is
        battery spent on something nobody is looking at. */
     const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) void el.play().catch(() => {}); else el.pause(); },
+      ([e]) => {
+        visible.current = e.isIntersecting;
+        if (e.isIntersecting) void el.play().catch(() => {});
+        else el.pause();
+      },
       { threshold: 0.35 },
     );
     io.observe(el);
+
+    const onCanPlay = () => {
+      if (visible.current) void el.play().catch(() => {});
+    };
+    el.addEventListener('canplay', onCanPlay);
 
     const onVisibility = () => { if (document.hidden) el.pause(); };
     document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
       io.disconnect();
+      el.removeEventListener('canplay', onCanPlay);
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [near]);
