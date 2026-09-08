@@ -160,19 +160,12 @@
 }
 
 @media (max-width: 767px) {
-  /* Fill a real part of the screen. Showing the whole 16:9 frame at 390px wide
-     makes it a 219px band with the rest of the section empty — technically
-     uncropped, and useless. A phone is portrait: give the film 62svh and let it
-     crop the sides, which is the trade every full-bleed video makes on mobile. */
-   .video {
-      width: 100vw;
-      max-width: none;
-      margin-left: 50%;
-      transform: translateX(-50%);
-      aspect-ratio: auto;
-      height: 62svh;
-      object-fit: cover;
-   }
+  /* THE WHOLE FRAME, as a horizontal band. This used to take 62svh and crop
+     the sides — the portrait trade — but the film is an aerial: the sides are
+     the shot. So on a phone the section stops being a screen and becomes a
+     219px-tall strip at the film's own 16:9, which is the base rule with the
+     crop override removed. The hold collapses on phones (see page.module.css),
+     so a short section here costs no empty ground. */
 
 
   .heading { font-size: var(--t-display-3); }
