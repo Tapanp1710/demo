@@ -59,13 +59,13 @@
 /* Spans both columns and centres, like every other section's heading. The
    film and the body then share row 2 beneath it. */
 .left  { grid-column: 1 / -1; grid-row: 1; text-align: center; }
-/* Beside the FILM, in the row under the heading, TOP-ALIGNED with it.
-   Centring both in a 1fr row left a ~130px hole under the heading and started
-   the two columns on different lines — the film at 348 and the copy at 448,
-   which read as a mistake rather than a composition. Start pins both to the
-   same line directly beneath the heading; the leftover height falls at the
-   foot of the section, where it is quiet. */
-.right { grid-column: 2; grid-row: 2; align-self: center; }
+/* THE FILM'S OWN HEIGHT. The two share row 2 and the film is the taller of the
+   pair, so stretch hands the copy exactly the film's box: the paragraph starts
+   on the film's top edge and the block ends on its bottom one. It was `center`,
+   which floated the copy in the middle of the row — with the film now seven
+   tenths of the width, and so much taller, that read as a caption drifting
+   beside the picture rather than the second column of a spread. */
+.right { grid-column: 2; grid-row: 2; align-self: stretch; }
 
 .body {
   max-width: var(--measure);
