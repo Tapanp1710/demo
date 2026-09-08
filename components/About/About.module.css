@@ -111,6 +111,14 @@
   .body { font-size: var(--t-small); line-height: 1.45; }
 }
 
+/* Short desktop and Mac laptop viewports: keep the heading, film and copy in
+    the same composition without leaving a large empty band under the heading. */
+@media (min-width: 992px) and (min-height: 661px) and (max-height: 820px) {
+   .inner { gap: clamp(var(--s-4), 8svh, var(--s-7)) var(--s-8); }
+   .body { margin-top: 0; }
+   .video { margin-top: 0; }
+}
+
 /* One screen on a phone. The body keeps every word — it loses leading and a
    size step instead, which is where the 41px of overflow was. */
 @media (max-width: 767px) {
