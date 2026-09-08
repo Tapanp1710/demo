@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import { anchors, views } from '@/lib/content';
 import { MQ } from '@/lib/gsap';
 import { useNearViewport } from '@/lib/useNearViewport';
-import LineReveal from '@/components/LineReveal/LineReveal';
 import styles from './Views.module.css';
 
 /**
@@ -79,7 +78,7 @@ export default function Views() {
       id={anchors.views}
       className={styles.section}
       data-ground="stage"
-      aria-labelledby="views-heading"
+      aria-label={views.alt}
     >
       <video
         ref={video}
@@ -96,16 +95,6 @@ export default function Views() {
           shot stays untouched while the type keeps its contrast. */}
       <div className={styles.scrim} aria-hidden="true" />
 
-      <div className={styles.copy}>
-        <p className={styles.eyebrow}>{views.eyebrow}</p>
-        <LineReveal
-          as="h2"
-          id="views-heading"
-          className={styles.heading}
-          lines={[...views.lines]}
-        />
-        <p className={styles.sub}>{views.sub}</p>
-      </div>
     </section>
   );
 }
