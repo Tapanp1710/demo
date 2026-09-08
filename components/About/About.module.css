@@ -80,16 +80,23 @@
 .body { overflow: hidden; }
 .word { display: inline-block; }
 
-/* One step down, desktop only — this is what makes 70/30 survivable. The film
-   and the copy share a row, so the row is as tall as whichever is taller, and
-   .body CLIPS rather than overflows. At 1440 the three-tenths column is 374px:
-   at --t-body that is a 44-character measure, so the 660-character paragraph
-   runs ~15 lines and lands within 8px of the film's height — near enough that
-   the wider Georgia fallback, if Cormorant fails to load, would eat the last
-   lines outright. At --t-small it is 50 characters and ~13 lines, a clear
-   150px inside the film. Later queries still override this. */
+/* SIZED FROM THE BLOCK, desktop only. The copy's job here is to fill the box
+   the film's height gives it, and no fixed step does that across widths: the
+   three-tenths column is 374px at 1440 but 326px at 1280, while the 660
+   characters are constant — a size that fills the taller block clips in the
+   shorter one, and .body CLIPS rather than overflows.
+   cqh is the native answer. `container-type: size` makes .right a query
+   container, so 1cqh is one percent of ITS height — which, with align-self:
+   stretch, IS the film's height. The type then rises and falls with the film
+   and the fill ratio stays put: ~447px of copy in a 492px block at 1440, ~413
+   in 428 at 1280, ~658 in 680 at 1920.
+   Size containment also settles the row: a size-contained child contributes
+   nothing to its track, so the row is the film's height outright and the copy
+   can no longer grow it. Scoped to >=992px because below that .right stacks
+   into its own auto-height row, where a size container would collapse to nothing. */
 @media (min-width: 992px) {
-  .body { font-size: var(--t-small); line-height: 1.5; }
+  .right { container-type: size; }
+  .body { font-size: clamp(var(--t-small), 4cqh, 1.75rem); line-height: 1.5; }
 }
 
 /* Under the heading, in the left column, at its own 16:9. */
