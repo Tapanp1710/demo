@@ -98,6 +98,9 @@
   .contact { font-size: var(--t-caption); }
   .by { font-size: var(--t-caption); }
   .mark { font-size: var(--t-subhead); }
-  .legal, .copyright, .disclaimer { font-size: 0.68rem; line-height: 1.4; }
+    /* 0.75rem = 12px. At 0.68rem this rendered at 10.9px — the RERA number, the
+     building-permission number and the copyright line, which are exactly the
+     things someone squints at on a phone. */
+  .legal, .copyright, .disclaimer { font-size: 0.75rem; line-height: 1.45; }
   .inner { gap: var(--s-3) var(--s-5); }
 }

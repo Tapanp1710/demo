@@ -160,6 +160,12 @@
 }
 
 @media (max-width: 767px) {
+  /* Fill a real part of the screen. Showing the whole 16:9 frame at 390px wide
+     makes it a 219px band with the rest of the section empty — technically
+     uncropped, and useless. A phone is portrait: give the film 62svh and let it
+     crop the sides, which is the trade every full-bleed video makes on mobile. */
+  .video { aspect-ratio: auto; height: 62svh; object-fit: cover; }
+
 
   .heading { font-size: var(--t-display-3); }
   /* Clears the fixed call/price bar, which spans the full width down there and

@@ -33,6 +33,7 @@ import sharp from 'sharp';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SRC = path.join(ROOT, 'Sequence 02_gwr_video_mvp.mp4');
 const OUT = path.join(ROOT, 'public', 'videos');
+const WATERMARK_FILTER = 'delogo=x=1688:y=848:w=112:h=112:show=0';
 
 const run = (args) => execFileSync(ffmpeg, ['-y', '-hide_banner', '-loglevel', 'error', ...args]);
 const mb = (f) => (statSync(f).size / 1048576).toFixed(2) + ' MB';
@@ -48,6 +49,7 @@ const encode = (crf, name) => {
   const out = path.join(OUT, name);
   run(['-i', SRC,
     '-an',
+    '-vf', WATERMARK_FILTER,
     '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'veryslow',
     '-crf', String(crf), '-g', '48', '-pix_fmt', 'yuv420p',
     '-x264-params', 'aq-mode=3',
@@ -70,7 +72,7 @@ encode(31, 'views-mobile.mp4');  // same pixels, cheaper — see the note above
  * video has buffered, so downscaling it just puts a soft frame first.
  */
 const raw = path.join(OUT, '_frame.png');
-run(['-i', SRC, '-frames:v', '1', raw]);
+run(['-i', SRC, '-vf', WATERMARK_FILTER, '-frames:v', '1', raw]);
 await sharp(raw).webp({ quality: 88 }).toFile(path.join(OUT, 'views-poster.webp'));
 console.log('views-poster.webp'.padEnd(22), mb(path.join(OUT, 'views-poster.webp')));
 unlinkSync(raw);

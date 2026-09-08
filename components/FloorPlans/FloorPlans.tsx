@@ -92,7 +92,13 @@ export default function FloorPlans() {
       aria-labelledby="plans-heading"
       /* The scroll length is reserved in the document, not added later by a
          pin spacer. One deck-length per card, matching the timeline below. */
-      style={{ ['--scroll-len' as string]: `${deck.length * 70}svh` }}
+      /* The COUNT, not the distance. How far the deck travels per card is a
+         presentation decision that has to change with the viewport, and an
+         inline style beats every stylesheet rule including media queries — so
+         setting --scroll-len here made the phone override in the module
+         unreachable. The component supplies the datum; the stylesheet decides
+         what it is worth. */
+      style={{ ['--cards' as string]: deck.length }}
     >
       <div className={styles.sticky}>
       <div className={styles.head}>

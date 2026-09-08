@@ -3,7 +3,9 @@
    document is its final height from first paint. Nothing is inserted later. */
 .section {
   position: relative;
-  height: calc(100svh + var(--scroll-len, 280svh));
+  /* --cards comes from the component; the travel per card is decided here. */
+  --scroll-len: calc(var(--cards, 4) * 70svh);
+  height: calc(100svh + var(--scroll-len));
   background-color: var(--ground);
   background-image: var(--ground-wash);
   color: var(--ink);
@@ -196,10 +198,40 @@
 @media (max-width: 991px) {
   .sticky { display: flex; flex-direction: column; align-items: center; justify-content: safe center; gap: var(--s-4); }
   .head { text-align: center; align-items: center; }
-  .stage { flex: 1 1 0; height: auto; width: auto; margin-inline: auto; }
+  /* flex: NONE. With flex: 1 1 0 the stage stretched to fill the column while
+     the contain-fitted drawing stayed wide, so the card was a tall box with a
+     thin band of plan in the middle and dead space above and below it. Sized by
+     its own aspect ratio the card is exactly as tall as the drawing. */
+  .stage { flex: none; width: 100%; height: auto; margin-inline: auto; }
   .toggle { flex-direction: row; justify-content: center; }
-  .planLinks { flex-direction: row; flex-wrap: wrap; justify-content: center; }
   .disclaimer { text-align: center; }
+
+  /**
+   * The full-size plans, VISIBLE on a touch screen.
+   *
+   * They were the skip-link pattern: hidden until focused. That works for a
+   * keyboard and is unreachable with a finger — and on a phone the deck itself
+   * is only ~360px wide, so the room labels these drawings exist for cannot be
+   * read at all. These links open the 2560px original, which makes them the
+   * only way to actually read a floor plan on a phone rather than a nicety.
+   */
+  .planLinks {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--s-3);
+    margin-top: var(--s-4);
+  }
+  .planLinks a { padding: var(--s-3) var(--s-4); }
+
+  /* 40svh per card, not 70. The travel exists to fan the deck past you; at
+     phone size that is a shorter journey, and 380svh of scrolling for a drawing
+     this small is a tax. Four cards: 380svh becomes 260svh. */
+  .section { --scroll-len: calc(var(--cards, 4) * 40svh); }
 }
 
 @media (prefers-reduced-motion: reduce) {

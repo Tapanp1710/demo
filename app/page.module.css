@@ -35,3 +35,22 @@
   .hold { height: auto; }
   .hold > section { position: static; }
 }
+
+/**
+ * No hold on a phone either.
+ *
+ * The hold exists to let a full-height section sit still for an extra screen of
+ * scroll on a desktop. On a phone it does two bad things: it doubles the
+ * distance through every held section — five of them, so five extra screens of
+ * thumb — and, worse, a sticky child pinned at top:0 shows only its first
+ * viewport, so any section that needs MORE than one screen on a narrow display
+ * has its foot permanently cut off. That is what was clipping the About film.
+ *
+ * Nothing here animates against the hold's range — the only ScrollTrigger in a
+ * held section is About's word reveal, which triggers off its own paragraph —
+ * so collapsing them costs no motion.
+ */
+@media (max-width: 767px) {
+  .hold { height: auto; }
+  .hold > section { position: static; }
+}

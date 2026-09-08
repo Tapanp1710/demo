@@ -65,7 +65,16 @@
 }
 
 
-.link { white-space: nowrap; }
+.link { white-space: nowrap; position: relative; }
+
+/* The labels are 21px tall — under the 24px WCAG 2.5.8 asks for and far under a
+   fingertip. This grows the HIT AREA without moving anything: a pseudo-element
+   is not in flow, so the bar's height and the labels' baseline are untouched. */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: -0.75rem -0.4rem;
+}
 
 /* Explicit columns. `display: none` on .links takes it OUT of the grid, so
    with auto-placement the slot and the right-hand block each slid one column

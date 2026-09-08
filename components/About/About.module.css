@@ -113,6 +113,19 @@
 /* One screen on a phone. The body keeps every word — it loses leading and a
    size step instead, which is where the 41px of overflow was. */
 @media (max-width: 767px) {
+  /* GROW, do not clip. A heading, a 457px paragraph and a 16:9 film do not fit
+     one phone screen: at 390x844 the film was cut by 21px and at 360x640 by
+     234px. The section keeps a full screen as its MINIMUM and takes whatever
+     more it needs — scrolling a little is the correct answer on a phone, and
+     silently hiding the film is not. */
+  .section { height: auto; min-height: 100svh; overflow: visible; }
+  /* Clear of the fixed call/price discs. They sit bottom-right at every scroll
+     position, so a full-width paragraph passes UNDER them line by line as it
+     scrolls — two or three words swallowed on every line that goes past. This
+     is the only block of long-form text on the page wide enough for that to
+     happen; the spec table and the amenity list are already short of the
+     corner. 4.75rem is the disc plus its offset plus a little air. */
+  .body { padding-right: 4.75rem; }
   .inner { gap: var(--s-4); }
   .body { font-size: var(--t-small); line-height: 1.5; }
 }
