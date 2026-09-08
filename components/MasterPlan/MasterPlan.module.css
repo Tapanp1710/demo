@@ -3,7 +3,8 @@
    section is the plain full-height section it looks like. */
 .section {
   position: relative;
-  height: 100svh;
+   min-height: 100svh;
+   height: auto;
   background: var(--ground);
   background-image: var(--ground-wash);
   color: var(--ink);
@@ -15,7 +16,8 @@
 .sticky {
   position: sticky;
   top: 0;
-  height: 100svh;
+   min-height: 100svh;
+   height: auto;
   display: grid;
   grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr) minmax(8rem, 12rem);
   grid-template-rows: auto minmax(0, 1fr) auto;
@@ -25,7 +27,7 @@
   /* Clears the fixed nav. A sticky inner is HELD at top:0 for its whole
      range, so an overlap here is permanent, not a moment while scrolling past. */
   padding-top: max(var(--section-y-fit), calc(var(--nav-h) + var(--s-3)));
-  overflow: hidden;
+   overflow: visible;
 }
 
 .head {
@@ -51,10 +53,9 @@
   position: relative;
   grid-column: 2;
   grid-row: 2;
-  height: 100%;
-  min-height: 0;
+   height: auto;
   aspect-ratio: 2048 / 1252;
-  width: auto;
+   width: 100%;
   max-width: 100%;
   justify-self: center;
   align-self: center;
@@ -89,7 +90,7 @@
 @media (max-width: 991px) {
   .sticky { display: flex; flex-direction: column; justify-content: safe center; gap: var(--s-4); }
   .rail { display: none; }
-  .frame { flex: 1 1 0; height: auto; margin-inline: auto; }
+   .frame { flex: 0 0 auto; width: 100%; height: auto; margin-inline: auto; }
 }
 
 /* Nothing here animates any more, so prefers-reduced-motion has nothing left

@@ -1,12 +1,13 @@
 /* One screen. */
 .section {
-  height: 100svh;
+   min-height: 100svh;
+   height: auto;
   background: var(--ground);
   background-image: var(--ground-wash);
   color: var(--ink);
   display: flex;
   align-items: stretch;
-  overflow: hidden;
+   overflow: visible;
 }
 
 .inner {
@@ -71,7 +72,7 @@
   color: var(--ink-muted);
   font-size: var(--t-body);
   line-height: var(--lh-body);
-  margin-top:100px
+   margin-top: clamp(var(--s-4), 8svh, 6rem);
 }
 
 /* inline-block so the reveal can be staggered per word without breaking
@@ -86,11 +87,11 @@
   align-self: start;
   width: 100%;
   max-width: 100%;
-  margin-top:50px
+   margin-top: clamp(var(--s-4), 5svh, 3rem);
 }
 
 @media (max-width: 991px) {
-  .inner { grid-template-columns: 1fr; grid-template-rows: auto auto auto; gap: var(--s-4); }
+   .inner { grid-template-columns: 1fr; grid-template-rows: auto auto auto; gap: var(--s-4); }
   .left  { grid-column: 1; grid-row: 1; }
   .right { grid-column: 1; grid-row: 2; }
   .video { grid-column: 1; grid-row: 3; }

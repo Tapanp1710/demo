@@ -9,13 +9,9 @@ import styles from './Views.module.css';
 /**
  * The aerial film, full bleed, directly under the hero.
  *
- * Two rungs are encoded (see scripts/build-video.mjs) and the choice is made
- * HERE in JavaScript rather than with `<source media="…">`: the media attribute
- * is honoured inside `<picture>` only — on `<video>` browsers ignore it, so a
- * phone would silently download the heavier file. Both rungs are 1920x1080 and
- * differ only in compression — the section covers the viewport, and covering a
- * portrait phone scales the footage by its height, so a shorter file would be
- * upscaled about 3.3x. Resolution was the binding constraint there, not CRF.
+ * The desktop encode is used at every viewport. The mobile layout changes the
+ * displayed dimensions with CSS, but keeping the full-quality source avoids
+ * soft footage after the portrait crop.
  *
  * Nothing is fetched until the section is within reach. The `<video>` renders
  * from the first paint so its poster paints with the rest of the page, but it
@@ -39,9 +35,7 @@ export default function Views() {
     const el = video.current;
     if (!near || !el) return;
 
-    el.src = window.matchMedia('(max-width: 767px)').matches
-      ? '/videos/views-mobile.mp4'
-      : '/videos/views-1080.mp4';
+    el.src = '/videos/views-1080.mp4';
     /* `preload="none"` in the markup is what keeps the file off the initial
        load. Once we are deliberately within a screen and a half of the section,
        buffering is the whole point — otherwise the first frame arrives late and
