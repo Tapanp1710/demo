@@ -12,25 +12,23 @@
 
 .inner {
   width: 100%;
-  /* EDGE TO EDGE, not to --grid-max. The two halves take the gutter as well,
-     so the film starts at the left edge of the screen and the copy runs to the
-     right of centre — at 1440 that is 688px a side against the 569 the padded
-     1320 grid allowed.
+  /* NOT --grid-max. The row takes the gutter as well and is held off the screen
+     edge by its own margin instead — at 1440 that is 874px of film against the
+     608 the padded 1320 grid allowed.
      The cap is the only thing left holding the section to one screen. The film
-     is 16:9 of half the row, so width drives height: past this width its foot
-     would pass the bottom of the viewport, and the section is inside a <Hold>
-     whose sticky child shows only its first screen. 11.5rem is what the
-     padding, the heading and the row gap take; x32/9 converts the height that
-     leaves into the width of TWO 16:9 columns, plus what the gap and the two
-     margins take — border-box, so the padding is inside this figure. margin
-     auto centres what the cap holds back. It only binds on a wide, short
-     window — 2560x790, or 1920x700 — and is inert at every normal size. */
-  max-width: calc((100svh - 11.5rem) * 32 / 9 + var(--s-8) + var(--s-5) * 2);
+     is 16:9 of SEVEN TENTHS of the row, so width drives height: past this width
+     its foot would pass the bottom of the viewport, and the section is inside a
+     <Hold> whose sticky child shows only its first screen. 11.5rem is what the
+     padding, the heading and the row gap take; the height that leaves becomes a
+     16:9 width, /0.7 grosses it back up to the whole row, and the three --s-8
+     are the column gap plus the two side margins — border-box, so the padding
+     is inside this figure. margin auto centres what the cap holds back. It only
+     binds on a wide, short window — 2560x790, or 1920x700. */
+  max-width: calc((100svh - 11.5rem) * 16 / 9 / 0.7 + var(--s-8) * 3);
   margin: 0 auto;
-  /* --s-5 is 24px: the film and the copy come off the screen edge by that much
-     rather than bleeding into it. Not --gutter — that is the 59px the padded
-     grid used, which is the thing this layout gave up. */
-  padding: var(--s-4) var(--s-5);
+  /* --s-8 is 64px: the film and the copy come off the screen edge by that much
+     rather than bleeding into it. */
+  padding: var(--s-4) var(--s-8);
   padding-top: max(var(--s-4), calc(var(--nav-h) + var(--s-3)));
   /* Heading and film run down the LEFT column, the body sits beside them on
      the right. Rows are content-sized and the pair is centred in the section,
@@ -39,11 +37,12 @@
      `overflow: hidden`, which cut BOTH ends at once — the top of the heading
      and the bottom of the film together.) */
   display: grid;
-  /* HALF AND HALF. The film and the copy get an equal share of the row — 1.15fr
-     gave the film the larger column but the copy the larger MEASURE, which read
-     as neither. minmax(0, 1fr) rather than a bare 1fr so a long unbroken word
-     in the paragraph cannot push its track past its share. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* SEVEN TENTHS to the film, three to the copy. fr and not 70%/30%, so the
+     column gap comes off the top and the two tracks split what is actually
+     left — percentages would have added the gap on top and overflowed the row.
+     minmax(0, …) so a long unbroken word in the paragraph cannot push its
+     track past its share. */
+  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
   grid-template-rows: auto auto;
   align-content: start;
   gap: clamp(var(--s-6), 7vw, 6.5rem) var(--s-8);
@@ -80,6 +79,18 @@
    wrapping; the clip keeps each word's rise contained to its own line box. */
 .body { overflow: hidden; }
 .word { display: inline-block; }
+
+/* One step down, desktop only — this is what makes 70/30 survivable. The film
+   and the copy share a row, so the row is as tall as whichever is taller, and
+   .body CLIPS rather than overflows. At 1440 the three-tenths column is 374px:
+   at --t-body that is a 44-character measure, so the 660-character paragraph
+   runs ~15 lines and lands within 8px of the film's height — near enough that
+   the wider Georgia fallback, if Cormorant fails to load, would eat the last
+   lines outright. At --t-small it is 50 characters and ~13 lines, a clear
+   150px inside the film. Later queries still override this. */
+@media (min-width: 992px) {
+  .body { font-size: var(--t-small); line-height: 1.5; }
+}
 
 /* Under the heading, in the left column, at its own 16:9. */
 .video {
